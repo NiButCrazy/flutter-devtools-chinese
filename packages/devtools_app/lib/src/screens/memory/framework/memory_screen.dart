@@ -93,7 +93,7 @@ class _DisconnectedMemoryScreenBodyState
       child: Column(
         children: [
           const AreaPaneHeader(
-            title: Text('Diff Snapshots'),
+            title: Text('快照差异'),
             roundedTopBorder: false,
             includeTopBorder: false,
           ),

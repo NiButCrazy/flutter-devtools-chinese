@@ -39,7 +39,16 @@ enum CpuProfilerBusyStatus {
   processing,
   none;
 
-  String get display => name.toSentenceCase();
+  String get display{
+    switch (name) {
+      case 'fetching':
+        return '正在抓取';
+      case 'processing':
+        return '正在处理';
+      default:
+        return name.toSentenceCase();
+    }
+  }
 }
 
 class CpuProfilerController extends DisposableController
@@ -147,20 +156,20 @@ class CpuProfilerController extends DisposableController
   SettingFilters<CpuStackFrame> createSettingFilters() => [
     ToggleFilter<CpuStackFrame>(
       id: _nativeFilterId,
-      name: 'Hide Native code',
+      name: '隐藏 Native 代码',
       includeCallback: (stackFrame) => !stackFrame.isNative,
       defaultValue: true,
     ),
     ToggleFilter<CpuStackFrame>(
       id: _coreDartFilterId,
-      name: 'Hide core Dart libraries',
+      name: '隐藏 Dart 核心库',
       includeCallback: (stackFrame) => !stackFrame.isDartCore,
       defaultValue: false,
     ),
     if (serviceConnection.serviceManager.connectedApp?.isFlutterAppNow ?? true)
       ToggleFilter<CpuStackFrame>(
         id: _coreFlutterFilterId,
-        name: 'Hide core Flutter libraries',
+        name: '隐藏 Flutter 核心库',
         includeCallback: (stackFrame) => !stackFrame.isFlutterCore,
         defaultValue: false,
       ),

@@ -254,7 +254,7 @@ class DevToolsAppState extends State<DevToolsApp> with AutoDisposeMixin {
         key: const Key('not-found'),
         embedMode: params.embedMode,
         child: ScreenUnavailable(
-          title: "The '$page' page cannot be found.",
+          title: "无法找到名为 '$page' 的页面",
           embedMode: params.embedMode,
           routerDelegate: routerDelegate,
         ),
@@ -320,7 +320,7 @@ class DevToolsAppState extends State<DevToolsApp> with AutoDisposeMixin {
               key: const Key('screen-disabled'),
               embedMode: embedMode,
               child: ScreenUnavailable(
-                title: "The '$page' screen is unavailable.",
+                title: "'$page' 页面不可用",
                 description: _screenDisabledMessage(originalScreen),
                 routerDelegate: routerDelegate,
                 embedMode: embedMode,
@@ -334,9 +334,8 @@ class DevToolsAppState extends State<DevToolsApp> with AutoDisposeMixin {
               embedMode: embedMode,
               child: CenteredMessage(
                 message:
-                    'No DevTools '
-                    '${queryParams.hideAllExceptExtensions ? 'extensions' : 'screens'} '
-                    'available for your project.',
+                    '当前项目没有可用的 DevTools '
+                    '${queryParams.hideAllExceptExtensions ? '扩展' : '界面'} ',
               ),
             );
           } else {
@@ -470,7 +469,7 @@ class DevToolsAppState extends State<DevToolsApp> with AutoDisposeMixin {
       builder: (context, child) {
         if (child == null) {
           return const CenteredMessage(
-            message: 'Uh-oh, something went wrong. Please refresh the page.',
+            message: '哎呀，出现了一些问题，请刷新页面',
           );
         }
         return MultiProvider(
@@ -551,10 +550,10 @@ class DevToolsAppState extends State<DevToolsApp> with AutoDisposeMixin {
       // Special case for screens that require a library since the message
       // needs to be generated dynamically.
       disabledMessage =
-          'The ${screen.title} screen requires library '
-          '${screen.requiresLibrary}, but the library was not detected.';
+          '${screen.title} 界面需要库 '
+          '${screen.requiresLibrary}，但未检测到该库';
     } else if (reason?.message case final String message) {
-      disabledMessage = 'The ${screen.title} screen $message';
+      disabledMessage = '"${screen.title}" 界面$message';
     }
     return disabledMessage;
   }
@@ -622,7 +621,7 @@ class _AlternateCheckedModeBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Banner(
-      message: 'DEBUG',
+      message: '调试',
       textDirection: TextDirection.ltr,
       location: BannerLocation.bottomEnd,
       child: Builder(builder: builder),
@@ -660,7 +659,7 @@ class ScreenUnavailable extends StatelessWidget {
             ElevatedButton(
               onPressed: () =>
                   routerDelegate.navigateHome(clearScreenParam: true),
-              child: const Text('Go to Home screen'),
+              child: const Text('回到主页'),
             ),
           ],
         ],

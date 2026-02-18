@@ -8,11 +8,11 @@ import 'package:collection/collection.dart';
 /// still retained. Default is the best view each tick is 10 pixels, the
 /// width of an event symbol e.g., snapshot, monitor, etc.
 enum ChartInterval {
-  theDefault(Duration.zero, 'Default'),
-  oneMinute(Duration(minutes: 1), '1 Minute'),
-  fiveMinutes(Duration(minutes: 5), '5 Minutes'),
-  tenMinutes(Duration(minutes: 10), '10 Minutes'),
-  all(null, 'All');
+  theDefault(Duration.zero, '默认'),
+  oneMinute(Duration(minutes: 1), '1 分钟'),
+  fiveMinutes(Duration(minutes: 5), '5 分钟'),
+  tenMinutes(Duration(minutes: 10), '10 分钟'),
+  all(null, '全部');
 
   const ChartInterval(this.duration, this.displayName);
 

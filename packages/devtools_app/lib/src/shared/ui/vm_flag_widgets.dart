@@ -72,7 +72,7 @@ class CpuSamplingRateDropdown extends StatelessWidget {
           isDense: true,
           gaDropDownId: gac.CpuProfilerEvents.profileGranularity.name,
           message:
-              'The frequency at which the CPU profiler will sample the call stack',
+              'CPU 分析器采样调用堆栈的频率',
           value: safeValue,
           items: [
             _buildMenuItem(CpuSamplingRate.low),
@@ -92,7 +92,7 @@ class CpuSamplingRateDropdown extends StatelessWidget {
       item: DropdownMenuItem<String>(
         value: samplingRate.value,
         child: DevToolsTooltip(
-          message: 'One sample every ${samplingRate.value} microseconds.',
+          message: '每 ${samplingRate.value} 微秒采样一次',
           child: Text(samplingRate.display),
         ),
       ),
@@ -125,7 +125,7 @@ class ViewVmFlagsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GaDevToolsButton(
       elevated: elevated,
-      label: 'View VM flags',
+      label: '查看 VM flags',
       icon: Icons.flag_rounded,
       gaScreen: gaScreen,
       gaSelection: gac.HomeScreenEvents.viewVmFlags.name,
@@ -202,7 +202,7 @@ class _VMFlagsDialogState extends State<VMFlagsDialog> with AutoDisposeMixin {
             height: defaultTextFieldHeight,
             child: DevToolsClearableTextField(
               controller: filterController,
-              labelText: 'Filter',
+              labelText: '过滤器',
             ),
           ),
         ],
@@ -245,14 +245,14 @@ class _FlagTable extends StatelessWidget {
 }
 
 class _NameColumn extends ColumnData<_DialogFlag> {
-  const _NameColumn() : super('Name', fixedWidthPx: 180);
+  const _NameColumn() : super('名称', fixedWidthPx: 180);
 
   @override
   String getValue(_DialogFlag dataObject) => dataObject.name ?? '';
 }
 
 class _DescriptionColumn extends ColumnData<_DialogFlag> {
-  const _DescriptionColumn() : super.wide('Description', minWidthPx: 100);
+  const _DescriptionColumn() : super.wide('描述', minWidthPx: 100);
 
   @override
   String getValue(_DialogFlag dataObject) => dataObject.description ?? '';
@@ -267,7 +267,7 @@ class _DescriptionColumn extends ColumnData<_DialogFlag> {
 class _ValueColumn extends ColumnData<_DialogFlag> {
   const _ValueColumn()
     : super(
-        'Value',
+        '值',
         fixedWidthPx: 100,
         headerAlignment: TextAlign.right,
         alignment: ColumnAlignment.right,

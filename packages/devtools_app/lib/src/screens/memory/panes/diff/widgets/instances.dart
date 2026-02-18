@@ -73,7 +73,7 @@ class _StoreAllAsVariableMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final enabled = sampler.isEvalEnabled;
-    const menuText = 'Store all class instances currently alive in application';
+    const menuText = '存储当前应用中所有仍然存活的类实例';
 
     if (!enabled) {
       return const MenuItemButton(child: Text(menuText));
@@ -93,11 +93,11 @@ class _StoreAllAsVariableMenu extends StatelessWidget {
 
     return SubmenuButton(
       menuChildren: <Widget>[
-        item('Direct instances', implementers: false, subclasses: false),
-        item('Direct and subclasses', implementers: false, subclasses: false),
-        item('Direct and implementers', implementers: false, subclasses: false),
+        item('直接实例', implementers: false, subclasses: false),
+        item('直接实例和子类实例', implementers: false, subclasses: false),
+        item('直接实例和实现类实例', implementers: false, subclasses: false),
         item(
-          'Direct, subclasses, and implementers',
+          '直接、子类以及实现类实例',
           implementers: false,
           subclasses: false,
         ),
@@ -116,7 +116,7 @@ class _StoreAsOneVariableMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final enabled = sampler.isEvalEnabled;
-    const menuText = 'Store one instance from the set as a console variable';
+    const menuText = '将一个实例存为控制台变量';
 
     if (!enabled) {
       return const MenuItemButton(child: Text(menuText));
@@ -130,7 +130,7 @@ class _StoreAsOneVariableMenu extends StatelessWidget {
               sourceFeature: MemoryAreas.snapshotDiff.name,
             ),
           ),
-          child: const Text('Any'),
+          child: const Text('任意'),
         ),
         MenuItemButton(
           onPressed: liveItemsEnabled
@@ -140,7 +140,7 @@ class _StoreAsOneVariableMenu extends StatelessWidget {
                   ),
                 )
               : null,
-          child: const Text('Any, not garbage collected'),
+          child: const Text('任意，未被垃圾回收'),
         ),
       ],
       child: const Text(menuText),

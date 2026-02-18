@@ -21,7 +21,7 @@ class ExtensionSettingsAction extends ScaffoldAction {
   ExtensionSettingsAction({super.key, super.color})
     : super(
         iconAsset: 'icons/app_bar/devtools_extensions.png',
-        tooltip: 'DevTools Extensions',
+        tooltip: 'DevTools 扩展',
         onPressed: (context) {
           unawaited(
             showDialog(
@@ -50,33 +50,30 @@ class ExtensionSettingsDialog extends StatelessWidget {
     // This dialog needs a fixed height because it contains a scrollable list.
     final dialogHeight = anyTestMode ? 1000.0 : 300.0;
     return DevToolsDialog(
-      title: const DialogTitleText('DevTools Extensions'),
+      title: const DialogTitleText('DevTools 扩展'),
       content: SizedBox(
         width: defaultDialogWidth,
         height: dialogHeight,
         child: Column(
           children: [
             const Text(
-              'Extensions are provided by the pub packages used in your '
-              'application. When activated, the tools provided by these '
-              'extensions will be available in a separate DevTools tab.',
+              '扩展功能由您应用所使用的 pub 软件包提供。启用后，这些扩展所带来的工具会在单独的 DevTools 标签页中可用',
             ),
             const SizedBox(height: defaultSpacing),
             CheckboxSetting(
               notifier:
                   preferences.devToolsExtensions.showOnlyEnabledExtensions,
-              title: 'Only show screens for enabled extensions',
+              title: '仅显示已启用扩展的标签页',
               tooltip:
-                  'Only show top-level DevTools tabs for extensions that are '
-                  'enabled\n(i.e. do not show tabs for extensions that have no '
-                  'preference set).',
+                  '仅显示已启用扩展的 DevTools 顶级标签页\n'
+                  '（也就是说，不显示那些没有设置任何偏好项的扩展标签页）',
             ),
             const PaddedDivider(),
             Expanded(
               child: extensions.isEmpty
                   ? Center(
                       child: Text(
-                        'No extensions available.',
+                        '没有可用的扩展',
                         style: theme.subtleTextStyle,
                       ),
                     )
@@ -139,7 +136,7 @@ class ExtensionSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     final buttonStates = [
       (
-        title: 'Enabled',
+        title: '启用',
         isSelected: (ExtensionEnabledState state) =>
             state == ExtensionEnabledState.enabled,
         onPressed: () {
@@ -153,7 +150,7 @@ class ExtensionSetting extends StatelessWidget {
         },
       ),
       (
-        title: 'Disabled',
+        title: '禁用',
         isSelected: (ExtensionEnabledState state) =>
             state == ExtensionEnabledState.disabled,
         onPressed: () {

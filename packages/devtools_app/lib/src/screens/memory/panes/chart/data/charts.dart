@@ -82,21 +82,21 @@ const manualGCJsonName = 'manualGC';
 const gcJsonName = 'gc';
 
 /// Dart VM trace names
-const allocatedDisplay = 'Allocated';
-const usedDisplay = 'Dart/Flutter';
-const externalDisplay = 'Dart/Flutter Native';
-const rssDisplay = 'RSS';
-const layerDisplay = 'Raster Layer';
-const pictureDisplay = 'Raster Picture';
+const allocatedDisplay = '已分配';
+const usedDisplay = 'Dart/Flutter 使用量';
+const externalDisplay = 'Dart/Flutter 原生';
+const rssDisplay = '常驻内存 RSS';
+const layerDisplay = '光栅图层';
+const pictureDisplay = '光栅图片';
 
 /// Android Memory Trace names
-const androidTotalDisplay = 'Total';
-const androidOtherDisplay = 'Other';
-const androidCodeDisplay = 'Code';
-const androidNativeDisplay = 'Native';
+const androidTotalDisplay = '总计';
+const androidOtherDisplay = '其他';
+const androidCodeDisplay = '代码';
+const androidNativeDisplay = '原生';
 const androidJavaDisplay = 'Java';
-const androidStackDisplay = 'Stack';
-const androidGraphicsDisplay = 'Graphics';
+const androidStackDisplay = '栈';
+const androidGraphicsDisplay = '图形';
 
 /// Manages how legend and hover data and trace color and
 /// dash lines are drawn.
@@ -278,13 +278,13 @@ class ChartsValues {
     final eventsDisplayed = <String, String>{};
 
     if (hasSnapshot) {
-      eventsDisplayed['Snapshot'] = snapshotManualLegend;
+      eventsDisplayed['快照'] = snapshotManualLegend;
     } else if (hasAutoSnapshot) {
-      eventsDisplayed['Auto Snapshot'] = snapshotAutoLegend;
+      eventsDisplayed['自动快照'] = snapshotAutoLegend;
     } else if (hasMonitorStart) {
-      eventsDisplayed['Monitor Start'] = monitorLegend;
+      eventsDisplayed['监控开始'] = monitorLegend;
     } else if (hasMonitorReset) {
-      eventsDisplayed['Monitor Reset'] = isLight
+      eventsDisplayed['监控重置'] = isLight
           ? resetLightLegend
           : resetDarkLegend;
     }
@@ -294,7 +294,7 @@ class ChartsValues {
     }
 
     if (hasManualGc) {
-      eventsDisplayed['User GC'] = gcManualLegend;
+      eventsDisplayed['用户触发 GC'] = gcManualLegend;
     }
 
     return eventsDisplayed;

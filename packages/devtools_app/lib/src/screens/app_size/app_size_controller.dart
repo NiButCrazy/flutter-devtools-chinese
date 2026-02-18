@@ -22,11 +22,11 @@ import 'app_size_screen.dart';
 // Temporary feature flag for deferred loading.
 bool deferredLoadingSupportEnabled = false;
 
-const _artificialRootNodeName = 'ArtificialRoot';
-const _entireAppNodeName = 'Entire App';
-const _deferredNodeName = 'Deferred';
-const _mainNodeName = 'Main';
-const _rootNodeName = 'Root';
+const _artificialRootNodeName = '人工根节点';
+const _entireAppNodeName = '整个应用';
+const _deferredNodeName = '延迟加载';
+const _mainNodeName = '主入口';
+const _rootNodeName = '根节点';
 
 enum DiffTreeType {
   increaseOnly,
@@ -36,11 +36,11 @@ enum DiffTreeType {
   String get display {
     switch (this) {
       case DiffTreeType.increaseOnly:
-        return 'Increase Only';
+        return '仅增加';
       case DiffTreeType.decreaseOnly:
-        return 'Decrease Only';
+        return '仅减少';
       case DiffTreeType.combined:
-        return 'Combined';
+        return '合并视图';
     }
   }
 }
@@ -91,15 +91,15 @@ class AppSizeController extends DevToolsScreenController {
   final screenId = ScreenMetaData.appSize.id;
 
   static const unsupportedFileTypeError =
-      'Failed to load size analysis file: file type not supported.\n\n'
-      'The app size tool supports Dart AOT v8 snapshots, instruction sizes, '
-      'and size-analysis files. See documentation for how to generate these files.';
+    '加载尺寸分析文件失败：不支持的文件类型\n\n'
+    '应用大小工具支持 Dart AOT v8 快照、指令大小文件以及 size-analysis 文件，'
+    '请查看文档以了解如何生成这些文件';
 
   static const differentTypesError =
-      'Failed to load diff: OLD and NEW files are different types.';
+      '无法加载差异：新旧文件类型不同';
 
   static const identicalFilesError =
-      'Failed to load diff: OLD and NEW files are identical.';
+      '无法加载差异：新旧文件完全相同';
 
   CallGraph? _analysisCallGraph;
 
@@ -734,7 +734,7 @@ class AppSizeController extends DevToolsScreenController {
   }) {
     var name = treeJson['n'];
     if (name == '') {
-      name = 'Unnamed';
+      name = '未命名';
     }
     final childrenMap = <String, TreemapNode>{};
 
@@ -750,7 +750,7 @@ class AppSizeController extends DevToolsScreenController {
       childrenMap: childrenMap,
       showDiff: showDiff,
       backgroundColor: isDeferred ? treemapDeferredColor : null,
-      caption: isDeferred ? '(Deferred)' : null,
+      caption: isDeferred ? '（延迟加载）' : null,
     )..addAllChildren(children);
   }
 

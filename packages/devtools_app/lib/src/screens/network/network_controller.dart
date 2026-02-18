@@ -39,8 +39,8 @@ enum NetworkResponseViewType {
   String toString() {
     return switch (this) {
       NetworkResponseViewType.json => 'Json',
-      NetworkResponseViewType.text => 'Text',
-      _ => 'Auto',
+      NetworkResponseViewType.text => '文本',
+      _ => '自动',
     };
   }
 }

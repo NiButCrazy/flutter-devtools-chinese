@@ -56,7 +56,7 @@ class _StoreAllAsVariableMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const menuText = 'Store all class instances';
+    const menuText = '存储所有类实例';
 
     MenuItemButton item(
       String title, {
@@ -72,11 +72,11 @@ class _StoreAllAsVariableMenu extends StatelessWidget {
 
     return SubmenuButton(
       menuChildren: <Widget>[
-        item('Direct instances', implementers: false, subclasses: false),
-        item('Direct and subclasses', implementers: false, subclasses: false),
-        item('Direct and implementers', implementers: false, subclasses: false),
+        item('直接实例', implementers: false, subclasses: false),
+        item('直接实例和子类实例', implementers: false, subclasses: false),
+        item('直接实例和实现类实例', implementers: false, subclasses: false),
         item(
-          'Direct, subclasses, and implementers',
+          '直接、子类以及实现类实例',
           implementers: false,
           subclasses: false,
         ),
@@ -97,7 +97,7 @@ class _StoreAsOneVariableMenu extends StatelessWidget {
       onPressed: () => unawaited(
         sampler.oneLiveToConsole(sourceFeature: MemoryAreas.profile.name),
       ),
-      child: const Text('Store one instance as a console variable'),
+      child: const Text('将一个实例存为控制台变量'),
     );
   }
 }

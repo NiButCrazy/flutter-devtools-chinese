@@ -20,7 +20,7 @@ class ConsoleHelpDialog extends StatelessWidget {
     final theme = Theme.of(context);
     final textStyle = theme.regularTextStyle;
     return DevToolsDialog(
-      title: const DialogTitleText('Console Help'),
+      title: const DialogTitleText('控制台帮助'),
       includeDivider: false,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -31,14 +31,13 @@ class ConsoleHelpDialog extends StatelessWidget {
               children: [
                 const TextSpan(
                   text: r'''
-Use debug console to:
+使用调试控制台可以：
 
-1. Watch the standard output (stdout) of the application.
-2. Evaluate expressions for a paused or running application in debug mode.
-3. Analyze inbound and outbound references for objects, dropped from memory heap snapshots.
-
-Assign previously evaluated objects to variable using $0, $1 … $5.
-Example: ''',
+1. 查看应用程序的标准输出（stdout）
+2. 在调试模式下，对暂停或正在运行的应用求值表达式
+3. 分析对象的入站和出站引用，包括来自内存堆快照中已被丢弃的对象
+4. 您还可以使用 $0、$1 … $5 将之前求值过的对象分配给变量
+    例如: ''',
                 ),
                 TextSpan(text: r'var x = $0', style: theme.fixedFontStyle),
               ],
@@ -46,7 +45,7 @@ Example: ''',
           ),
           MoreInfoLink(
             // TODO(polina-c): create content and change url.
-            url: 'https://docs.flutter.dev/tools/devtools/console',
+            url: 'https://docs.flutter.cn/tools/devtools/console',
             gaScreenName: gac.console,
             gaSelectedItemDescription: gac.topicDocumentationLink(
               _documentationTopic,
@@ -67,7 +66,7 @@ class ConsoleHelpLink extends StatelessWidget {
     return ToolbarAction(
       icon: Icons.help_outline,
       size: defaultIconSize,
-      tooltip: 'Console Help',
+      tooltip: '控制台帮助',
       onPressed: () {
         unawaited(
           showDialog(

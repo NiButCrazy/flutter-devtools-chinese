@@ -13,7 +13,7 @@ class PrimaryControls extends StatelessWidget {
   const PrimaryControls({super.key});
 
   @visibleForTesting
-  static const memoryChartText = 'Memory chart';
+  static const memoryChartText = '内存监视器';
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class PrimaryControls extends StatelessWidget {
       onPressed: (show) => preferences.memory.showChart.value = show,
       minScreenWidthForText: memoryControlsMinVerboseWidth,
       label: memoryChartText,
-      tooltip: 'Toggle visibility of the Memory usage chart',
+      tooltip: '切换是否显示内存使用图表',
     );
   }
 }

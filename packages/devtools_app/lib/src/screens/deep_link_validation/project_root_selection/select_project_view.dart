@@ -53,7 +53,7 @@ class _SelectProjectViewState extends State<SelectProjectView> {
     final packageDirectoryForMainIsolate = await controller
         .packageDirectoryForMainIsolate();
     if (packageDirectoryForMainIsolate != null) {
-      _handleValidateProject(packageDirectoryForMainIsolate);
+      _handleValidateProject(packageDirectoryForMainIsolate.substring(1));
     }
   }
 
@@ -91,9 +91,9 @@ class _SelectProjectViewState extends State<SelectProjectView> {
       context: context,
       builder: (_) {
         return const DevToolsDialog(
-          title: Text('You selected a non Flutter project'),
+          title: Text('您选择了一个非 Flutter 项目'),
           content: Text(
-            'It looks like you have selected a non-Flutter project. Please select a Flutter project instead.',
+            '看起来您选择了一个非 Flutter 项目，请改选一个 Flutter 项目',
           ),
           actions: [DialogCloseButton()],
         );
@@ -156,7 +156,7 @@ class _SelectProjectViewState extends State<SelectProjectView> {
         Padding(
           padding: const EdgeInsets.all(extraLargeSpacing),
           child: Text(
-            'Select a local flutter project to check the status of all deep links.',
+            '选择一个本地的 Flutter 项目，以检查所有深度链接的状态',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.titleMedium,
           ),
@@ -168,7 +168,7 @@ class _SelectProjectViewState extends State<SelectProjectView> {
           ),
           const SizedBox(height: largeSpacing),
           Text(
-            'Don\'t see your project in the list? Try entering your project below.',
+            '在列表中找不到您的项目？请尝试在下方输入您的项目',
             style: theme.subtleTextStyle,
           ),
           const SizedBox(height: extraLargeSpacing * 2),
@@ -193,14 +193,14 @@ class _LoadingProjectView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Project loading...', style: theme.regularTextStyle),
+          Text('项目加载中...', style: theme.regularTextStyle),
           Container(
             width: _kLinearProgressIndicatorWidth,
             padding: const EdgeInsets.symmetric(vertical: densePadding),
             child: const LinearProgressIndicator(),
           ),
           Text(
-            'Loading your project usually takes about a minute.',
+            '加载您的项目通常需要大约一分钟',
             style: theme.subtleTextStyle,
           ),
         ],

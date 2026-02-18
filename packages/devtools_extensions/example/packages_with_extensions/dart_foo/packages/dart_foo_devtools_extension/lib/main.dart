@@ -18,10 +18,8 @@ class DartFooDevToolsExtension extends StatelessWidget {
       child: Center(
         child: Text(
           '''
-This is a basic example to show an extension provided by a pure Dart
-package ("package:dart_foo"). For a more interesting example of things
-you can do with a DevTools extension, see the example for "package:foo"
-instead.
+这是一个基本示例，展示一个由纯 Dart 包（"package:dart_foo"）提供的 DevTools 扩展示例。
+若想了解更复杂、更有趣的 DevTools 扩展示例，请参考 "package:foo" 的示例。
 ''',
         ),
       ),

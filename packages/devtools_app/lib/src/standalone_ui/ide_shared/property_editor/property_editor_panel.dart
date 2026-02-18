@@ -186,7 +186,7 @@ class _PropertyEditorFooter extends StatelessWidget {
     final queryParams = DevToolsQueryParams.load();
     final isEmbedded = queryParams.embedMode.embedded;
     if (!isEmbedded) return null;
-    const uriPrefix = 'https://docs.flutter.dev/tools/';
+    const uriPrefix = 'https://docs.flutter.cn/tools/';
     const uriHash = '#property-editor';
     return '$uriPrefix${queryParams.ide == 'VSCode' ? 'vs-code' : 'android-studio'}$uriHash';
   }
@@ -203,7 +203,7 @@ class _DocsLink extends StatelessWidget {
     return LinkIconLabel(
       icon: Icons.library_books_outlined,
       link: GaLink(
-        display: 'Docs',
+        display: '文档',
         url: documentationLink,
         gaScreenName: gac.PropertyEditorSidebar.id,
         gaSelectedItemDescription: gac.PropertyEditorSidebar.documentationLink,

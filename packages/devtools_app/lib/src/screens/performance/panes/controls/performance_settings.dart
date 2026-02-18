@@ -21,7 +21,7 @@ class PerformanceSettingsDialog extends StatelessWidget {
     // and shouldn't be accessible for Dart CLI programs.
     assert(serviceConnection.serviceManager.connectedApp!.isFlutterAppNow!);
     return DevToolsDialog(
-      title: const DialogTitleText('Performance Settings'),
+      title: const DialogTitleText('性能分析设置'),
       includeDivider: false,
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -51,7 +51,7 @@ class FlutterSettings extends StatelessWidget {
           notifier:
               flutterFramesController.badgeTabForJankyFrames
                   as ValueNotifier<bool?>,
-          title: 'Badge Performance tab when Flutter UI jank is detected',
+          title: '当检测到 Flutter UI 卡顿时，在性能标签栏上显示提示',
         ),
       ],
     );

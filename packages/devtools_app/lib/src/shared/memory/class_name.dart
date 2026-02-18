@@ -15,30 +15,31 @@ enum ClassType {
     color: Color.fromARGB(255, 238, 109, 99),
     label: 'R',
     alias: '\$runtime',
-    aliasDescription: 'Dart runtime classes',
-    classTooltip: 'Dart runtime class',
+    aliasDescription: 'Dart 运行时 Class',
+    classTooltip: 'Dart 运行时类',
   ),
   sdk(
     color: Color.fromARGB(255, 122, 188, 124),
     label: 'S',
     alias: '\$sdk',
-    aliasDescription: 'Dart and Flutter SDK',
-    classTooltip: 'SDK class',
+    aliasDescription: 'Dart 与 Flutter SDK',
+    classTooltip: 'SDK 类',
   ),
   dependency(
     color: Color.fromARGB(255, 69, 153, 221),
     label: 'D',
     alias: '\$dependency',
-    aliasDescription: 'dependencies',
-    classTooltip: 'dependency',
+    aliasDescription: '项目依赖模块',
+    classTooltip: '依赖类',
   ),
   rootPackage(
     color: Color.fromARGB(255, 255, 200, 0),
     label: 'P',
     alias: '\$project',
-    aliasDescription: 'classes of the project',
-    classTooltip: 'project class',
+    aliasDescription: '项目中的 Class',
+    classTooltip: '项目类',
   );
+
 
   const ClassType({
     required this.color,

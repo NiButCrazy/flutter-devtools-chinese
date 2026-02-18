@@ -126,47 +126,47 @@ class _MockEditorWidgetState extends State<MockEditorWidget>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Mock Editor', style: theme.textTheme.headlineMedium),
+                  Text('模拟编辑器', style: theme.textTheme.headlineMedium),
                   const SizedBox(height: defaultSpacing),
                   const Text(
-                    'Use these buttons to simulate actions that would usually occur in the IDE.',
+                    '用这些按钮来模拟 IDE 中通常发生的操作',
                   ),
                   const SizedBox(height: defaultSpacing),
                   Row(
                     children: [
-                      const Text('Editor: '),
+                      const Text('编辑器: '),
                       ElevatedButton(
                         onPressed: editor.connected
                             ? null
                             : _withUpdate(editor.connectEditor),
-                        child: const Text('Connect'),
+                        child: const Text('连接'),
                       ),
                       const SizedBox(width: denseSpacing),
                       ElevatedButton(
                         onPressed: editor.connected
                             ? _withUpdate(editor.disconnectEditor)
                             : null,
-                        child: const Text('Disconnect'),
+                        child: const Text('断开连接'),
                       ),
                     ],
                   ),
                   const SizedBox(height: defaultSpacing),
                   Row(
                     children: [
-                      const Text('Devices: '),
+                      const Text('设备: '),
                       ElevatedButton(
                         onPressed: editor.connectDevices,
-                        child: const Text('Connect'),
+                        child: const Text('连接'),
                       ),
                       const SizedBox(width: denseSpacing),
                       ElevatedButton(
                         onPressed: editor.disconnectDevices,
-                        child: const Text('Disconnect'),
+                        child: const Text('断开连接'),
                       ),
                     ],
                   ),
                   const SizedBox(height: defaultSpacing),
-                  const Text('Debug Sessions: '),
+                  const Text('调试会话: '),
                   const SizedBox(height: denseSpacing),
                   Row(
                     children: [
@@ -176,7 +176,7 @@ class _MockEditorWidgetState extends State<MockEditorWidget>
                           deviceId: 'macos',
                           flutterMode: 'debug',
                         ),
-                        child: const Text('Desktop debug'),
+                        child: const Text('桌面端调试'),
                       ),
                       const SizedBox(width: denseSpacing),
                       ElevatedButton(
@@ -185,7 +185,7 @@ class _MockEditorWidgetState extends State<MockEditorWidget>
                           deviceId: 'macos',
                           flutterMode: 'profile',
                         ),
-                        child: const Text('Desktop profile'),
+                        child: const Text('桌面端性能分析'),
                       ),
                       const SizedBox(width: denseSpacing),
                       ElevatedButton(
@@ -194,7 +194,7 @@ class _MockEditorWidgetState extends State<MockEditorWidget>
                           deviceId: 'macos',
                           flutterMode: 'release',
                         ),
-                        child: const Text('Desktop release'),
+                        child: const Text('桌面端应用发布'),
                       ),
                       const SizedBox(width: denseSpacing),
                       ElevatedButton(
@@ -203,7 +203,7 @@ class _MockEditorWidgetState extends State<MockEditorWidget>
                           deviceId: 'macos',
                           flutterMode: 'jit_release',
                         ),
-                        child: const Text('Desktop jit_release'),
+                        child: const Text('桌面版 jit_release'),
                       ),
                     ],
                   ),
@@ -216,7 +216,7 @@ class _MockEditorWidgetState extends State<MockEditorWidget>
                           deviceId: 'chrome',
                           flutterMode: 'debug',
                         ),
-                        child: const Text('Web debug'),
+                        child: const Text('Web 调试'),
                       ),
                       const SizedBox(width: denseSpacing),
                       ElevatedButton(
@@ -225,7 +225,7 @@ class _MockEditorWidgetState extends State<MockEditorWidget>
                           deviceId: 'chrome',
                           flutterMode: 'profile',
                         ),
-                        child: const Text('Web profile'),
+                        child: const Text('Web 性能分析'),
                       ),
                       const SizedBox(width: denseSpacing),
                       ElevatedButton(
@@ -234,7 +234,7 @@ class _MockEditorWidgetState extends State<MockEditorWidget>
                           deviceId: 'chrome',
                           flutterMode: 'release',
                         ),
-                        child: const Text('Web release'),
+                        child: const Text('Web 应用发布'),
                       ),
                     ],
                   ),
@@ -256,7 +256,7 @@ class _MockEditorWidgetState extends State<MockEditorWidget>
                     style: theme.elevatedButtonTheme.style!.copyWith(
                       backgroundColor: const WidgetStatePropertyAll(Colors.red),
                     ),
-                    child: const Text('Stop All'),
+                    child: const Text('停止所有'),
                   ),
                 ],
               ),
@@ -271,8 +271,8 @@ class _MockEditorWidgetState extends State<MockEditorWidget>
                     const TabBar(
                       isScrollable: true,
                       tabs: [
-                        Tab(text: 'Client/Sidebar Log'),
-                        Tab(text: 'Server Log'),
+                        Tab(text: '客户端/侧边栏日志'),
+                        Tab(text: '服务器端日志'),
                       ],
                     ),
                     Expanded(

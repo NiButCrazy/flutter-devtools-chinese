@@ -18,7 +18,7 @@ class MemoryPreferencesController extends DisposableController
 
   /// Number of references to request from vm service,
   /// when browsing references in console.
-  final refLimitTitle = 'Limit for number of requested live instances.';
+  final refLimitTitle = '请求的活动实例数量上限';
   final refLimit = ValueNotifier<int>(_defaultRefLimit);
   static const _defaultRefLimit = 100000;
   static const _refLimitStorageId = 'memory.refLimit';

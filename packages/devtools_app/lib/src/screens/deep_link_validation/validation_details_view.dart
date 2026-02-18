@@ -47,10 +47,8 @@ class ValidationDetailView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'This tool helps you diagnose issues with App Links in your application.'
-                  'Web checks are done for the web association'
-                  ' file on your website. App checks are done for the intent filters in'
-                  ' the manifest and info.plist files, routing issues, URL format, etc.',
+'此工具可帮助你诊断应用中 App Links 的相关问题。'
+'网页检查用于检测你网站上的关联文件。应用检查则用于检测 manifest 和 info.plist 文件中的 intent filters、路由问题、URL 格式等内容。',
                   style: Theme.of(context).subtleTextStyle,
                 ),
                 if (viewType == TableViewType.domainView ||
@@ -69,7 +67,7 @@ class ValidationDetailView extends StatelessWidget {
                       await controller.loadLinksAndValidate();
                       controller.autoSelectLink(viewType);
                     },
-                    child: const Text('Recheck all'),
+                    child: const Text('重新全部检查'),
                   ),
                 ),
                 if (viewType == TableViewType.domainView)
@@ -108,8 +106,8 @@ class ValidationDetailHeader extends StatelessWidget {
           children: [
             Text(
               viewType == TableViewType.domainView
-                  ? 'Selected domain validation details'
-                  : 'Selected Deep link validation details',
+                  ? '选中域名的校验详情'
+                  : '选中深度链接的校验详情',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             IconButton(
@@ -143,14 +141,14 @@ class _DomainCheckTable extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(height: intermediateSpacing),
-            Text('Web check', style: theme.textTheme.titleMedium),
+            Text('网页检查', style: theme.textTheme.titleMedium),
             const SizedBox(height: denseSpacing),
             const _CheckTableHeader(),
             if (linkData.os.contains(PlatformOS.android))
               _CheckExpansionTile(
                 os: PlatformOS.android,
                 initiallyExpanded: !fingerprintExists,
-                checkName: 'Digital assets link file',
+                checkName: '数字资产链接文件',
                 status: _CheckStatusText(
                   hasError:
                       !fingerprintExists ||
@@ -168,7 +166,7 @@ class _DomainCheckTable extends StatelessWidget {
             if (linkData.os.contains(PlatformOS.ios))
               _CheckExpansionTile(
                 os: PlatformOS.ios,
-                checkName: 'Apple-App-Site-Association file',
+                checkName: 'Apple-App-Site-Association 文件',
                 status: _CheckStatusText(
                   hasError: linkData.domainErrors.any(
                     (e) => e is IosDomainError,
@@ -183,8 +181,8 @@ class _DomainCheckTable extends StatelessWidget {
                               _FailureDetails(
                                 errors: [error],
                                 oneFixGuideForAll:
-                                    'To fix this issue, add an Apple-App-Site-Association file at the following location: '
-                                    'https://${controller.selectedLink.value!.domain}/.well-known/apple-app-site-association',
+                                    '要修复此问题，请在以下位置添加 Apple-App-Site-Association 文件： '
+                                  'https://${controller.selectedLink.value!.domain}/.well-known/apple-app-site-association',
                               ),
                               const SizedBox(height: denseSpacing),
                               _CodeCard(
@@ -238,7 +236,7 @@ class _AssetLinksJsonFileIssues extends StatelessWidget {
     return ExpansionTile(
       controlAffinity: ListTileControlAffinity.leading,
       title: _VerifiedOrErrorText(
-        'Digital Asset Links JSON file related issues',
+        '数字资产链接 JSON 文件相关问题',
         isError: errors.isNotEmpty,
       ),
       children: [
@@ -248,9 +246,9 @@ class _AssetLinksJsonFileIssues extends StatelessWidget {
               _FailureDetails(
                 errors: errors,
                 oneFixGuideForAll:
-                    'To fix the above issues, copy the recommended Digital Asset Links'
-                    ' JSON file below and publish it to all of the failed website domains at the following'
-                    ' location: https://${controller.selectedLink.value!.domain}/.well-known/assetlinks.json.',
+                    '要修复以上问题，请复制下方推荐的数字资产链接 JSON 文件，'
+                  '并将其发布到所有失败的网站域名的以下位置： '
+                  'https://${controller.selectedLink.value!.domain}/.well-known/assetlinks.json。',
               ),
               const SizedBox(height: denseSpacing),
               _GenerateAssetLinksPanel(controller: controller),
@@ -276,7 +274,7 @@ class _HostingIssues extends StatelessWidget {
     return ExpansionTile(
       controlAffinity: ListTileControlAffinity.leading,
       title: _VerifiedOrErrorText(
-        'Hosting related issues',
+        '托管相关问题',
         isError: errors.isNotEmpty,
       ),
       children: [
@@ -305,16 +303,16 @@ class _Fingerprint extends StatelessWidget {
     final isError = !hasPdcFingerprint && !haslocalFingerprint;
     late String title;
     if (hasPdcFingerprint && haslocalFingerprint) {
-      title = 'PDC fingerprint and Local fingerprint are detected';
+      title = '检测到 PDC 指纹和本地指纹';
     }
     if (hasPdcFingerprint && !haslocalFingerprint) {
-      title = 'PDC fingerprint detected, enter a local fingerprint if needed';
+      title = '检测到 PDC 指纹，如有需要请输入本地指纹';
     }
     if (!hasPdcFingerprint && haslocalFingerprint) {
-      title = 'Local fingerprint detected';
+      title = '检测到本地指纹';
     }
     if (isError) {
-      title = 'Can\'t proceed check due to no fingerprint detected';
+      title = '由于未检测到指纹，无法继续检查';
     }
 
     return ExpansionTile(
@@ -326,20 +324,19 @@ class _Fingerprint extends StatelessWidget {
           children: [
             if (hasPdcFingerprint && !haslocalFingerprint) ...[
               Text(
-                'Your PDC fingerprint has been detected. If you have a local fingerprint, you can enter it below.',
+                '已检测到你的 PDC 指纹。如果你有本地指纹，可以在下方输入',
                 style: theme.subtleTextStyle,
               ),
               const SizedBox(height: denseSpacing),
             ],
             if (isError) ...[
-              const Text('Issue: no fingerprint detected locally or on PDC'),
+              const Text('问题：未检测到本地或 PDC 指纹'),
               const SizedBox(height: denseSpacing),
-              const Text('Fix guide:'),
+              const Text('修复指南：'),
               const SizedBox(height: denseSpacing),
               Text(
-                'To fix this issue, release your app on Play Developer Console to get a fingerprint. '
-                'If you are not ready to release your app, you can proceed with the Android domain check '
-                'by entering a local fingerprint below.',
+                '要修复此问题，请在 Play Developer Console 上发布你的应用以获取指纹。'
+                '如果暂时不准备发布应用，可以在下方输入本地指纹继续进行 Android 域名检查。',
                 style: theme.subtleTextStyle,
               ),
               const SizedBox(height: denseSpacing),
@@ -363,14 +360,14 @@ class _LocalFingerprint extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Local fingerprint'),
+        const Text('本地指纹'),
         const SizedBox(height: intermediateSpacing),
         controller.localFingerprint.value == null
             ? TextField(
                 decoration: const InputDecoration(
-                  labelText: 'Enter your local fingerprint',
+                  labelText: '请输入你的本地指纹',
                   hintText:
-                      'eg: A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4',
+                      '例如：A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4:A1:B2:C3:D4',
                   filled: true,
                 ),
                 onSubmitted: (fingerprint) async {
@@ -383,10 +380,10 @@ class _LocalFingerprint extends StatelessWidget {
                       context: context,
                       builder: (_) {
                         return const DevToolsDialog(
-                          title: Text('This is not a valid fingerprint'),
+                          title: Text('这不是一个有效的指纹'),
                           content: Text(
-                            'A valid fingerprint consists of 32 pairs of hexadecimal digits separated by colons.'
-                            'It should be the same encoding and format as in the assetlinks.json',
+                            '有效的指纹应由 32 组用冒号分隔的十六进制数字组成，'
+                            '格式和编码应与 assetlinks.json 文件中的一致。',
                           ),
                           actions: [DialogCloseButton()],
                         );
@@ -404,6 +401,7 @@ class _LocalFingerprint extends StatelessWidget {
   }
 }
 
+
 class _ViewDeveloperGuide extends StatelessWidget {
   const _ViewDeveloperGuide();
 
@@ -419,7 +417,7 @@ class _ViewDeveloperGuide extends StatelessWidget {
             ),
           );
         },
-        label: 'View developer guide',
+        label: '查看开发者指南',
       ),
     );
   }
@@ -468,7 +466,7 @@ class _GenerateAssetLinksPanel extends StatelessWidget {
         return (generatedAssetLinks != null &&
                 generatedAssetLinks.errorCode.isNotEmpty)
             ? Text(
-                'Not able to generate assetlinks.json, because the app ${controller.applicationId} is not uploaded to Google Play.',
+                '无法生成 assetlinks.json，因为应用 ${controller.applicationId} 未上传到 Google Play',
                 style: theme.subtleTextStyle,
               )
             : _CodeCard(content: generatedAssetLinks?.generatedString);
@@ -490,19 +488,19 @@ class _FailureDetails extends StatelessWidget {
       children: [
         for (final error in errors) ...[
           const SizedBox(height: densePadding),
-          Text('Issue: ${error.title}'),
+          Text('问题：${error.title}'),
           const SizedBox(height: densePadding),
           Text(error.explanation, style: Theme.of(context).subtleTextStyle),
           if (oneFixGuideForAll == null) ...[
             const SizedBox(height: defaultSpacing),
-            const Text('Fix guide:'),
+            const Text('修复指南：'),
             const SizedBox(height: densePadding),
             Text(error.fixDetails, style: Theme.of(context).subtleTextStyle),
           ],
         ],
         if (oneFixGuideForAll != null) ...[
           const SizedBox(height: defaultSpacing),
-          const Text('Fix guide:'),
+          const Text('修复指南：'),
           const SizedBox(height: densePadding),
           Text(oneFixGuideForAll!, style: Theme.of(context).subtleTextStyle),
         ],
@@ -523,7 +521,7 @@ class _DomainAssociatedLinksPanel extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('Associated deep link URL', style: theme.textTheme.titleMedium),
+        Text('关联的深度链接 URL', style: theme.textTheme.titleMedium),
         Card(
           color: theme.colorScheme.surface,
           shape: const RoundedRectangleBorder(),
@@ -579,7 +577,7 @@ class _CrossCheckTable extends StatelessWidget {
 
     final theme = Theme.of(context);
     final domainMissing = Text(
-      'Domain missing',
+      '域名缺失',
       style: theme.regularTextStyleWithColor(
         theme.colorScheme.onWarningContainerLink,
       ),
@@ -588,22 +586,21 @@ class _CrossCheckTable extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: intermediateSpacing),
-        Text('App check', style: theme.textTheme.titleMedium),
+        Text('应用检查', style: theme.textTheme.titleMedium),
         const SizedBox(height: intermediateSpacing),
         const _CheckTableHeader(),
         const Divider(height: 1.0),
         if (missingAndroid)
           _CheckExpansionTile(
             os: PlatformOS.android,
-            checkName: 'Manifest file',
+            checkName: '清单文件',
             status: domainMissing,
             children: const <Widget>[
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: defaultSpacing),
                 child: Text(
-                  'This domain has an Asset link json file but it\'s missing in the android manifest file. '
-                  'If you want to set up deep linking for Android, you need to add this domain '
-                  'to your AndroidManifest.xml file.',
+                  '此域名有 Asset link json 文件，但在 Android manifest 文件中缺失。'
+                  '如果你要为 Android 设置深度链接，需要将此域名添加到 AndroidManifest.xml 文件中。',
                 ),
               ),
             ],
@@ -611,15 +608,14 @@ class _CrossCheckTable extends StatelessWidget {
         if (missingIos)
           _CheckExpansionTile(
             os: PlatformOS.ios,
-            checkName: 'Settings',
+            checkName: '设置',
             status: domainMissing,
             children: const <Widget>[
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: defaultSpacing),
                 child: Text(
-                  'This domain has an AASA file but it\'s missing in local settings. '
-                  'If you want to set up deep linking for iOS, you need to add this domain '
-                  'to your info.Plist file.',
+                  '此域名有 AASA 文件，但在本地设置中缺失。'
+                  '如果你要为 iOS 设置深度链接，需要将此域名添加到 info.Plist 文件中。',
                 ),
               ),
             ],
@@ -646,7 +642,7 @@ class _PathCheckTable extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: intermediateSpacing),
-        Text('App check', style: theme.textTheme.titleMedium),
+        Text('应用检查', style: theme.textTheme.titleMedium),
         const SizedBox(height: intermediateSpacing),
         const _CheckTableHeader(),
         const Divider(height: 1.0),
@@ -672,7 +668,7 @@ class _ManifestFileCheck extends StatelessWidget {
 
     return _CheckExpansionTile(
       os: PlatformOS.android,
-      checkName: 'Manifest file',
+      checkName: '清单文件',
       status: _CheckStatusText(hasError: errors.isNotEmpty),
       children: <Widget>[
         if (errors.isNotEmpty)
@@ -681,7 +677,7 @@ class _ManifestFileCheck extends StatelessWidget {
               _FailureDetails(
                 errors: errors,
                 oneFixGuideForAll:
-                    'Copy the following code into your Manifest file.',
+                    '将以下代码复制到你的 Manifest 文件中。',
               ),
               const _CodeCard(
                 content: '''$metaDataDeepLinkingFlagTag
@@ -711,7 +707,7 @@ class _PathFormatCheck extends StatelessWidget {
 
     return _CheckExpansionTile(
       os: PlatformOS.android,
-      checkName: 'URL format',
+      checkName: 'URL 格式',
       status: _CheckStatusText(hasError: hasError),
       children: <Widget>[
         if (hasError)
@@ -740,8 +736,8 @@ class _CheckTableHeader extends StatelessWidget {
         child: Row(
           children: [
             Expanded(child: Text('OS')),
-            Expanded(child: Text('Issue type')),
-            Expanded(child: Text('Status')),
+            Expanded(child: Text('问题类型')),
+            Expanded(child: Text('状态')),
           ],
         ),
       ),
@@ -829,9 +825,9 @@ class _CheckStatusText extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return hasError
-        ? Text('Check failed', style: theme.errorTextStyle)
+        ? Text('检查失败', style: theme.errorTextStyle)
         : Text(
-            'No issues found',
+            '未发现问题',
             style: TextStyle(color: theme.colorScheme.green),
           );
   }

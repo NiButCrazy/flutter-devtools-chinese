@@ -35,21 +35,19 @@ class TimelineStreamManager with DisposerMixin {
 
   final _streamDescriptions = <String, String>{
     dartTimelineStream:
-        'Events emitted from dart:developer Timeline APIs (including'
-        ' Flutter framework events)',
+    '由 dart:developer 的 Timeline API 发出的事件（包括 Flutter 框架事件）',
     embedderTimelineStream:
-        'Additional platform events (often emitted from the Flutter engine)',
-    gcTimelineStream: 'Garbage collection',
-    apiTimelineStream: 'Calls to the VM embedding API',
+        '额外的平台事件（通常由 Flutter 引擎发出）',
+    gcTimelineStream: '垃圾回收',
+    apiTimelineStream: '对 VM 嵌入式 API 的调用',
     compilerTimelineStream:
-        'Compiler phases (loading code, compilation, optimization,'
-        ' etc.)',
-    compilerVerboseTimelineStream: 'More detailed compiler phases',
-    debuggerTimelineStream: 'Debugger paused events',
+        '编译器阶段（代码加载、编译、优化等）',
+    compilerVerboseTimelineStream: '更详细的编译器阶段',
+    debuggerTimelineStream: '调试器暂停事件',
     isolateTimelineStream:
-        'Isolate events (startup, shutdown, snapshot loading, etc.)',
+        'Isolate 事件（启动、关闭、加载快照等）',
     vmTimelineStream:
-        'Dart VM events (startup, shutdown, snapshot loading, etc.)',
+        'Dart VM 事件（启动、关闭、加载快照等）',
   };
 
   VmServiceWrapper? get service => _service;

@@ -40,8 +40,8 @@ abstract class NetworkRequest
     final duration = this.duration;
     final text = duration != null
         ? durationText(duration, unit: DurationDisplayUnit.milliseconds)
-        : 'Pending';
-    return 'Duration: $text';
+        : '等待中';
+    return '持续时间: $text';
   }
 
   @override

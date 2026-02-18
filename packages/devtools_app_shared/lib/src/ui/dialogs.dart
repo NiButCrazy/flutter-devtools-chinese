@@ -170,7 +170,7 @@ final class _StateUpdateDialogTitle extends StatelessWidget {
         TextButton(
           onPressed: onResetDefaults,
           child: const MaterialIconLabel(
-            label: 'Reset to default',
+            label: '重置为默认值',
             iconData: Icons.replay,
           ),
         ),
@@ -198,7 +198,7 @@ final class DialogHelpText extends StatelessWidget {
 
 /// A TextButton used to close a containing dialog (Close).
 final class DialogCloseButton extends StatelessWidget {
-  const DialogCloseButton({super.key, this.onClose, this.label = 'CLOSE'});
+  const DialogCloseButton({super.key, this.onClose, this.label = '关闭'});
 
   final VoidCallback? onClose;
   final String label;
@@ -228,7 +228,7 @@ final class DialogCancelButton extends StatelessWidget {
         if (cancelAction != null) cancelAction!();
         Navigator.of(context).pop(dialogDefaultContext);
       },
-      child: const Text('CANCEL'),
+      child: const Text('取消'),
     );
   }
 }
@@ -246,7 +246,7 @@ final class DialogApplyButton extends StatelessWidget {
         onPressed();
         Navigator.of(context).pop(dialogDefaultContext);
       },
-      child: const Text('APPLY'),
+      child: const Text('应用'),
     );
   }
 }

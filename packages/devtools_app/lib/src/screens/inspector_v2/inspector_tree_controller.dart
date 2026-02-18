@@ -1478,8 +1478,8 @@ class InspectorRowContent extends StatelessWidget {
                               : theme.searchMatchHighlightStyle,
                           actionLabel: isHideableGroupLeader
                               ? diagnostic!.groupIsHidden
-                                    ? '(expand)'
-                                    : '(collapse)'
+                                    ? '(展开)'
+                                    : '(收起)'
                               : null,
                           actionCallback: isHideableGroupLeader
                               ? () {
@@ -1493,7 +1493,7 @@ class InspectorRowContent extends StatelessWidget {
                               : null,
                           customDescription:
                               isHideableGroupLeader && diagnostic!.groupIsHidden
-                              ? '${diagnostic.hideableGroupSubordinates!.length + 1} more widgets...'
+                              ? '其余 ${diagnostic.hideableGroupSubordinates!.length + 1} 个组件...'
                               : null,
                           customIconName:
                               isHideableGroupLeader && diagnostic!.groupIsHidden

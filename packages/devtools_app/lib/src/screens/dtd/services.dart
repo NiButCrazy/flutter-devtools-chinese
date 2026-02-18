@@ -248,7 +248,7 @@ class ManuallyCallServiceState extends State<ManuallyCallService> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               DevToolsButton(
-                label: 'Clear',
+                label: '清除',
                 onPressed: () {
                   setState(() {
                     callResult = null;

@@ -21,7 +21,7 @@ import 'enhance_tracing_controller.dart';
 class EnhanceTracingButton extends StatelessWidget {
   const EnhanceTracingButton(this.enhanceTracingController, {super.key});
 
-  static const title = 'Enhance Tracing';
+  static const title = '增强追踪';
 
   static const icon = Icons.auto_awesome;
 
@@ -34,7 +34,7 @@ class EnhanceTracingButton extends StatelessWidget {
     return ServiceExtensionCheckboxGroupButton(
       title: title,
       icon: icon,
-      tooltip: 'Add more detail to the Timeline trace',
+      tooltip: '在时间线事件图表里添加更详细的追踪内容',
       minScreenWidthForText: PerformanceControls.minScreenWidthForText,
       extensions: enhanceTracingExtensions,
       forceShowOverlayController:
@@ -47,20 +47,17 @@ class EnhanceTracingButton extends StatelessWidget {
       overlayDescription: RichText(
         text: TextSpan(
           text:
-              'These options can be used to add more detail to the '
-              'timeline, but be aware that ',
+              '这些选项可用于为时间线添加更多细节，但请注意，',
           style: textStyle,
           children: [
             TextSpan(
-              text: 'frame times may be negatively affected',
+              text: '帧时间可能会受到负面影响',
               style: textStyle.copyWith(color: theme.colorScheme.error),
             ),
-            TextSpan(text: '.\n\n', style: textStyle),
+            TextSpan(text: '\n\n', style: textStyle),
             TextSpan(
               text:
-                  'When toggling on/off a tracing option, you will need '
-                  'to reproduce activity in your app to see the enhanced '
-                  'tracing in the timeline.',
+                  '在开启或关闭某个跟踪选项后，您需要在应用中重新执行相关操作，才能在时间线上看到增强的跟踪信息',
               style: textStyle,
             ),
           ],
@@ -76,9 +73,9 @@ extension TraceWidgetBuildsScopeExtension on TraceWidgetBuildsScope {
   String get radioDisplay {
     switch (this) {
       case TraceWidgetBuildsScope.all:
-        return 'within all code';
+        return '在所有代码中';
       case TraceWidgetBuildsScope.userCreated:
-        return 'within your code';
+        return '在您的代码中';
     }
   }
 

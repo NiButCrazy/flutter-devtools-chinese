@@ -26,8 +26,8 @@ class AllocationTracingTree extends StatefulWidget {
 
   final TracePaneController controller;
 
-  static final _bottomUpTab = _buildTab(tabName: 'Bottom Up');
-  static final _callTreeTab = _buildTab(tabName: 'Call Tree');
+  static final _bottomUpTab = _buildTab(tabName: '自下而上');
+  static final _callTreeTab = _buildTab(tabName: '调用树');
   static final tabs = [_bottomUpTab, _callTreeTab];
 
   static DevToolsTab _buildTab({Key? key, required String tabName}) {
@@ -76,15 +76,15 @@ class _AllocationTracingTreeState extends State<AllocationTracingTree>
             } else if (!selection.traceAllocations) {
               return _TracingInstructions(
                 prefix:
-                    'Allocation tracing is not enabled for class '
-                    '${selection.clazz.name}.',
+                    '未为类 '
+                    '${selection.clazz.name} 启用分配追踪',
               );
             } else if (selection.traceAllocations &&
                 (data == null || data.bottomUpRoots.isEmpty)) {
               return Padding(
                 padding: const EdgeInsets.all(largeSpacing),
                 child: Text(
-                  'No allocation samples have been collected for class ${selection.clazz.name}.\n',
+                  '尚未为类 ${selection.clazz.name} 收集到任何分配样本\n',
                 ),
               );
             }
@@ -141,16 +141,15 @@ class _TracingInstructions extends StatelessWidget {
 
 /// `\v` adds vertical space
 const _tracingInstructions = '''
-To trace allocations for a class:
+要为某个类追踪分配：
 
 \v
 
-1. Enable the 'Trace' checkbox for that class in the table.
+1. 在表格中勾选该类的“追踪”复选框。
 
-2. Interact with your app to trigger an allocation of the class.
+2. 与应用交互，以触发该类的实例分配。
 
-3. Click 'Refresh' above to view the tree of collected stack traces of
-constructor calls for the selected class.
+3. 点击上方的“刷新”，查看为所选类收集到的构造函数调用堆栈追踪树。
 ''';
 
 class _TracingTreeHeader extends StatelessWidget {
@@ -174,7 +173,7 @@ class _TracingTreeHeader extends StatelessWidget {
       title: Text.rich(
         TextSpan(
           children: [
-            const TextSpan(text: 'Traced allocations for: '),
+            const TextSpan(text: '以下类型的分配追踪：'),
             TextSpan(
               style: theme.fixedFontStyle,
               text: controller.selection.value.selectedClass.value?.clazz.name!,
@@ -227,13 +226,13 @@ class _TracingTreeHeader extends StatelessWidget {
 class _InclusiveCountColumn extends ColumnData<CpuStackFrame> {
   const _InclusiveCountColumn()
     : super(
-        'Inclusive',
+        '包含量',
         titleTooltip: _tooltip,
         fixedWidthPx: _countColumnWidth,
       );
 
   static const _tooltip =
-      'The number of instances allocated by calls made from a stack frame.';
+      '由从某个栈帧发起的调用所分配的实例数量';
 
   @override
   bool get numeric => true;
@@ -260,13 +259,13 @@ class _InclusiveCountColumn extends ColumnData<CpuStackFrame> {
 class _ExclusiveCountColumn extends ColumnData<CpuStackFrame> {
   const _ExclusiveCountColumn()
     : super(
-        'Exclusive',
+        '独占量',
         titleTooltip: _tooltip,
         fixedWidthPx: _countColumnWidth,
       );
 
   static const _tooltip =
-      'The number of instances allocated directly by a stack frame.';
+      '由某个栈帧直接分配的实例数量';
 
   @override
   bool get numeric => true;

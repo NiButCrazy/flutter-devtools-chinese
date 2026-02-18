@@ -60,16 +60,16 @@ class ObjectViewport extends StatelessWidget {
   @visibleForTesting
   static String viewportTitle(VmObject? object) {
     if (object == null) {
-      return 'No object selected.';
+      return '未选择对象';
     }
 
     if (object.obj is Instance) {
       final instance = object.obj as Instance;
-      return 'Instance of ${instance.classRef!.name}';
+      return '${instance.classRef!.name} 的实例';
     }
 
     if (object is UnknownObject) {
-      return 'Instance of VM type ${object.name}';
+      return 'VM 类型 ${object.name} 的实例';
     }
 
     return '${object.obj.type} ${object.name ?? ''}'.trim();

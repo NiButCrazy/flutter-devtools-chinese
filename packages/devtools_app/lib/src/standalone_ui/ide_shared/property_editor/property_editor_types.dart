@@ -157,7 +157,7 @@ class EditableProperty extends EditableArgument {
 
   String get displayType => isNullable ? '$dartType?' : dartType;
 
-  String get typeError => 'Please enter ${addIndefiniteArticle(dartType)}.';
+  String get typeError => '请输入 ${addIndefiniteArticle(dartType)}.';
 
   String? inputValidator(String? _) {
     return null;
@@ -238,7 +238,7 @@ class WrapWithRefactorAction {
 
   String _extractLabel(String title) {
     final wrapperName = title.split('Wrap with ').last;
-    return wrapperName == 'widget...' ? 'Widget' : wrapperName;
+    return wrapperName == '组件...' ? '组件' : wrapperName;
   }
 }
 

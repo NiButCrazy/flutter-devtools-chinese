@@ -178,7 +178,7 @@ extension FrameworkCore on Never {
         if (logException) {
           _log.shout(e, e, st);
         }
-        errorReporter!('Unable to connect to VM service at $uri: $e', e);
+        errorReporter!('无法连接到 VM 服务 $uri: $e', e);
         return false;
       } finally {
         vmServiceInitializationInProgress = false;
@@ -204,12 +204,12 @@ Future<void> _initDTDConnection() async {
         dtdUri,
         onError: (e, st) {
           notificationService.pushError(
-            'Failed to connect to the Dart Tooling Daemon',
+            '连接 Dart 工具守护进程失败',
             isReportable: false,
           );
           error_handling.reportError(
             e,
-            errorType: 'Dart Tooling Daemon connection failed.',
+            errorType: '无法连接到 Dart 工具守护进程',
             stack: st,
           );
         },
@@ -228,7 +228,7 @@ Future<void> _initDTDConnection() async {
     // catch any errors and report them.
     error_handling.reportError(
       e,
-      errorType: 'Failed to initialize the DTD connection.',
+      errorType: 'DTD 连接初始化失败',
       stack: st,
     );
   }

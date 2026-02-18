@@ -132,7 +132,7 @@ class _MethodGraphState extends State<_MethodGraph> with AutoDisposeMixin {
     if (selected == null) {
       return OutlineDecoration.onlyLeft(
         child: const Center(
-          child: Text('Select a method to view its call graph.'),
+          child: Text('选择一种方法以查看其调用图表'),
         ),
       );
     }
@@ -239,7 +239,7 @@ class _CalleesTable extends StatelessWidget {
 class _MethodColumn extends ColumnData<MethodTableGraphNode>
     implements ColumnRenderer<MethodTableGraphNode> {
   const _MethodColumn()
-    : super.wide('Method', minWidthPx: _methodColumnMinWidth);
+    : super.wide('方法', minWidthPx: _methodColumnMinWidth);
 
   @override
   String getValue(MethodTableGraphNode dataObject) => dataObject.name;
@@ -271,7 +271,7 @@ const _callGraphColumnWidth = 70.0;
 class _SelfTimeColumn extends TimeAndPercentageColumn<MethodTableGraphNode> {
   _SelfTimeColumn()
     : super(
-        title: 'Self %',
+        title: '自身 %',
         percentageOnly: true,
         timeProvider: (node) => node.selfTime,
         percentAsDoubleProvider: (node) => node.selfTimeRatio,
@@ -283,7 +283,7 @@ class _SelfTimeColumn extends TimeAndPercentageColumn<MethodTableGraphNode> {
 class _TotalTimeColumn extends TimeAndPercentageColumn<MethodTableGraphNode> {
   _TotalTimeColumn()
     : super(
-        title: 'Total %',
+        title: '总体 %',
         percentageOnly: true,
         timeProvider: (node) => node.totalTime,
         percentAsDoubleProvider: (node) => node.totalTimeRatio,
@@ -295,7 +295,7 @@ class _TotalTimeColumn extends TimeAndPercentageColumn<MethodTableGraphNode> {
 class _CallerTimeColumn extends TimeAndPercentageColumn<MethodTableGraphNode> {
   _CallerTimeColumn({required MethodTableController methodTableController})
     : super(
-        title: 'Caller %',
+        title: '调用者 %',
         percentageOnly: true,
         percentAsDoubleProvider: (node) =>
             methodTableController.callerPercentageFor(node),
@@ -307,7 +307,7 @@ class _CallerTimeColumn extends TimeAndPercentageColumn<MethodTableGraphNode> {
 class _CalleeTimeColumn extends TimeAndPercentageColumn<MethodTableGraphNode> {
   _CalleeTimeColumn({required MethodTableController methodTableController})
     : super(
-        title: 'Callee %',
+        title: '被调用者 %',
         percentageOnly: true,
         percentAsDoubleProvider: (node) =>
             methodTableController.calleePercentageFor(node),

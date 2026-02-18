@@ -55,7 +55,7 @@ class _PathControlPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titleText =
-        'Retaining path for ${data.classData.className.className}';
+        '保留链路：${data.classData.className.className}';
     return Row(
       children: [
         Expanded(
@@ -90,7 +90,7 @@ class _PathControlPane extends StatelessWidget {
               controller.hideStandard.value = !controller.hideStandard.value;
             },
             isFilterActive: hideStandard,
-            message: 'Hide standard libraries',
+            message: '隐藏标准库',
           ),
         ),
         const SizedBox(width: denseSpacing),
@@ -105,7 +105,7 @@ class _PathControlPane extends StatelessWidget {
               controller.invert.value = !controller.invert.value;
             },
             isSelected: invert,
-            message: 'Invert the path',
+            message: '反转链路',
             icon: Icons.swap_horiz,
           ),
         ),

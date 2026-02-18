@@ -53,12 +53,12 @@ Future<void> prepareMemoryUI(
 
   if (openDiff) {
     // Switch to diff tab.
-    await tapAndPumpWidget(tester, find.text('Diff Snapshots'));
+    await tapAndPumpWidget(tester, find.text('快照差异'));
   }
 }
 
 Future<void> takeHeapSnapshot(WidgetTester tester) async {
-  logStatus('Started taking snapshot.');
+  logStatus('开始生成快照');
   // Take snapshot.
   const snapshotDuration = Duration(seconds: 20);
   await tapAndPumpWidget(
@@ -66,7 +66,7 @@ Future<void> takeHeapSnapshot(WidgetTester tester) async {
     find.byIcon(iconToTakeSnapshot),
     duration: snapshotDuration,
   );
-  logStatus('Finished taking snapshot.');
+  logStatus('快照生成完成');
 }
 
 /// Taps and settles.
@@ -81,7 +81,7 @@ Future<Finder?> tapAndPumpWidget(
   String? description,
 }) async {
   Future<void> action(int tryNumber) async {
-    logStatus('\nattempt #$tryNumber, tapping');
+    logStatus('\n第 #$tryNumber次尝试，正在点击');
     logStatus(description ?? finder.toString());
     tryNumber++;
     await tester.tap(finder);
@@ -105,7 +105,7 @@ Future<Finder?> tapAndPumpWidget(
     }
   }
 
-  throw StateError('Could not find $next');
+  throw StateError('找不到 $next');
 }
 
 Future<void> openContextMenuForSnapshot(

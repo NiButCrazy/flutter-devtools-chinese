@@ -144,7 +144,7 @@ void main() {
       expect(manuallyCallServicesState.paramsController.text, isEmpty);
 
       // Tap the Clear button.
-      await tester.tap(find.text('Clear'));
+      await tester.tap(find.text('清除'));
       await tester.pumpAndSettle();
 
       // Verify the fields are cleared.

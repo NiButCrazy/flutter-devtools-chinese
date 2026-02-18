@@ -70,19 +70,19 @@ class HttpRequestHeadersView extends StatelessWidget {
           child: ListView(
             children: [
               _buildHeadersTile(
-                'General',
+                '常规',
                 general,
                 constraints,
                 key: generalKey,
               ),
               _buildHeadersTile(
-                'Response Headers',
+                '响应标头',
                 responseHeaders,
                 constraints,
                 key: responseHeadersKey,
               ),
               _buildHeadersTile(
-                'Request Headers',
+                '请求标头',
                 requestHeaders,
                 constraints,
                 key: requestHeadersKey,
@@ -119,7 +119,7 @@ class HttpRequestHeadersView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'No data',
+                  '无数据',
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
                     color: Colors.grey.shade600,
@@ -413,20 +413,20 @@ class ImageResponseView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _buildTile('Image Preview', [
+        _buildTile('图片预览', [
           Padding(
             padding: const EdgeInsets.all(denseSpacing),
             child: Image.memory(encodedResponse),
           ),
         ]),
-        _buildTile('Metadata', [
-          _buildRow(context, 'Format', data.type),
+        _buildTile('元数据', [
+          _buildRow(context, '格式', data.type),
           _buildRow(
             context,
-            'Size',
+            '大小',
             prettyPrintBytes(encodedResponse.lengthInBytes, includeUnit: true)!,
           ),
-          _buildRow(context, 'Dimensions', '${img.width} x ${img.height}'),
+          _buildRow(context, '尺寸', '${img.width} x ${img.height}'),
         ]),
       ],
     );
@@ -537,16 +537,16 @@ class HttpRequestCookiesView extends StatelessWidget {
               // NOTE: if this list of columns change, _buildRow will need
               // to be updated to match.
               columns: [
-                buildColumn('Name'),
-                buildColumn('Value'),
+                buildColumn('名称'),
+                buildColumn('值'),
                 if (!requestCookies) ...[
-                  buildColumn('Domain'),
-                  buildColumn('Path'),
-                  buildColumn('Expires / Max Age'),
-                  buildColumn('Size', numeric: true),
+                  buildColumn('域名'),
+                  buildColumn('路径'),
+                  buildColumn('过期时间 / 最大存活期'),
+                  buildColumn('大小', numeric: true),
                   buildColumn('HttpOnly'),
                   buildColumn('Secure'),
-                ],
+            ],
               ],
               rows: [
                 for (int i = 0; i < cookies.length; ++i)
@@ -570,7 +570,7 @@ class HttpRequestCookiesView extends StatelessWidget {
             if (responseCookies.isNotEmpty)
               _buildCookiesTable(
                 context,
-                'Response Cookies',
+                '响应 Cookies',
                 responseCookies,
                 constraints,
                 responseCookiesKey,
@@ -582,7 +582,7 @@ class HttpRequestCookiesView extends StatelessWidget {
             if (requestCookies.isNotEmpty)
               _buildCookiesTable(
                 context,
-                'Request Cookies',
+                '请求 Cookies',
                 requestCookies,
                 constraints,
                 requestCookiesKey,
@@ -629,19 +629,19 @@ class NetworkRequestOverviewView extends StatelessWidget {
       // TODO(kenz): show preview for requests (png, response body, proto)
       _buildRow(
         context: context,
-        title: 'Request uri',
+        title: '请求 URL',
         child: _valueText(data.uri),
       ),
       const SizedBox(height: defaultSpacing),
       _buildRow(
         context: context,
-        title: 'Method',
+        title: '请求方法',
         child: _valueText(data.method),
       ),
       const SizedBox(height: defaultSpacing),
       _buildRow(
         context: context,
-        title: 'Status',
+        title: '状态代码',
         child: _valueText(
           data.status ?? '--',
           data.didFail
@@ -653,7 +653,7 @@ class NetworkRequestOverviewView extends StatelessWidget {
       if (data.port != null) ...[
         _buildRow(
           context: context,
-          title: 'Port',
+          title: '端口',
           child: _valueText('${data.port}'),
         ),
         const SizedBox(height: defaultSpacing),
@@ -661,7 +661,7 @@ class NetworkRequestOverviewView extends StatelessWidget {
       if (data.contentType != null) ...[
         _buildRow(
           context: context,
-          title: 'Content type',
+          title: '媒体类型',
           child: _valueText(data.contentType ?? 'null'),
         ),
         const SizedBox(height: defaultSpacing),
@@ -673,7 +673,7 @@ class NetworkRequestOverviewView extends StatelessWidget {
     return [
       _buildRow(
         context: context,
-        title: 'Timing',
+        title: '耗时分析',
         child: data is Socket
             ? _buildSocketTimeGraph(context)
             : _buildHttpTimeGraph(),
@@ -691,17 +691,17 @@ class NetworkRequestOverviewView extends StatelessWidget {
       const SizedBox(height: defaultSpacing),
       _buildRow(
         context: context,
-        title: 'Start time',
+        title: '开始时间',
         child: _valueText(formatDateTime(data.startTimestamp!)),
       ),
       const SizedBox(height: defaultSpacing),
       _buildRow(
         context: context,
-        title: 'End time',
+        title: '结束时间',
         child: _valueText(
           data.endTimestamp != null
               ? formatDateTime(data.endTimestamp!)
-              : 'Pending',
+              : '等待中',
         ),
       ),
     ];
@@ -743,7 +743,22 @@ class NetworkRequestOverviewView extends StatelessWidget {
     final timingWidgets = <Widget>[];
     for (final instant in data.instantEvents) {
       final duration = instant.timeRange.duration;
-      timingWidgets.add(_buildTimingRow(nextColor(), instant.name, duration));
+      var displayName =instant.name;
+      switch (displayName) {
+        case 'Connection established':
+          displayName = '建立连接';
+          break;
+        case 'Request sent':
+          displayName = '已发送请求';
+          break;
+        case 'Waiting (TTFB)':
+          displayName = '等待响应 (TTFB)';
+          break;
+        case 'Content Download':
+          displayName = '内容下载';
+          break;
+      }
+      timingWidgets.add(_buildTimingRow(nextColor(), displayName, duration));
     }
     final duration = Duration(
       microseconds:
@@ -774,12 +789,27 @@ class NetworkRequestOverviewView extends StatelessWidget {
         timeRange.duration,
         unit: DurationDisplayUnit.milliseconds,
       );
+      var displayName =instant.name;
+      switch (displayName) {
+        case 'Connection established':
+          displayName = '建立连接';
+          break;
+        case 'Request sent':
+          displayName = '已发送请求';
+          break;
+        case 'Waiting (TTFB)':
+          displayName = '等待响应 (TTFB)';
+          break;
+        case 'Content Download':
+          displayName = '内容下载';
+          break;
+      }
       result.addAll([
         _buildRow(
           context: context,
-          title: instant.name,
+          title: displayName,
           child: _valueText(
-            '[$startDisplay - $endDisplay] → $totalDisplay total',
+            '[$startDisplay - $endDisplay] → 总计 $totalDisplay',
           ),
         ),
         if (instant != data.instantEvents.last)
@@ -794,25 +824,25 @@ class NetworkRequestOverviewView extends StatelessWidget {
     return [
       _buildRow(
         context: context,
-        title: 'Socket id',
+        title: '套接字 ID',
         child: _valueText(socket.id),
       ),
       const SizedBox(height: defaultSpacing),
       _buildRow(
         context: context,
-        title: 'Socket type',
+        title: '套接字类型',
         child: _valueText(socket.socketType),
       ),
       const SizedBox(height: defaultSpacing),
       _buildRow(
         context: context,
-        title: 'Read bytes',
+        title: '已读字节数',
         child: _valueText('${socket.readBytes}'),
       ),
       const SizedBox(height: defaultSpacing),
       _buildRow(
         context: context,
-        title: 'Write bytes',
+        title: '已写字节数',
         child: _valueText('${socket.writeBytes}'),
       ),
       const SizedBox(height: defaultSpacing),
@@ -834,7 +864,7 @@ class NetworkRequestOverviewView extends StatelessWidget {
     return [
       _buildRow(
         context: context,
-        title: 'Last read time',
+        title: '最后读取时间',
         child: lastReadTimestamp != null
             ? _valueText(formatDateTime(lastReadTimestamp))
             : _valueText('--'),
@@ -842,7 +872,7 @@ class NetworkRequestOverviewView extends StatelessWidget {
       const SizedBox(height: defaultSpacing),
       _buildRow(
         context: context,
-        title: 'Last write time',
+        title: '最后写入时间',
         child: lastWriteTimestamp != null
             ? _valueText(formatDateTime(lastWriteTimestamp))
             : _valueText('--'),

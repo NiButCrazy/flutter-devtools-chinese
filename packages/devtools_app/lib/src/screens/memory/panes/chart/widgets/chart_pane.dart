@@ -306,7 +306,7 @@ class _MemoryChartPaneState extends State<MemoryChartPane>
                 width: _hoverWidth,
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Text(
-                  'Time $displayTimestamp',
+                  '时间 $displayTimestamp',
                   style: theme.legendTextStyle,
                   textAlign: TextAlign.center,
                 ),
@@ -514,7 +514,7 @@ class _MemoryChartPaneState extends State<MemoryChartPane>
         ),
         const SizedBox(width: denseSpacing),
         Text(
-          '$eventsLength ${pluralize('Event', eventsLength)}',
+          '$eventsLength 事件',
           style: theme.legendTextStyle,
         ),
       ],

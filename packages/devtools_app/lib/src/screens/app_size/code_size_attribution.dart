@@ -51,11 +51,11 @@ class _CallGraphWithDominatorsState extends State<CallGraphWithDominators> {
     return Column(
       children: [
         AreaPaneHeader(
-          title: Text(showCallGraph ? 'Call Graph' : 'Dominator Tree'),
+          title: Text(showCallGraph ? '调用图' : '支配树'),
           includeTopBorder: false,
           roundedTopBorder: false,
           actions: [
-            const Text('Show call graph'),
+            const Text('显示调用图'),
             DevToolsSwitch(
               padding: const EdgeInsets.only(left: denseSpacing),
               value: showCallGraph,
@@ -240,14 +240,14 @@ class _CallGraphTable extends StatelessWidget {
 }
 
 class FromColumn extends ColumnData<CallGraphNode> {
-  const FromColumn() : super.wide('From');
+  const FromColumn() : super.wide('来源');
 
   @override
   String getValue(CallGraphNode dataObject) => dataObject.display;
 }
 
 class ToColumn extends ColumnData<CallGraphNode> {
-  const ToColumn() : super.wide('To');
+  const ToColumn() : super.wide('目标');
 
   @override
   ColumnAlignment get alignment => ColumnAlignment.right;
@@ -304,7 +304,7 @@ class DominatorTree extends StatelessWidget {
 }
 
 class _PackageColumn extends TreeColumnData<DominatorTreeNode> {
-  const _PackageColumn() : super('Package');
+  const _PackageColumn() : super('包');
 
   @override
   String getValue(DominatorTreeNode dataObject) =>

@@ -91,7 +91,7 @@ class ConnectionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     if (connected) {
       return LandingScreenSection(
-        title: 'Connected app',
+        title: '已连接的应用程序',
         actions: [
           ViewVmFlagsButton(
             gaScreen: gac.home,
@@ -214,14 +214,14 @@ class _ConnectInputState extends State<ConnectInput> with BlockingActionMixin {
             DevToolsButton(
               onPressed: actionInProgress ? null : () => unawaited(_connect()),
               elevated: true,
-              label: 'Connect',
+              label: '连接',
             ),
           ],
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: densePadding),
           child: Text(
-            '(e.g., http://127.0.0.1:12345/auth_code=... or ws://...)',
+            '（例如, http://127.0.0.1:12345/auth_code=... 或 ws://...）',
             textAlign: TextAlign.start,
             style: Theme.of(context).textTheme.bodySmall,
           ),
@@ -230,13 +230,13 @@ class _ConnectInputState extends State<ConnectInput> with BlockingActionMixin {
     );
 
     return LandingScreenSection(
-      title: 'Connect',
+      title: '连接',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Connect to a Running App', style: textTheme.titleMedium),
+          Text('连接到一个正在运行的应用程序', style: textTheme.titleMedium),
           const SizedBox(height: denseRowSpacing),
-          Text('Enter a Dart VM Service URL', style: textTheme.bodySmall),
+          Text('输入 Dart VM 服务 URL', style: textTheme.bodySmall),
           const SizedBox(height: denseSpacing),
           connectorInput,
         ],
@@ -254,7 +254,7 @@ class _ConnectInputState extends State<ConnectInput> with BlockingActionMixin {
 
     final uri = connectDialogController.text;
     if (uri.isEmpty) {
-      notificationService.push('Please enter a VM Service URL.');
+      notificationService.push('请输入一个 VM 服务 URL');
       return;
     }
 
@@ -279,11 +279,11 @@ class _ConnectInputState extends State<ConnectInput> with BlockingActionMixin {
       );
       await routerDelegate.updateArgsIfChanged({'uri': '$connectedUri'});
       final shortUri = connectedUri.replace(path: '');
-      notificationService.push('Successfully connected to $shortUri.');
+      notificationService.push('已成功连接至：$shortUri');
     } else if (normalizeVmServiceUri(uri) == null) {
       notificationService.push(
-        'Failed to connect to the VM Service at "${connectDialogController.text}".\n'
-        'The link was not valid.',
+        '无法连接到 VM 服务地址："${connectDialogController.text}"\n'
+        '该链接无效',
       );
     }
   }
@@ -322,7 +322,7 @@ class _SampleDataDropDownButtonState extends State<SampleDataDropDownButton> {
                   listen: false,
                 ).importData(value!),
           child: const MaterialIconLabel(
-            label: 'Load sample data',
+            label: '加载示例数据',
             iconData: Icons.file_upload,
           ),
         ),

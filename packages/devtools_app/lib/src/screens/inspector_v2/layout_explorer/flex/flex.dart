@@ -294,7 +294,7 @@ class FlexLayoutExplorerWidgetState
             hint: Container(
               padding: const EdgeInsets.all(4.0),
               child: Text(
-                'Total Flex Factor: ${propertiesLocal.totalFlex.toInt()}',
+                '总弹性系数: ${propertiesLocal.totalFlex.toInt()}',
                 style: theme.regularTextStyleWithColor(emphasizedTextColor),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -688,7 +688,7 @@ class FlexChildVisualizer extends StatelessWidget {
           ),
           if (!properties.hasFlexFactor)
             Text(
-              'unconstrained ${root.isMainAxisHorizontal ? 'horizontal' : 'vertical'}',
+              '未受约束 - ${root.isMainAxisHorizontal ? '水平方向' : '垂直方向'}',
               style: theme.regularTextStyle.copyWith(
                 color: theme.colorScheme.unconstrainedColor,
                 fontStyle: FontStyle.italic,

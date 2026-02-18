@@ -59,13 +59,13 @@ class LoggingControls extends StatelessWidget {
           dataProvider: () => controller.filteredData.value
               .map((e) => '${e.timestamp} [${e.kind}] ${e.prettyPrinted()}')
               .joinWithTrailing('\n'),
-          tooltip: 'Copy filtered logs',
+          tooltip: '复制过滤后的日志',
         ),
         const SizedBox(width: denseSpacing),
         SettingsOutlinedButton(
           gaScreen: gac.logging,
           gaSelection: gac.loggingSettings,
-          tooltip: 'Logging Settings',
+          tooltip: '日志设置',
           onPressed: () {
             unawaited(
               showDialog(
@@ -103,7 +103,7 @@ class _LoggingSettingsDialogState extends State<LoggingSettingsDialog> {
   @override
   Widget build(BuildContext context) {
     return DevToolsDialog(
-      title: const DialogTitleText('Logging Settings'),
+      title: const DialogTitleText('日志设置'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,10 +111,10 @@ class _LoggingSettingsDialogState extends State<LoggingSettingsDialog> {
           SizedBox(
             height: _retentionLimitHeight,
             child: PositiveIntegerSetting(
-              title: 'Limit for the number of logs retained.',
+              title: '日志保留数量上限',
               subTitle:
-                  'Once the limit is reached, the first '
-                  '$defaultLogBufferReductionSize logs will be dropped.',
+                  '达到上限后，将移除最早的 '
+                  '$defaultLogBufferReductionSize 条日志',
               notifier: temporaryRetentionLimit,
               minimumValue: defaultLogBufferReductionSize,
             ),

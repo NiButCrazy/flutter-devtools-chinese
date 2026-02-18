@@ -92,13 +92,13 @@ class _ConnectedDisplay extends StatelessWidget {
         ),
         DevToolsButton(
           elevated: true,
-          label: 'Disconnect',
+          label: '连接已断开',
           onPressed: onDisconnect,
         ),
         if (help != null) ...[
           const SizedBox(width: denseSpacing),
           _ConnectionHelpButton(
-            dialogTitle: '$label help',
+            dialogTitle: '$label 帮助',
             child: help!,
           ),
         ],
@@ -173,13 +173,13 @@ class _DisconnectedDisplayState extends State<_DisconnectedDisplay> {
         const SizedBox(width: denseSpacing),
         DevToolsButton(
           elevated: true,
-          label: 'Connect',
+          label: '连接',
           onPressed: () => widget.onConnect(_connectTextFieldController.text),
         ),
         if (widget.help != null) ...[
           const SizedBox(width: denseSpacing),
           _ConnectionHelpButton(
-            dialogTitle: '${widget.label} help',
+            dialogTitle: '${widget.label} 帮助',
             child: widget.help!,
           ),
         ],
@@ -204,7 +204,7 @@ class _ConnectionHelpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return DevToolsButton.iconOnly(
       icon: Icons.help_outline,
-      tooltip: 'Help',
+      tooltip: '帮助',
       onPressed: () {
         showDevToolsDialog(
           context: context,

@@ -85,7 +85,7 @@ final class _NetworkScreenHelper {
 
   Future<void> clear() async {
     // Press the 'Clear' button between tests.
-    await _tester.tap(find.text('Clear'));
+    await _tester.tap(find.text('清除'));
     await _tester.pump(safePumpDuration);
     expect(
       screenControllers.lookup<NetworkController>().requests.value,

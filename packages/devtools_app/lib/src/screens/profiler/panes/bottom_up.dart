@@ -33,19 +33,18 @@ class CpuBottomUpTable extends StatelessWidget {
   ]);
 
   static const totalTimeTooltip = '''
-For top-level methods in the bottom-up tree (stack frames that were at the top of at
-least one CPU sample), this is the time the method spent executing its own code,
-as well as the code for any methods that it called.
+对于 Bottom-up 树中的顶层方法（在至少一次 CPU 采样中位于调用栈顶部的帧），
+此数值表示该方法执行自身代码的时间，以及其所调用的方法的执行时间
 
-For children methods in the bottom-up tree (the callers), this is the total time of
-the top-level method (the callee) when called through the child method (the caller).''';
+对于 Bottom-up 树中的子方法（调用者），
+此数值表示当顶层方法（被调用者）通过该子方法（调用者）被调用时的总耗时''';
 
   static const selfTimeTooltip = '''
-For top-level methods in the bottom-up tree (stack frames that were at the top of at
-least one CPU sample), this is the time the method spent executing only its own code.
+对于 Bottom-up 树中的顶层方法（在至少一次 CPU 采样中位于调用栈顶部的帧），
+此数值表示该方法仅执行自身代码所花费的时间
 
-For children methods in the bottom-up tree (the callers), this is the self time of
-the top-level method (the callee) when called through the child method (the caller).''';
+对于 Bottom-up 树中的子方法（调用者），
+此数值表示当顶层方法（被调用者）通过该子方法（调用者）被调用时的自身耗时''';
 
   final List<CpuStackFrame> bottomUpRoots;
 
@@ -60,30 +59,29 @@ the top-level method (the callee) when called through the child method (the call
         case _TimeType.total:
           return TextSpan(
             children: [
-              const TextSpan(text: 'Time that '),
+              const TextSpan(text: '方法 '),
               TextSpan(text: '[${stackFrame.name}]', style: fixedStyle),
               const TextSpan(
                 text:
-                    ' spent executing its own code,\nas well as the code for'
-                    ' any methods that it called.',
+                    ' 执行自身代码的时间，\n以及它所调用的任何方法的代码执行时间',
               ),
             ],
           );
         case _TimeType.self:
           return TextSpan(
             children: [
-              const TextSpan(text: 'Time that '),
+              const TextSpan(text: '方法 '),
               TextSpan(text: '[${stackFrame.name}]', style: fixedStyle),
-              const TextSpan(text: ' spent executing its own code.'),
+              const TextSpan(text: ' 执行自身代码所花费的时间'),
             ],
           );
       }
     }
     return TextSpan(
       children: [
-        TextSpan(text: '$type time for root '),
+        TextSpan(text: 'root 节点的 $type 耗时：'),
         TextSpan(text: '[${stackFrame.root.name}]', style: fixedStyle),
-        const TextSpan(text: '\nwhen called through '),
+        const TextSpan(text: '\n当通过以下方法调用时：'),
         TextSpan(text: '[${stackFrame.name}]', style: fixedStyle),
       ],
     );

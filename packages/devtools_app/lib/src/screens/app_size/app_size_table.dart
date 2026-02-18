@@ -78,7 +78,7 @@ class AppSizeAnalysisTable extends StatelessWidget {
 
 class _NameColumn extends TreeColumnData<TreemapNode> {
   const _NameColumn({required this.currentRootLevel})
-    : super('Library or Class');
+    : super('库 & 类');
 
   final int currentRootLevel;
 
@@ -100,7 +100,7 @@ class _NameColumn extends TreeColumnData<TreemapNode> {
 
 class _SizeColumn extends ColumnData<TreemapNode> {
   const _SizeColumn()
-    : super('Size', alignment: ColumnAlignment.right, fixedWidthPx: 100.0);
+    : super('大小', alignment: ColumnAlignment.right, fixedWidthPx: 100.0);
 
   @override
   Comparable getValue(TreemapNode dataObject) => dataObject.byteSize;
@@ -121,7 +121,7 @@ class _SizeColumn extends ColumnData<TreemapNode> {
 class _SizePercentageColumn extends ColumnData<TreemapNode> {
   const _SizePercentageColumn({required this.totalSize})
     : super(
-        '% of Total Size',
+        '% 占总大小',
         alignment: ColumnAlignment.right,
         fixedWidthPx: 100.0,
       );
@@ -190,7 +190,7 @@ class AppSizeDiffTable extends StatelessWidget {
 //                   other columns.
 class _DiffColumn extends ColumnData<TreemapNode> {
   const _DiffColumn()
-    : super('Change', alignment: ColumnAlignment.right, fixedWidthPx: 100.0);
+    : super('变更', alignment: ColumnAlignment.right, fixedWidthPx: 100.0);
 
   // Ensure sort by absolute size.
   @override

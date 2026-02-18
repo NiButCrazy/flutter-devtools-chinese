@@ -39,8 +39,8 @@ class _LayoutExplorerTabState extends State<LayoutExplorerTab>
     return Center(
       child: Text(
         node != null
-            ? 'Currently, Layout Explorer only supports Box and Flex-based widgets.'
-            : 'Select a widget to view its layout.',
+            ? '当前，布局查看器仅支持基于 Box 和 Flex 的组件'
+            : '请选择一个组件以查看其布局',
         textAlign: TextAlign.center,
         overflow: TextOverflow.clip,
       ),

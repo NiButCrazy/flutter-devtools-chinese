@@ -138,6 +138,6 @@ Object? toEncodable(Object? value) {
       // For some reasons the failures show different error:
       // `Converting object to an encodable object failed: Instance of 'some other type'`.
       // To see the actual type, put breakpoint here:
-      throw StateError('Unsupported type: ${value.runtimeType}'),
+      throw StateError('不支持的类型: ${value.runtimeType}'),
   };
 }

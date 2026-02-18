@@ -9,7 +9,6 @@ import 'package:devtools_app/src/standalone_ui/ide_shared/property_editor/proper
 import 'package:devtools_app_shared/service.dart';
 import 'package:devtools_app_shared/ui.dart';
 import 'package:devtools_app_shared/utils.dart';
-import 'package:devtools_test/devtools_test.dart';
 import 'package:dtd/dtd.dart';
 import 'package:flutter/material.dart';
 import 'package:stager/stager.dart';

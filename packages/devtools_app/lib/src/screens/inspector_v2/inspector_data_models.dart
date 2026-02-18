@@ -207,7 +207,7 @@ class LayoutProperties {
             constraintsLocal.maxWidth,
             'w',
           )
-        : 'width is unconstrained';
+        : '宽度未受约束';
   }
 
   String describeHeightConstraints() {
@@ -219,7 +219,7 @@ class LayoutProperties {
             constraintsLocal.maxHeight,
             'h',
           )
-        : 'height is unconstrained';
+        : '高度未受约束';
   }
 
   String describeWidth() => 'w=${toStringAsFixed(size.width)}';
@@ -508,11 +508,11 @@ class FlexLayoutProperties extends LayoutProperties {
   bool get isMainAxisVertical => direction == Axis.vertical;
 
   String get horizontalDirectionDescription {
-    return direction == Axis.horizontal ? 'Main Axis' : 'Cross Axis';
+    return direction == Axis.horizontal ? '主轴' : '交叉轴';
   }
 
   String get verticalDirectionDescription {
-    return direction == Axis.vertical ? 'Main Axis' : 'Cross Axis';
+    return direction == Axis.vertical ? '主轴' : '交叉轴';
   }
 
   String get type => direction.flexType;

@@ -419,7 +419,7 @@ class _CodeViewState extends State<CodeView> with AutoDisposeMixin {
       } else {
         return Center(
           child: Text(
-            'No source available',
+            '无可用的源代码',
             style: theme.textTheme.titleMedium,
           ),
         );
@@ -531,7 +531,7 @@ class CodeViewEmptyState extends StatelessWidget {
         onPressed: () =>
             widget.codeViewController.toggleFileOpenerVisibility(true),
         child: Text(
-          'Open a file ($openFileKeySetDescription)',
+          '打开一个文件 ($openFileKeySetDescription)',
           style: theme.textTheme.titleMedium,
         ),
       ),
@@ -554,11 +554,10 @@ class ProfileInformationGutter extends StatelessWidget {
   final ProcessedSourceReport sourceReport;
 
   static const totalTimeTooltip =
-      'Percent of time that a sampled line spent executing its own\n code as '
-      'well as the code for any methods it called.';
+      '这一行代码（包括其调用的所有方法）在采样期间所占的总时间百分比';
 
   static const selfTimeTooltip =
-      'Percent of time that a sampled line spent executing only its own code.';
+      '这一行代码本身在采样期间所占的时间百分比（不含它调用的方法）';
 
   @override
   Widget build(BuildContext context) {
@@ -625,14 +624,14 @@ class _ProfileInformationGutterHeader extends StatelessWidget {
                 Expanded(
                   child: DevToolsTooltip(
                     message: totalTimeTooltip,
-                    child: const Text('Total %', textAlign: TextAlign.center),
+                    child: const Text('总计 %', textAlign: TextAlign.center),
                   ),
                 ),
                 const SizedBox(width: denseSpacing),
                 Expanded(
                   child: DevToolsTooltip(
                     message: selfTimeTooltip,
-                    child: const Text('Self %', textAlign: TextAlign.center),
+                    child: const Text('自身 %', textAlign: TextAlign.center),
                   ),
                 ),
               ],
@@ -1407,6 +1406,7 @@ class ScriptPopupMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<ScriptPopupMenuOption>(
+      tooltip:'显示菜单',
       onSelected: (option) => option.onSelected(context, _controller),
       itemBuilder: (_) => [
         for (final menuOption in defaultScriptPopupMenuOptions)
@@ -1439,7 +1439,7 @@ class ScriptHistoryPopupMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<ScriptRef>(
       itemBuilder: itemBuilder,
-      tooltip: 'Select recent script',
+      tooltip: '选择最近的脚本',
       enabled: enabled,
       onSelected: onSelected,
       offset: const Offset(
@@ -1486,7 +1486,7 @@ final defaultScriptPopupMenuOptions = [
 ];
 
 final copyPackagePathOption = ScriptPopupMenuOption(
-  label: 'Copy package path',
+  label: '复制包路径',
   icon: Icons.content_copy,
   onSelected: (_, controller) => Clipboard.setData(
     ClipboardData(text: controller.scriptLocation.value?.scriptRef.uri ?? ''),
@@ -1494,7 +1494,7 @@ final copyPackagePathOption = ScriptPopupMenuOption(
 );
 
 final copyFilePathOption = ScriptPopupMenuOption(
-  label: 'Copy file path',
+  label: '复制文件路径',
   icon: Icons.content_copy,
   onSelected: (_, controller) {
     unawaited(() async {
@@ -1541,7 +1541,7 @@ void showGoToLineDialog(BuildContext context, CodeViewController controller) {
 }
 
 final goToLineOption = ScriptPopupMenuOption(
-  label: 'Go to line number ($goToLineNumberKeySetDescription)',
+  label: '跳转到行 （ $goToLineNumberKeySetDescription ）',
   icon: Icons.list,
   onSelected: showGoToLineDialog,
 );
@@ -1551,7 +1551,7 @@ void showFileOpener(BuildContext _, CodeViewController controller) {
 }
 
 final openFileOption = ScriptPopupMenuOption(
-  label: 'Open file ($openFileKeySetDescription)',
+  label: '打开文件 （ $openFileKeySetDescription ）',
   icon: Icons.folder_open,
   onSelected: showFileOpener,
 );
@@ -1564,7 +1564,7 @@ class GoToLineDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DevToolsDialog(
-      title: const DialogTitleText('Go To'),
+      title: const DialogTitleText('跳转到行'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1586,7 +1586,7 @@ class GoToLineDialog extends StatelessWidget {
               }
             },
             decoration: const InputDecoration(
-              labelText: 'Line Number',
+              labelText: '行数',
               contentPadding: EdgeInsets.all(5.0),
             ),
             keyboardType: TextInputType.number,

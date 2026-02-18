@@ -242,13 +242,13 @@ enum FramePhaseType {
   String get display {
     switch (this) {
       case build:
-        return _buildEventName;
+        return '构建';
       case layout:
-        return _layoutEventNameLegacy;
+        return '布局';
       case paint:
-        return _paintEventNameLegacy;
+        return '绘制';
       case raster:
-        return _rasterEventName;
+        return '光栅线程';
     }
   }
 

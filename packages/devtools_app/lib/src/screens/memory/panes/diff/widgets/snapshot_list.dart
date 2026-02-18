@@ -63,7 +63,7 @@ class _ListControlPane extends StatelessWidget {
         context: context,
         builder: (context) => UnexpectedErrorDialog(
           additionalInfo:
-              'Encountered an error while taking a heap snapshot:\n${e.runtimeType}\n$e\n$trace',
+              '在生成堆快照时遇到错误:\n${e.runtimeType}\n$e\n$trace',
         ),
       );
     }
@@ -80,7 +80,7 @@ class _ListControlPane extends StatelessWidget {
           ToolbarAction(
             icon: iconToTakeSnapshot,
             size: defaultIconSize,
-            tooltip: 'Take heap snapshot for the selected isolate',
+            tooltip: '为选中的 isolate 生成堆快照',
             onPressed: () => unawaited(_takeSnapshot(context)),
           ),
           const SizedBox(width: densePadding),
@@ -91,7 +91,7 @@ class _ListControlPane extends StatelessWidget {
             return ToolbarAction(
               icon: Icons.delete,
               size: defaultIconSize,
-              tooltip: 'Delete all snapshots',
+              tooltip: '删除所有快照',
               onPressed: controller.hasSnapshots
                   ? () {
                       ga.select(
@@ -107,7 +107,7 @@ class _ListControlPane extends StatelessWidget {
         const Spacer(),
         ToolbarAction(
           icon: Icons.file_upload,
-          tooltip: 'Import snapshot(s) from disk',
+          tooltip: '从本地导入快照文件',
           onPressed: () => unawaited(controller.importSnapshots()),
         ),
       ],
@@ -189,15 +189,15 @@ class SnapshotListTitle extends StatelessWidget {
                   menuChildren: <Widget>[
                     MenuItemButton(
                       onPressed: onEdit,
-                      child: const Text('Rename'),
+                      child: const Text('重命名'),
                     ),
                     MenuItemButton(
                       onPressed: onDelete,
-                      child: const Text('Delete'),
+                      child: const Text('删除'),
                     ),
                     MenuItemButton(
                       onPressed: onExport,
-                      child: const Text('Export'),
+                      child: const Text('导出'),
                     ),
                   ],
                 )
@@ -205,7 +205,7 @@ class SnapshotListTitle extends StatelessWidget {
         ),
       ]);
     } else {
-      throw StateError('Unknown item type: $theItem');
+      throw StateError('未知项目类型: $theItem');
     }
 
     return FutureBuilder(

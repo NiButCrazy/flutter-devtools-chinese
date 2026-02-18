@@ -388,7 +388,7 @@ class _ProgramOutlineView extends StatelessWidget {
             );
           },
           emptyTreeViewBuilder: () =>
-              const Center(child: Text('Nothing to inspect')),
+              const Center(child: Text('没有可检查的内容')),
         );
       },
     );
@@ -401,7 +401,7 @@ class ProgramExplorer extends StatelessWidget {
   const ProgramExplorer({
     super.key,
     required this.controller,
-    this.title = 'File Explorer',
+    this.title = '文件查看器',
     this.onNodeSelected,
     this.displayHeader = true,
   });
@@ -460,7 +460,7 @@ class ProgramExplorer extends StatelessWidget {
                       headers: <PreferredSizeWidget>[
                         fileExplorerHeader as PreferredSizeWidget,
                         const AreaPaneHeader(
-                          title: Text('Outline'),
+                          title: Text('大纲'),
                           roundedTopBorder: false,
                         ),
                       ],

@@ -358,7 +358,7 @@ class DartObjectNode extends TreeNode<DartObjectNode> {
   bool _isPrivateName(String name) => name.startsWith('_');
 
   static String _itemCount(int count) {
-    return '${nf.format(count)} ${pluralize('item', count)}';
+    return nf.format(count);
   }
 
   static String _stripReferenceToken(String type) {

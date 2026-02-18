@@ -103,9 +103,9 @@ class _SecondaryControls extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         RefreshButton(
-          label: 'Load all CPU samples',
+          label: '重新加载所有 CPU 采样',
           tooltip:
-              'Load all CPU samples for the connected app. This is the data \ncollected by the VM and is limited by the available buffer space.',
+              '为当前连接的应用重新加载所有 CPU 采样数据，\n这些数据由虚拟机收集，数量受可用缓冲区空间限制',
           gaScreen: gac.cpuProfiler,
           gaSelection: gac.CpuProfilerEvents.loadAllCpuSamples.name,
           minScreenWidthForText: _profilingControlsMinScreenWidthForText,

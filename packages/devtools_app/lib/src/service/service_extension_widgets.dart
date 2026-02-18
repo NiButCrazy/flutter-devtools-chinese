@@ -225,7 +225,7 @@ class HotReloadButton extends StatelessWidget {
   /// calling a registered service from Flutter.
   final bool callOnVmServiceDirectly;
 
-  static const _hotReloadTooltip = 'Hot reload';
+  static const _hotReloadTooltip = '热重载';
 
   @override
   Widget build(BuildContext context) {
@@ -240,8 +240,8 @@ class HotReloadButton extends StatelessWidget {
             child: _RegisteredServiceExtensionButton._(
               serviceDescription: hotReload,
               action: _callHotReload,
-              completedText: 'Hot reload completed.',
-              describeError: (error) => 'Unable to hot reload the app: $error',
+              completedText: '热重载已完成',
+              describeError: (error) => '无法对应用进行热重载：$error',
             ),
           );
   }
@@ -275,12 +275,12 @@ class HotRestartButton extends StatelessWidget {
     // TODO(devoncarew): Show as disabled when reload service calls are in progress.
 
     return DevToolsTooltip(
-      message: 'Hot restart',
+      message: '热重启',
       child: _RegisteredServiceExtensionButton._(
         serviceDescription: hotRestart,
         action: _callHotRestart,
-        completedText: 'Hot restart completed.',
-        describeError: (error) => 'Unable to hot restart the app: $error',
+        completedText: '热重启已完成',
+        describeError: (error) => '无法对应用进行热重启：$error',
       ),
     );
   }
@@ -307,11 +307,11 @@ Future<void> _wrapReloadCall(
     await reloadCall();
     timer.stop();
     // 'restarted in 1.6s'
-    final message = '${name}ed in ${durationText(timer.elapsed)}';
+    final message = '$name 已完成，用时 ${durationText(timer.elapsed)}';
     messageBus.addEvent(BusEvent('$name.end', data: message));
     ga.select(gac.devToolsMain, gaName, value: timer.elapsed.inMilliseconds);
   } catch (_) {
-    final message = 'error performing $name';
+    final message = '执行 $name 时出错';
     messageBus.addEvent(BusEvent('$name.end', data: message));
     rethrow;
   }
@@ -399,7 +399,7 @@ class StructuredErrorsToggle extends StatelessWidget {
     return _ServiceExtensionToggle(
       service: structuredErrors,
       describeError: (error) =>
-          'Failed to update structuredError settings: $error',
+          '更新 structuredError 设置失败：$error',
     );
   }
 }
@@ -502,7 +502,7 @@ class ServiceExtensionCheckbox extends ServiceExtensionWidget {
        );
 
   static String _errorMessage(String extensionName, Object? error) {
-    return 'Failed to update $extensionName setting: $error';
+    return '无法更新 $extensionName 设置: $error';
   }
 
   final ToggleableServiceExtensionDescription serviceExtension;

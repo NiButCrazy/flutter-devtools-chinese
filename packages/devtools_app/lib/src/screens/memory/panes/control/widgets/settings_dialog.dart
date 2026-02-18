@@ -20,7 +20,7 @@ class MemorySettingsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DevToolsDialog(
-      title: const DialogTitleText('Memory Settings'),
+      title: const DialogTitleText('内存设置'),
       includeDivider: false,
       content: SizedBox(
         width: defaultDialogWidth,
@@ -31,13 +31,13 @@ class MemorySettingsDialog extends StatelessWidget {
             CheckboxSetting(
               notifier: preferences.memory.androidCollectionEnabled,
               title:
-                  'Show Android memory chart in addition to Dart memory chart',
+                  '除 Dart 内存图外，显示 Android 内存图',
               checkboxKey: MemorySettingDialogKeys.showAndroidChartCheckBox,
             ),
             const SizedBox(height: defaultSpacing),
             PositiveIntegerSetting(
               title: preferences.memory.refLimitTitle,
-              subTitle: 'Used to explore live references in console.',
+              subTitle: '用于在控制台中探测活动引用',
               notifier: preferences.memory.refLimit,
             ),
           ],

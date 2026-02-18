@@ -29,9 +29,9 @@ const closureName = '<closure>';
 
 const anonymousClosureName = '<anonymous closure>';
 
-const _memoryDocUrl = 'https://docs.flutter.dev/tools/devtools/memory';
-const _consoleDocUrl = 'https://docs.flutter.dev/tools/devtools/console';
-const _inspectorDocUrl = 'https://docs.flutter.dev/tools/devtools/inspector';
+const _memoryDocUrl = 'https://docs.flutter.cn/tools/devtools/memory';
+const _consoleDocUrl = 'https://docs.flutter.cn/tools/devtools/console';
+const _inspectorDocUrl = 'https://docs.flutter.cn/tools/devtools/inspector';
 
 /// Some links to documentation.
 ///

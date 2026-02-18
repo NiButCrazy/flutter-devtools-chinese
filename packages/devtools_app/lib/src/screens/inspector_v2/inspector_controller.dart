@@ -835,7 +835,7 @@ class InspectorController extends DisposableController
   }
 
   static const _implementationWidgetMessage =
-      'Selected an implementation widget';
+      '已选择一个实现组件';
 
   static const _notificationDuration = Duration(seconds: 4);
 

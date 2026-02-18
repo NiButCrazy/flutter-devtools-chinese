@@ -74,9 +74,8 @@ class _TimelineEventsTabViewState extends State<TimelineEventsTabView>
             topOffset: _overlayOffset,
             maxSize: _overlaySize,
             content: Text(
-              'Refreshing the timeline...\n\n'
-              'This may take a few seconds. Please do not\n'
-              'refresh the page.',
+              '正在刷新时间线...\n\n'
+              '这可能需要几秒钟，请不要刷新页面',
               textAlign: TextAlign.center,
               style: theme.textTheme.titleMedium,
             ),
@@ -118,12 +117,12 @@ class TimelineEventsTabControls extends StatelessWidget {
         if (!showingOfflineData)
           Row(
             children: [
-              const Text('Include CPU samples'),
+              const Text('包含 CPU 采样'),
               const SizedBox(width: densePadding),
               DevToolsTooltip(
                 message:
-                    'Include CPU samples in the timeline\n'
-                    '(this may negatively impact performance)',
+                    '在时间线中包含 CPU 采样\n'
+                    '（这可能会对性能产生不利影响）',
                 child: NotifierSwitch(
                   notifier: preferences.performance.includeCpuSamplesInTimeline,
                 ),
@@ -151,7 +150,7 @@ class TimelineSettingsButton extends StatelessWidget {
     return GaDevToolsButton.iconOnly(
       icon: Icons.settings_outlined,
       outlined: false,
-      tooltip: 'Timeline settings',
+      tooltip: '时间线设置',
       gaScreen: gac.performance,
       gaSelection: gac.PerformanceEvents.timelineSettings.name,
       onPressed: () => _openTimelineSettingsDialog(context),
@@ -184,7 +183,7 @@ class RefreshTimelineEventsButton extends StatelessWidget {
           onPressed: status == EventsControllerStatus.refreshing
               ? null
               : controller.forceRefresh,
-          tooltip: 'Refresh timeline events',
+          tooltip: '刷新时间线事件',
           gaScreen: gac.performance,
           gaSelection: gac.PerformanceEvents.refreshTimelineEvents.name,
         );
@@ -227,7 +226,7 @@ class _TimelineSettingsDialogState extends State<TimelineSettingsDialog>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return DevToolsDialog(
-      title: const DialogTitleText('Timeline Settings'),
+      title: const DialogTitleText('时间线设置'),
       includeDivider: false,
       content: SizedBox(
         width: defaultDialogWidth,
@@ -247,9 +246,9 @@ class _TimelineSettingsDialogState extends State<TimelineSettingsDialog>
 
   List<Widget> _defaultRecordedStreams(ThemeData theme) {
     return [
-      ...dialogSubHeader(theme, 'Trace categories'),
+      ...dialogSubHeader(theme, '追踪类别'),
       RichText(
-        text: TextSpan(text: 'Default', style: theme.subtleTextStyle),
+        text: TextSpan(text: '默认', style: theme.subtleTextStyle),
       ),
       ..._timelineStreams(advanced: false),
       // Special case "Network Traffic" because it is not implemented as a
@@ -257,7 +256,7 @@ class _TimelineSettingsDialogState extends State<TimelineSettingsDialog>
       // the distinction, however.
       CheckboxSetting(
         title: 'Network',
-        description: 'Http traffic',
+        description: 'Http 流量',
         notifier: _httpLogging,
         onChanged: (value) =>
             unawaited(http_service.toggleHttpRequestLogging(value ?? false)),
@@ -268,7 +267,7 @@ class _TimelineSettingsDialogState extends State<TimelineSettingsDialog>
   List<Widget> _advancedStreams(ThemeData theme) {
     return [
       RichText(
-        text: TextSpan(text: 'Advanced', style: theme.subtleTextStyle),
+        text: TextSpan(text: '高级', style: theme.subtleTextStyle),
       ),
       ..._timelineStreams(advanced: true),
     ];

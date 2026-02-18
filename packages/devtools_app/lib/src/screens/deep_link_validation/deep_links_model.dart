@@ -504,8 +504,8 @@ class _ErrorAwareText extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      'This ${link.domain} domain has ${link.domainErrors.length} ${pluralize('issue', link.domainErrors.length)} to fix. '
-                      'Fixing this domain will fix ${link.associatedPath.length} associated deep ${pluralize('link', link.associatedPath.length)}.',
+                      '这个 ${link.domain} 域名有 ${link.domainErrors.length} 个问题需要修复'
+                      '修复这个域名将同时修复 ${link.associatedPath.length} 个关联的深度链接问题',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.tooltipTextColor,
                         fontSize: defaultFontSize,
@@ -517,7 +517,7 @@ class _ErrorAwareText extends StatelessWidget {
                         controller.selectLink(link);
                       },
                       child: Text(
-                        'Fix this domain',
+                        '修复该域名',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary,
                           fontSize: defaultFontSize,
@@ -548,7 +548,7 @@ class DomainColumn extends ColumnData<LinkData>
     implements ColumnRenderer<LinkData>, ColumnHeaderRenderer<LinkData> {
   DomainColumn(this.controller)
     : sortingOption = controller.displayOptions.domainSortingOption,
-      super.wide('Domain');
+      super.wide('域名');
 
   DeepLinksController controller;
   SortingOption? sortingOption;
@@ -567,7 +567,7 @@ class DomainColumn extends ColumnData<LinkData>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text('Domain'),
+        const Text('域名'),
         PopupMenuButton<SortingOption>(
           itemBuilder: (BuildContext context) =>
               _buildPopupMenuSortingEntries(controller, isPath: false),
@@ -578,7 +578,7 @@ class DomainColumn extends ColumnData<LinkData>
   }
 
   @override
-  String getValue(LinkData dataObject) => dataObject.domain ?? 'missing domain';
+  String getValue(LinkData dataObject) => dataObject.domain ?? '缺少域名';
 
   @override
   Widget build(
@@ -588,7 +588,7 @@ class DomainColumn extends ColumnData<LinkData>
     bool isRowHovered = false,
   }) {
     return dataObject.domain == null
-        ? Text('missing domain', style: Theme.of(context).errorTextStyle)
+        ? Text('缺少域名', style: Theme.of(context).errorTextStyle)
         : _ErrorAwareText(
             isError: dataObject.domainErrors.isNotEmpty,
             controller: controller,
@@ -609,7 +609,7 @@ class PathColumn extends ColumnData<LinkData>
     implements ColumnRenderer<LinkData>, ColumnHeaderRenderer<LinkData> {
   PathColumn(this.controller)
     : sortingOption = controller.displayOptions.pathSortingOption,
-      super.wide('Path');
+      super.wide('路径');
 
   DeepLinksController controller;
   SortingOption? sortingOption;
@@ -628,7 +628,7 @@ class PathColumn extends ColumnData<LinkData>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text('Path'),
+        const Text('路径'),
         PopupMenuButton<SortingOption>(
           itemBuilder: (BuildContext context) =>
               _buildPopupMenuSortingEntries(controller, isPath: true),
@@ -671,7 +671,7 @@ class PathColumn extends ColumnData<LinkData>
 
 class NumberOfAssociatedPathColumn extends ColumnData<LinkData> {
   const NumberOfAssociatedPathColumn()
-    : super.wide('Number of associated path');
+    : super.wide('关联路径数量');
 
   @override
   String getValue(LinkData dataObject) =>
@@ -680,7 +680,7 @@ class NumberOfAssociatedPathColumn extends ColumnData<LinkData> {
 
 class NumberOfAssociatedDomainColumn extends ColumnData<LinkData> {
   const NumberOfAssociatedDomainColumn()
-    : super.wide('Number of associated domain');
+    : super.wide('关联域名数量');
 
   @override
   String getValue(LinkData dataObject) =>
@@ -790,7 +790,7 @@ class OSColumn extends ColumnData<LinkData>
 
 class StatusColumn extends ColumnData<LinkData>
     implements ColumnRenderer<LinkData>, ColumnHeaderRenderer<LinkData> {
-  StatusColumn(this.controller, this.viewType) : super.wide('Status');
+  StatusColumn(this.controller, this.viewType) : super.wide('状态');
 
   DeepLinksController controller;
 
@@ -806,11 +806,11 @@ class StatusColumn extends ColumnData<LinkData>
   @override
   String getValue(LinkData dataObject) {
     if (dataObject.domainErrors.isNotEmpty) {
-      return 'Failed domain checks';
+      return '域名检查失败';
     } else if (dataObject.pathErrors.isNotEmpty) {
-      return 'Failed path checks';
+      return '路径检查失败';
     } else {
-      return 'No issues found';
+      return '未发现问题';
     }
   }
 
@@ -822,7 +822,7 @@ class StatusColumn extends ColumnData<LinkData>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text('Status'),
+        const Text('状态'),
         PopupMenuButton<FilterOption>(
           itemBuilder: (BuildContext context) {
             return [
@@ -861,7 +861,7 @@ class StatusColumn extends ColumnData<LinkData>
       );
     } else {
       return Text(
-        'No issues found',
+        '未发现问题',
         style: TextStyle(color: Theme.of(context).colorScheme.green),
         overflow: TextOverflow.ellipsis,
       );

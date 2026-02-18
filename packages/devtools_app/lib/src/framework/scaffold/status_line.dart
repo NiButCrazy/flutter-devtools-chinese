@@ -134,7 +134,7 @@ class StatusLine extends StatelessWidget {
 
   Widget buildConnectionStatus(BuildContext context, MediaSize screenWidth) {
     final theme = Theme.of(context);
-    const noConnectionMsg = 'No client connection';
+    const noConnectionMsg = '无客户端连接';
     return ValueListenableBuilder<ConnectedState>(
       valueListenable: serviceConnection.serviceManager.connectedState,
       builder: (context, connectedState, child) {
@@ -143,7 +143,7 @@ class StatusLine extends StatelessWidget {
 
           String description;
           if (!app.isRunningOnDartVM!) {
-            description = 'web app';
+            description = '网页应用';
           } else {
             final vm = serviceConnection.serviceManager.vm!;
             description = vm.deviceDisplay;
@@ -172,7 +172,7 @@ class StatusLine extends StatelessWidget {
               ),
               const SizedBox(width: denseSpacing),
               DevToolsTooltip(
-                message: 'Connected device',
+                message: '已连接的设备',
                 child: Text(
                   description,
                   style: highlightForConnection
@@ -199,7 +199,7 @@ class StatusLine extends StatelessWidget {
   }
 }
 
-/// A widget that links to DevTools documentation on docs.flutter.dev for the
+/// A widget that links to DevTools documentation on docs.flutter.cn for the
 /// given [screen].
 class DocumentationLink extends StatelessWidget {
   const DocumentationLink({
@@ -224,10 +224,10 @@ class DocumentationLink extends StatelessWidget {
     return LinkIconLabel(
       icon: Icons.library_books_outlined,
       link: GaLink(
-        display: screenWidth <= MediaSize.xs ? 'Docs' : 'Read docs',
+        display: screenWidth <= MediaSize.xs ? '文档' : '阅读文档',
         url:
             screen.docsUrl ??
-            'https://docs.flutter.dev/tools/devtools/$docPageId',
+            'https://docs.flutter.cn/tools/devtools/$docPageId',
         gaScreenName: screen.screenId,
         gaSelectedItemDescription: gac.documentationLink,
       ),
@@ -262,7 +262,7 @@ class VideoTutorialLink extends StatelessWidget {
     return LinkIconLabel(
       icon: Icons.ondemand_video_rounded,
       link: GaLink(
-        display: screenWidth <= MediaSize.xs ? 'Tutorial' : 'Watch tutorial',
+        display: screenWidth <= MediaSize.xs ? '教程' : '观看教程',
         url:
             '$_devToolsYouTubeVideoUrl${screenMetaData.tutorialVideoTimestamp}',
         gaScreenName: screenMetaData.id,
@@ -288,7 +288,7 @@ class IsolateSelector extends StatelessWidget {
         final isolates = values.first as List<IsolateRef>;
         final selectedIsolateRef = values.second as IsolateRef?;
         return PopupMenuButton<IsolateRef?>(
-          tooltip: 'Selected Isolate',
+          tooltip: '已选中的 Isolate',
           initialValue: selectedIsolateRef,
           onSelected: isolateManager.selectIsolate,
           itemBuilder: (BuildContext context) => isolates.map((ref) {

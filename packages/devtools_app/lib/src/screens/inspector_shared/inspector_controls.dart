@@ -93,7 +93,7 @@ class InspectorServiceExtensionButtonGroup extends StatelessWidget {
         SettingsOutlinedButton(
           gaScreen: gac.inspector,
           gaSelection: gac.inspectorSettings,
-          tooltip: 'Flutter Inspector Settings',
+          tooltip: 'Flutter 检查器设置',
           onPressed: () {
             unawaited(
               showDialog(
@@ -124,14 +124,14 @@ class ShowImplementationWidgetsButton extends StatelessWidget {
           fillColor: Theme.of(context).colorScheme.activeToggleButtonColor,
           isSelected: !isHidden,
           message:
-              'Show widgets created by the Flutter framework or other packages.',
+              '显示由 Flutter 框架或其他包创建的组件',
           label:
               isScreenWiderThan(
                 context,
                 InspectorControls.minScreenWidthForTextBeforeTruncating,
               )
-              ? 'Show Implementation Widgets'
-              : 'Show',
+              ? '显示实现组件'
+              : '显示',
           onPressed: controller.toggleImplementationWidgetsVisibility,
           icon: Icons.code,
           minScreenWidthForText: InspectorControls.minScreenWidthForText,

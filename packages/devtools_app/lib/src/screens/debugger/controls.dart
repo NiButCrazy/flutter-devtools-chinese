@@ -96,7 +96,7 @@ class _DebuggingControlsState extends State<DebuggingControls>
       items: [
         !isPaused
             ? ButtonGroupItemData(
-                tooltip: 'Pause',
+                tooltip: '暂停程序',
                 icon: Icons.pause,
                 autofocus: true,
                 // Disable when selected isolate is a system isolate.
@@ -105,7 +105,7 @@ class _DebuggingControlsState extends State<DebuggingControls>
                     : () => unawaited(controller.pause()),
               )
             : ButtonGroupItemData(
-                tooltip: 'Resume',
+                tooltip: '恢复程序',
                 iconAsset: 'icons/material_symbols/resume.png',
                 iconSize: DebuggingControls.materialIconSize,
                 // Enable not resuming and selected isolate is not a system
@@ -122,19 +122,19 @@ class _DebuggingControlsState extends State<DebuggingControls>
     return RoundedButtonGroup(
       items: [
         ButtonGroupItemData(
-          label: 'Step Over',
+          label: '步过',
           iconAsset: 'icons/material_symbols/step_over.png',
           iconSize: DebuggingControls.materialIconSize,
           onPressed: canStep ? () => unawaited(controller.stepOver()) : null,
         ),
         ButtonGroupItemData(
-          label: 'Step In',
+          label: '步入',
           iconAsset: 'icons/material_symbols/step_into.png',
           iconSize: DebuggingControls.materialIconSize,
           onPressed: canStep ? () => unawaited(controller.stepIn()) : null,
         ),
         ButtonGroupItemData(
-          label: 'Step Out',
+          label: '步出',
           iconAsset: 'icons/material_symbols/step_out.png',
           iconSize: DebuggingControls.materialIconSize,
           onPressed: canStep ? () => unawaited(controller.stepOut()) : null,
@@ -150,7 +150,7 @@ class _DebuggingControlsState extends State<DebuggingControls>
       builder: (context, visible, _) {
         return GaDevToolsButton(
           icon: Icons.folder_outlined,
-          label: 'File Explorer',
+          label: '文件查看器',
           onPressed: controller.codeViewController.toggleLibrariesVisible,
           gaScreen: gac.debugger,
           gaSelection: visible
@@ -186,11 +186,11 @@ class CodeStatisticsControls extends StatelessWidget {
               selectedStates: [showCodeCoverage, showProfileInformation],
               children: const [
                 _CodeStatsControl(
-                  tooltip: 'Show code coverage',
+                  tooltip: '显示代码覆盖率',
                   icon: Icons.checklist,
                 ),
                 _CodeStatsControl(
-                  tooltip: 'Show profiler hits',
+                  tooltip: '显示性能分析命中次数',
                   icon: Icons.local_fire_department,
                 ),
               ],
@@ -205,7 +205,7 @@ class CodeStatisticsControls extends StatelessWidget {
             const SizedBox(width: denseSpacing),
             RefreshButton(
               iconOnly: true,
-              tooltip: 'Refresh statistics',
+              tooltip: '刷新统计信息',
               gaScreen: gac.debugger,
               gaSelection: gac.DebuggerEvents.refreshStatistics.name,
               onPressed: showCodeCoverage || showProfileInformation
@@ -283,18 +283,18 @@ class ExceptionMode {
   static final modes = [
     ExceptionMode(
       ExceptionPauseMode.kNone,
-      'Ignore exceptions',
-      "Don't stop on exceptions",
+      '忽略异常',
+      '不在异常处暂停',
     ),
     ExceptionMode(
       ExceptionPauseMode.kUnhandled,
-      'Uncaught exceptions',
-      'Stop on uncaught exceptions',
+      '未捕获的异常',
+      '在未捕获的异常处暂停',
     ),
     ExceptionMode(
       ExceptionPauseMode.kAll,
-      'All exceptions',
-      'Stop on all exceptions',
+      '所有异常',
+      '在所有异常处暂停',
     ),
   ];
 

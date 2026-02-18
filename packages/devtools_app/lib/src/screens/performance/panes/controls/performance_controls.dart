@@ -97,18 +97,18 @@ class _PrimaryControls extends StatelessWidget {
             gaScreen: gac.performance,
             onPressed:
                 controller.flutterFramesController.toggleShowFlutterFrames,
-            label: terse ? 'Frames' : 'Flutter frames',
-            tooltip: 'Toggle visibility of the Flutter frames chart',
+            label: terse ? '帧图表' : 'Flutter 帧图表',
+            tooltip: '切换是否显示 Flutter 帧图表',
           ),
           const SizedBox(width: denseSpacing),
         ],
         if (!offline)
           GaDevToolsButton(
             icon: Icons.block,
-            label: 'Clear all',
+            label: '清除全部',
             gaScreen: gac.performance,
             gaSelection: gac.clear,
-            tooltip: 'Clear all data on the Performance screen',
+            tooltip: '清除性能标签页中的所有数据',
             minScreenWidthForText: PerformanceControls.minScreenWidthForText,
             onPressed: processing ? null : _clearPerformanceData,
           ),

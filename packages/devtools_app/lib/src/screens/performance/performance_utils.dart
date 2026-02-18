@@ -4,11 +4,11 @@
 
 import '../../shared/globals.dart';
 
-const preCompileShadersDocsUrl = 'https://docs.flutter.dev/perf/shader';
+const preCompileShadersDocsUrl = 'https://docs.flutter.cn/perf/shader';
 
 const impellerDocsUrl = 'https://flutter.dev/to/impeller';
 
-const flutterPerformanceDocsUrl = 'https://docs.flutter.dev/perf';
+const flutterPerformanceDocsUrl = 'https://docs.flutter.cn/perf';
 
 void pushNoTimelineEventsAvailableWarning() {
   notificationService.push(

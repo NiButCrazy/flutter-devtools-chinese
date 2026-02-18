@@ -40,7 +40,7 @@ class EmbeddedExtensionHeader extends StatelessWidget {
             padding: const EdgeInsets.only(left: borderPadding),
             child: RichText(
               text: TextSpan(
-                text: 'package:$extensionName extension',
+                text: 'package:$extensionName 扩展',
                 style: theme.regularTextStyle.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -60,7 +60,7 @@ class EmbeddedExtensionHeader extends StatelessWidget {
               RichText(
                 text: GaLinkTextSpan(
                   link: GaLink(
-                    display: 'Report an issue',
+                    display: '报告问题',
                     url: ext.issueTrackerLink,
                     gaScreenName:
                         gac.DevToolsExtensionEvents.extensionScreenId.name,
@@ -121,7 +121,7 @@ class _ExtensionContextMenuButton extends StatelessWidget {
                   );
                 },
                 child: const MaterialIconLabel(
-                  label: 'Disable extension',
+                  label: '禁用扩展',
                   iconData: Icons.extension_off_outlined,
                 ),
               ),
@@ -136,7 +136,7 @@ class _ExtensionContextMenuButton extends StatelessWidget {
                   onForceReload();
                 },
                 child: const MaterialIconLabel(
-                  label: 'Force reload extension',
+                  label: '强制重新加载扩展',
                   iconData: Icons.refresh,
                 ),
               ),
@@ -158,35 +158,35 @@ class DisableExtensionDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return DevToolsDialog(
-      title: const DialogTitleText('Disable extension?'),
+      title: const DialogTitleText('禁用扩展程序？'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           RichText(
             text: TextSpan(
-              text: 'Are you sure you want to disable the ',
+              text: '您确定要禁用 ',
               style: theme.regularTextStyle,
               children: [
                 TextSpan(text: ext.displayName, style: theme.fixedFontStyle),
-                const TextSpan(text: ' extension?'),
+                const TextSpan(text: ' 扩展吗？'),
               ],
             ),
           ),
           const SizedBox(height: denseSpacing),
           RichText(
             text: TextSpan(
-              text: 'You can always re-enable this extension later from the ',
+              text: '您稍后可以从该菜单随时重新启用此扩展程序 ',
               style: theme.regularTextStyle,
               children: [
                 TextSpan(
-                  text: 'DevTools Extensions ',
+                  text: 'DevTools 扩展 ',
                   style: theme.boldTextStyle,
                 ),
                 const WidgetSpan(
                   child: Icon(Icons.extension_rounded, size: defaultIconSize),
                 ),
-                const TextSpan(text: ' menu.'),
+                const TextSpan(text: ''),
               ],
             ),
           ),
@@ -207,7 +207,7 @@ class DisableExtensionDialog extends StatelessWidget {
               context,
             ).navigateHome(clearScreenParam: true);
           },
-          child: const Text('YES, DISABLE'),
+          child: const Text('是的，禁用'),
         ),
         const DialogCancelButton(),
       ],
@@ -230,15 +230,14 @@ class EnableExtensionPrompt extends StatelessWidget {
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: 'The ',
+              text: '该 ',
               style: theme.regularTextStyle,
               children: [
                 TextSpan(text: ext.name, style: theme.fixedFontStyle),
                 const TextSpan(
                   text:
-                      ' extension has not been enabled. Do you want to enable'
-                      ' this extension?\nYou can always change this setting '
-                      'later from the DevTools Extensions ',
+                      ' 扩展尚未启用，您想要启用这个扩展吗？\n'
+                      '您可以随时在 DevTools 扩展 ',
                 ),
                 WidgetSpan(
                   child: Icon(
@@ -246,7 +245,7 @@ class EnableExtensionPrompt extends StatelessWidget {
                     color: theme.colorScheme.onSurface,
                   ),
                 ),
-                const TextSpan(text: ' menu. '),
+                const TextSpan(text: ' 菜单中更改该设置'),
               ],
             ),
           ),
@@ -255,7 +254,7 @@ class EnableExtensionPrompt extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GaDevToolsButton(
-                label: 'Enable',
+                label: '开启',
                 gaScreen: gac.DevToolsExtensionEvents.extensionScreenId.name,
                 gaSelection: gac.DevToolsExtensionEvents.extensionEnablePrompt(
                   ext,
@@ -272,7 +271,7 @@ class EnableExtensionPrompt extends StatelessWidget {
               ),
               const SizedBox(width: defaultSpacing),
               GaDevToolsButton(
-                label: 'No, hide this screen',
+                label: '不，隐藏此界面',
                 gaScreen: gac.DevToolsExtensionEvents.extensionScreenId.name,
                 gaSelection: gac.DevToolsExtensionEvents.extensionDisablePrompt(
                   ext,

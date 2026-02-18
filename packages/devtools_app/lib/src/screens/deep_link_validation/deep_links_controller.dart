@@ -57,12 +57,12 @@ enum PagePhase {
 
 enum FilterOption {
   http('http://, https://'),
-  custom('Custom scheme'),
+  custom('自定义 scheme'),
   android('Android'),
   ios('iOS'),
-  noIssue('No issues found'),
-  failedDomainCheck('Failed domain checks '),
-  failedPathCheck('Failed path checks');
+  noIssue('未发现问题'),
+  failedDomainCheck('域名检查失败'),
+  failedPathCheck('路径检查失败');
 
   const FilterOption(this.description);
   final String description;

@@ -43,7 +43,7 @@ class SecondaryControls extends StatelessWidget {
                 onPressed: gcing ? null : onGc,
                 icon: Icons.delete,
                 label: 'GC',
-                tooltip: 'Trigger full garbage collection.',
+                tooltip: '触发一次完整的垃圾回收',
                 minScreenWidthForText: memoryControlsMinVerboseWidth,
                 gaScreen: gac.memory,
                 gaSelection: gac.MemoryEvents.gc.name,
@@ -63,7 +63,7 @@ class SecondaryControls extends StatelessWidget {
           gaScreen: gac.memory,
           gaSelection: gac.MemoryEvents.settings.name,
           onPressed: () => _openSettingsDialog(context),
-          tooltip: 'Open memory settings',
+          tooltip: '打开内存设置',
         ),
       ],
     );

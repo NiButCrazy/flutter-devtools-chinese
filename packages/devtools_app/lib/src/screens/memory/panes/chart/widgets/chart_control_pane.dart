@@ -27,8 +27,8 @@ class ChartControlPane extends StatefulWidget {
 @visibleForTesting
 class ChartPaneTooltips {
   static const pauseTooltip =
-      'Pause the chart. Data will be still collected and shown when you resume.';
-  static const resumeTooltip = 'Resume the chart';
+      '暂停图表，数据仍会被收集，并在恢复时显示。';
+  static const resumeTooltip = '恢复图表';
 }
 
 class _ChartControlPaneState extends State<ChartControlPane>
@@ -78,7 +78,7 @@ class _ChartControlPaneState extends State<ChartControlPane>
               const SizedBox(width: defaultSpacing),
               ClearButton(
                 onPressed: _clearTimeline,
-                tooltip: 'Clear memory chart.',
+                tooltip: '清除内存图表',
                 gaScreen: gac.memory,
                 gaSelection: gac.MemoryEvents.clearChart.name,
                 iconOnly: true,
@@ -113,8 +113,8 @@ class _LegendButton extends StatelessWidget {
             ? gac.MemoryEvents.hideChartLegend.name
             : gac.MemoryEvents.showChartLegend.name,
         icon: legendVisible ? Icons.close : Icons.storage,
-        label: 'Legend',
-        tooltip: 'Toggle visibility of the chart legend',
+        label: '图例',
+        tooltip: '切换图表图例的可见性',
         minScreenWidthForText: memoryControlsMinVerboseWidth,
       ),
     );
@@ -131,7 +131,7 @@ class _ChartHelpLink extends StatelessWidget {
     return HelpButtonWithDialog(
       gaScreen: gac.memory,
       gaSelection: gac.topicDocumentationButton(_documentationTopic),
-      dialogTitle: 'Memory Chart Help',
+      dialogTitle: '内存图表帮助',
       actions: [
         MoreInfoLink(
           url: DocLinks.chart.value,
@@ -145,8 +145,7 @@ class _ChartHelpLink extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            'The memory chart shows live and historical\n'
-            ' memory usage statistics for your application.',
+            '内存图表显示应用程序的实时和历史内存使用统计信息',
           ),
         ],
       ),

@@ -49,7 +49,7 @@ class AppSizeScreen extends Screen {
   static const diffViewTreemapKey = Key('Diff View Treemap');
 
   static const loadingMessage =
-      'Loading data...\nPlease do not refresh or leave this page.';
+      '加载数据中...\n请不要刷新或离开此页面';
 
   @override
   String get docPageId => id;
@@ -75,12 +75,12 @@ class _AppSizeBodyState extends State<AppSizeBody>
     with AutoDisposeMixin, SingleTickerProviderStateMixin {
   static const _gaPrefix = 'appSizeTab';
   static final diffTab = DevToolsTab.create(
-    tabName: 'Diff',
+    tabName: '差异',
     gaPrefix: _gaPrefix,
     key: AppSizeScreen.diffTabKey,
   );
   static final analysisTab = DevToolsTab.create(
-    tabName: 'Analysis',
+    tabName: '分析',
     gaPrefix: _gaPrefix,
     key: AppSizeScreen.analysisTabKey,
   );
@@ -312,8 +312,7 @@ class AnalysisView extends StatefulWidget {
   // TODO(kenz): add links to documentation on how to generate these files, and
   // mention the import file button once it is hooked up to a file picker.
   static const importInstructions =
-      'Drag and drop an AOT snapshot or'
-      ' size analysis file for debugging';
+      '拖拽 AOT 快照或大小分析文件以进行调试';
 
   @override
   State<AnalysisView> createState() => _AnalysisViewState();
@@ -366,8 +365,8 @@ class _AnalysisViewState extends State<AnalysisView> with AutoDisposeMixin {
   String _generateSingleFileHeaderText() {
     final analysisFile = controller.analysisJsonFile.value!;
     String output = analysisFile.isAnalyzeSizeFile
-        ? 'Total size analysis: '
-        : 'Dart AOT snapshot: ';
+        ? '总体大小分析: '
+        : 'Dart AOT 快照: ';
     output += analysisFile.displayText;
     return output;
   }
@@ -383,7 +382,7 @@ class _AnalysisViewState extends State<AnalysisView> with AutoDisposeMixin {
                   Flexible(
                     child: FileImportContainer(
                       instructions: AnalysisView.importInstructions,
-                      actionText: 'Analyze Size',
+                      actionText: '分析大小',
                       gaScreen: gac.appSize,
                       gaSelectionImport: gac.importFileSingle,
                       gaSelectionAction: gac.analyzeSingle,
@@ -410,11 +409,9 @@ class DiffView extends StatefulWidget {
   // TODO(kenz): add links to documentation on how to generate these files, and
   // mention the import file button once it is hooked up to a file picker.
   static const importOldInstructions =
-      'Drag and drop an original (old) AOT '
-      'snapshot or size analysis file for debugging';
+      '拖放一个原始（旧）AOT 快照或大小分析文件以进行调试';
   static const importNewInstructions =
-      'Drag and drop a modified (new) AOT '
-      'snapshot or size analysis file for debugging';
+      '拖放一个已修改（新）AOT 快照或大小分析文件以进行调试';
 
   @override
   State<DiffView> createState() => _DiffViewState();
@@ -467,12 +464,12 @@ class _DiffViewState extends State<DiffView> with AutoDisposeMixin {
   String _generateDualFileHeaderText() {
     final oldFile = controller.oldDiffJsonFile.value!;
     final newFile = controller.newDiffJsonFile.value!;
-    String output = 'Diffing ';
+    String output = '对比 ';
     output += oldFile.isAnalyzeSizeFile
-        ? 'total size analyses: '
-        : 'Dart AOT snapshots: ';
+        ? '总体大小分析: '
+        : 'Dart AOT 快照: ';
     output += oldFile.displayText;
-    output += ' (OLD)    vs    (NEW) ';
+    output += ' （旧）    vs    （新） ';
     output += newFile.displayText;
     return output;
   }
@@ -488,12 +485,12 @@ class _DiffViewState extends State<DiffView> with AutoDisposeMixin {
                 children: [
                   Expanded(
                     child: DualFileImportContainer(
-                      firstFileTitle: 'Old',
-                      secondFileTitle: 'New',
+                      firstFileTitle: '旧',
+                      secondFileTitle: '新',
                       // TODO(kenz): perhaps bold "original" and "modified".
                       firstInstructions: DiffView.importOldInstructions,
                       secondInstructions: DiffView.importNewInstructions,
-                      actionText: 'Analyze Diff',
+                      actionText: '分析差异',
                       gaScreen: gac.appSize,
                       gaSelectionImportFirst: gac.importFileDiffFirst,
                       gaSelectionImportSecond: gac.importFileDiffSecond,

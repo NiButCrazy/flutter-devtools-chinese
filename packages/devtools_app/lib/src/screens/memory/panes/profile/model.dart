@@ -180,7 +180,7 @@ class ProfileRecord with PinnableListEntry, Serializable {
 
   ProfileRecord.total(AllocationProfile profile)
     : isTotal = true,
-      heapClass = HeapClassName.fromPath(className: 'All Classes', library: ''),
+      heapClass = HeapClassName.fromPath(className: '所有类', library: ''),
       totalInstances = null,
       totalSize =
           (profile.memoryUsage?.externalUsage ?? 0) +

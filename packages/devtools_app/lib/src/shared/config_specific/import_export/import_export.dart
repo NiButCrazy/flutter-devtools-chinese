@@ -15,16 +15,14 @@ import '../../utils/utils.dart';
 import '_export_desktop.dart' if (dart.library.js_interop) '_export_web.dart';
 
 const nonDevToolsFileMessage =
-    'The imported file is not a Dart DevTools file.'
-    ' At this time, DevTools only supports importing files that were originally'
-    ' exported from DevTools.';
+    '导入的文件不是 Dart DevTools 文件，目前，DevTools 仅支持导入源自 DevTools 导出的文件';
 
 String attemptingToImportMessage(String devToolsScreen) {
-  return 'Attempting to import file for screen with id "$devToolsScreen".';
+  return '正在尝试为 ID - "$devToolsScreen" 的界面导入文件';
 }
 
 String successfulExportMessage(String exportedFile) {
-  return 'Successfully exported $exportedFile to ~/Downloads directory';
+  return '已成功将 $exportedFile 导出到 ~/Downloads 目录';
 }
 
 enum DevToolsExportKeys {
@@ -71,8 +69,7 @@ class ImportController {
     final activeScreenId = devToolsOfflineData.activeScreenId;
     if (expectedScreenId != null && activeScreenId != expectedScreenId) {
       notificationService.push(
-        'Expected a data file for screen \'$expectedScreenId\' but received one'
-        ' for screen \'$activeScreenId\'. Please open a file for screen \'$expectedScreenId\'.',
+        '预期导入的是界面 \'$expectedScreenId\' 的数据文件，但实际收到的是界面 \'$activeScreenId\' 的文件，请打开界面 \'$expectedScreenId\' 的数据文件',
       );
       return;
     }
@@ -80,10 +77,7 @@ class ImportController {
     if (activeScreenId == ScreenMetaData.performance.id) {
       if (devToolsOfflineData.json.containsKey('traceEvents')) {
         notificationService.push(
-          'It looks like you are trying to load data that was saved from an '
-          'old version of DevTools. This data uses a legacy format that is no '
-          'longer supported. To load this file in DevTools, you will need to '
-          'downgrade your Flutter version to < 3.22.',
+          '看起来您正在尝试加载由旧版本 DevTools 保存的数据，该数据使用的旧格式已不再受支持。要在 DevTools 中加载此文件，您需要将 Flutter 版本降级到 < 3.22。',
         );
         return;
       }

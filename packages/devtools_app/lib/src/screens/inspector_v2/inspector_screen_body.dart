@@ -264,7 +264,7 @@ class InspectorTreeControls extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: denseSpacing),
                 child: Text(
-                  'Widget Tree',
+                  '组件树',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -274,7 +274,7 @@ class InspectorTreeControls extends StatelessWidget {
                       ToolbarAction(
                         icon: Icons.search,
                         onPressed: onSearchVisibleToggle,
-                        tooltip: 'Search Tree',
+                        tooltip: '搜索',
                       ),
                     ]
                   : [
@@ -285,7 +285,7 @@ class InspectorTreeControls extends StatelessWidget {
               ToolbarAction(
                 icon: Icons.refresh,
                 onPressed: onRefreshInspectorPressed,
-                tooltip: 'Refresh Tree',
+                tooltip: '刷新',
               ),
             ],
           ),
@@ -334,8 +334,8 @@ class ErrorNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final label = errorIndex != null
-        ? 'Error ${errorIndex! + 1}/${errors.length}'
-        : 'Errors: ${errors.length}';
+        ? '错误 ${errorIndex! + 1}/${errors.length}'
+        : '错误: ${errors.length}';
     return Container(
       color: colorScheme.errorContainer,
       child: Padding(

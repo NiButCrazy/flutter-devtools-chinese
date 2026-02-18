@@ -98,7 +98,7 @@ List<ConnectionDescription> generateDeviceDescription(
       serviceConnection.serviceManager.service != null) {
     final description = serviceConnection.serviceManager.serviceUri!;
     vmServiceConnection = ConnectionDescription(
-      title: 'VM Service Connection',
+      title: 'VM 服务连接',
       description: description,
       actions: [CopyToClipboardControl(dataProvider: () => description)],
     );
@@ -107,18 +107,18 @@ List<ConnectionDescription> generateDeviceDescription(
   return [
     ConnectionDescription(title: 'CPU / OS', description: vm.deviceDisplay),
     ConnectionDescription(
-      title: 'Connected app type',
+      title: '应用程序类型',
       description: connectedApp.display,
     ),
     if (vmServiceConnection != null) vmServiceConnection,
-    ConnectionDescription(title: 'Dart Version', description: version),
+    ConnectionDescription(title: 'Dart 版本', description: version),
     if (flutterVersion != null && !flutterVersion.unknown) ...{
       ConnectionDescription(
-        title: 'Flutter Version',
+        title: 'Flutter 版本',
         description: '${flutterVersion.version} / ${flutterVersion.channel}',
       ),
       ConnectionDescription(
-        title: 'Framework / Engine',
+        title: '框架 / 引擎',
         description:
             '${flutterVersion.frameworkRevision} / '
             '${flutterVersion.engineRevision}',

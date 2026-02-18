@@ -42,7 +42,7 @@ class MemoryTabView extends StatelessWidget {
     tab: DevToolsTab.create(
       key: MemoryScreenKeys.diffTab,
       gaPrefix: _gaPrefix,
-      tabName: 'Diff Snapshots',
+      tabName: '快照差异',
     ),
     tabView: KeepAliveWrapper(child: DiffPane(diffController: controller.diff)),
   );
@@ -50,7 +50,7 @@ class MemoryTabView extends StatelessWidget {
   TabAndView _profile() => (
     tab: DevToolsTab.create(
       key: MemoryScreenKeys.profileTab,
-      tabName: 'Profile Memory',
+      tabName: '内存分析',
       gaPrefix: _gaPrefix,
     ),
     tabView: KeepAliveWrapper(
@@ -61,7 +61,7 @@ class MemoryTabView extends StatelessWidget {
   TabAndView _trace() => (
     tab: DevToolsTab.create(
       key: MemoryScreenKeys.traceTab,
-      tabName: 'Trace Instances',
+      tabName: '实例跟踪',
       gaPrefix: _gaPrefix,
     ),
     tabView: KeepAliveWrapper(

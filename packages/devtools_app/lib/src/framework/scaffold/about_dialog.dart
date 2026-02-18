@@ -23,7 +23,7 @@ class DevToolsAboutDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return DevToolsDialog(
-      title: const DialogTitleText('About DevTools'),
+      title: const DialogTitleText('关于 DevTools'),
       content: SelectionArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -31,10 +31,10 @@ class DevToolsAboutDialog extends StatelessWidget {
           children: [
             Wrap(
               children: [
-                Text('DevTools version $devToolsVersion'),
+                Text('DevTools 版本 $devToolsVersion'),
                 const Text(' - '),
                 InkWell(
-                  child: Text('release notes', style: theme.linkTextStyle),
+                  child: Text('发布日志', style: theme.linkTextStyle),
                   onTap: () => unawaited(
                     releaseNotesController.openLatestReleaseNotes(),
                   ),
@@ -44,24 +44,24 @@ class DevToolsAboutDialog extends StatelessWidget {
             const SizedBox(height: denseSpacing),
             const Wrap(
               children: [
-                Text('Encountered an issue? Let us know at '),
+                Text('遇到问题了吗？请告诉我们 '),
                 _FeedbackLink(),
                 Text('.'),
               ],
             ),
             const SizedBox(height: defaultSpacing),
-            ...dialogSubHeader(theme, 'Contributing'),
+            ...dialogSubHeader(theme, '贡献'),
             const Wrap(
               children: [
-                Text('Want to contribute to DevTools? Please see our '),
+                Text('想要为 DevTools 做贡献吗？请参阅我们的 '),
                 _ContributingLink(),
-                Text(' guide, or '),
+                Text(' 指导手册，或者 '),
               ],
             ),
 
             const Wrap(
               children: [
-                Text('connect with us on '),
+                Text('关注我们 '),
                 _DiscordLink(),
                 Text('.'),
               ],
@@ -136,7 +136,7 @@ class OpenAboutAction extends ScaffoldAction {
   OpenAboutAction({super.key, super.color})
     : super(
         icon: Icons.help_outline,
-        tooltip: 'About DevTools',
+        tooltip: '关于 DevTools',
         onPressed: (context) {
           unawaited(
             showDialog(
@@ -172,7 +172,7 @@ final class DialogLicenseButton extends StatelessWidget {
           useRootNavigator: true,
         );
       },
-      child: const Text('VIEW LICENSES'),
+      child: const Text('查看许可证'),
     );
   }
 }

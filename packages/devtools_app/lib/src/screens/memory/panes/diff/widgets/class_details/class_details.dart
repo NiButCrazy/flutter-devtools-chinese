@@ -30,7 +30,7 @@ class HeapClassDetails extends StatelessWidget {
     final data = classData;
     if (data == null) {
       return const CenteredMessage(
-        message: 'Click a table row to see retaining paths here.',
+        message: '点击表格行以在此查看保留链路',
       );
     }
 
@@ -45,7 +45,7 @@ class HeapClassDetails extends StatelessWidget {
       builder: (_, pathData, _) {
         if (pathData == null) {
           return const CenteredMessage(
-            message: 'Click a table row to see the detailed path.',
+            message: '点击表格行以查看详细链路',
           );
         }
 

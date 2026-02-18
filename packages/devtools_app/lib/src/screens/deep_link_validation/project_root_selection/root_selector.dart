@@ -50,7 +50,7 @@ class _ProjectRootTextFieldState extends State<ProjectRootTextField>
   @override
   Widget build(BuildContext context) {
     return _FlexibleProjectSelectionView(
-      selectedProjectRoot: currentText.isEmpty ? null : currentText,
+      selectedProjectRoot: currentText.isEmpty ? null : currentText.toLowerCase(),
       onValidatePressed: widget.onValidatePressed,
       child: Container(
         height: defaultTextFieldHeight,
@@ -59,9 +59,9 @@ class _ProjectRootTextFieldState extends State<ProjectRootTextField>
           controller: controller,
           enabled: widget.enabled,
           onSubmitted: (String path) {
-            widget.onValidatePressed(path.trim());
+            widget.onValidatePressed(path.trim().toLowerCase());
           },
-          labelText: 'Path to Flutter project',
+          labelText: 'Flutter 项目路径',
           roundedBorder: true,
         ),
       ),
@@ -113,7 +113,7 @@ class _ProjectRootsDropdownState extends State<ProjectRootsDropdown> {
   Widget build(BuildContext context) {
     final selectedUri = this.selectedUri;
     return _FlexibleProjectSelectionView(
-      selectedProjectRoot: selectedUri != null ? toPath(selectedUri) : null,
+      selectedProjectRoot: selectedUri != null ? toPath(selectedUri).toLowerCase() : null,
       onValidatePressed: widget.onValidatePressed,
       child: RoundedDropDownButton<Uri>(
         isDense: true,
@@ -200,7 +200,7 @@ class _ValidateDeepLinksButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return DevToolsButton(
       elevated: true,
-      label: 'Validate deep links',
+      label: '验证深度链接',
       onPressed: projectRoot == null
           ? null
           : () => onValidatePressed(projectRoot!),

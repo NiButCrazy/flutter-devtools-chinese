@@ -206,7 +206,7 @@ void main() {
       expect(find.text('No events received'), findsNothing);
       expect(find.byType(ListTile), findsNWidgets(2));
 
-      await tester.tap(find.text('Clear'));
+      await tester.tap(find.text('清除'));
       await tester.pumpAndSettle();
 
       expect(controller.events.value, isEmpty);

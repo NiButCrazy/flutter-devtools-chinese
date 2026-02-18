@@ -80,8 +80,8 @@ class _InitializerState extends State<Initializer>
             const Spacer(),
             CenteredMessage(
               message: _showConnectToNewAppButton
-                  ? 'Cannot connect to VM service.'
-                  : 'Waiting for VM service connection...',
+                  ? '无法连接到 VM 服务'
+                  : '正在等待 VM 服务连接…',
             ),
             if (_showConnectToNewAppButton) ...[
               const SizedBox(height: defaultSpacing),

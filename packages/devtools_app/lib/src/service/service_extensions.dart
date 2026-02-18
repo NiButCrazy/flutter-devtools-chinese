@@ -228,211 +228,204 @@ class ServiceExtensionDescription<T> extends extensions.ServiceExtension<T>
 
 final debugAllowBanner = ToggleableServiceExtensionDescription<bool>.from(
   extensions.debugAllowBanner,
-  title: 'Debug Banner',
+  title: '调试横幅',
   iconAsset: 'icons/debug_banner@2x.png',
   gaScreenName: gac.inspector,
   gaItem: gac.debugBanner,
-  tooltip: 'Toggle Debug Banner',
+  tooltip: '切换调试横幅',
 );
 
 final invertOversizedImages = ToggleableServiceExtensionDescription<bool>.from(
   extensions.invertOversizedImages,
-  title: 'Highlight Oversized Images',
+  title: '高亮尺寸过大图片',
   iconAsset: 'icons/images-white.png',
   gaScreenName: gac.inspector,
   gaItem: gac.highlightOversizedImages,
   tooltip:
-      'Highlight images that are using too much memory by inverting colors and flipping them.',
+      '通过反转颜色并翻转图像来高亮显示占用过多内存的图像',
   documentationUrl:
-      'https://docs.flutter.dev/tools/devtools/inspector#highlight-oversized-images',
+      'https://docs.flutter.cn/tools/devtools/inspector#highlight-oversized-images',
   gaDocsItem: gac.highlightOversizedImagesDocs,
 );
 
 final debugPaint = ToggleableServiceExtensionDescription<bool>.from(
   extensions.debugPaint,
-  title: 'Show Guidelines',
+  title: '显示引导线',
   iconAsset: 'icons/guidelines-white.png',
   gaScreenName: gac.inspector,
   gaItem: gac.debugPaint,
-  tooltip: 'Overlay guidelines to assist with fixing layout issues.',
+  tooltip: '该功能会在您的应用顶层绘制引导线，展示绘制区域、对齐、间距、滚动视图、裁剪和空位填充',
   documentationUrl:
-      'https://docs.flutter.dev/tools/devtools/inspector#show-guidelines',
+      'https://docs.flutter.cn/tools/devtools/inspector#show-guidelines',
   gaDocsItem: gac.debugPaintDocs,
 );
 
 final debugPaintBaselines = ToggleableServiceExtensionDescription<bool>.from(
   extensions.debugPaintBaselines,
-  title: 'Show Baselines',
+  title: '显示基线',
   iconAsset: 'icons/baselines-white.png',
   gaScreenName: gac.inspector,
   gaItem: gac.paintBaseline,
   tooltip:
-      'Show baselines, which are used to position text. Can be useful for checking if text is aligned.',
+      '该选项会显示所有的基线，基线是水平的用来定位文字的线，在检查文字是否垂直对齐时会非常有用',
   documentationUrl:
-      'https://docs.flutter.dev/tools/devtools/inspector#show-baselines',
+      'https://docs.flutter.cn/tools/devtools/inspector#show-baselines',
   gaDocsItem: gac.paintBaselineDocs,
 );
 
 final performanceOverlay = ToggleableServiceExtensionDescription<bool>.from(
   extensions.performanceOverlay,
-  title: 'Performance Overlay',
+  title: '观察性能图层',
   iconAsset: 'icons/performance-white.png',
   gaScreenName: gac.performance,
   gaItem: gac.PerformanceEvents.performanceOverlay.name,
-  tooltip: 'Overlay a performance chart on your app.',
-  documentationUrl: 'https://flutter.dev/to/performance-overlay',
+  tooltip: '在您的应用上叠加性能图表。',
+  documentationUrl: 'https://docs.flutter.cn/perf/ui-performance#performance-overlay',
   gaDocsItem: gac.PerformanceDocs.performanceOverlayDocs.name,
 );
 
 final profileWidgetBuilds = ToggleableServiceExtensionDescription<bool>.from(
   extensions.profileWidgetBuilds,
-  title: 'Trace widget builds',
+  title: '追踪组件创建',
   iconAsset: 'icons/trackwidget-white.png',
   gaScreenName: gac.performance,
   gaItem: gac.PerformanceEvents.trackRebuilds.name,
-  description: 'Adds an event to the timeline for every Widget built.',
+  description: '为每个创建的组件添加一个时间线事件',
   tooltip: '',
   documentationUrl:
-      'https://docs.flutter.dev/tools/devtools/performance#track-widget-builds',
+      'https://docs.flutter.cn/tools/devtools/performance#track-widget-builds',
   gaDocsItem: gac.PerformanceDocs.trackWidgetBuildsDocs.name,
 );
 
 final profileUserWidgetBuilds = ToggleableServiceExtensionDescription<bool>.from(
   extensions.profileUserWidgetBuilds,
-  title: 'Trace user-created widget builds',
+  title: '追踪用户代码组件创建',
   iconAsset: 'icons/trackwidget-white.png',
   gaScreenName: gac.performance,
   gaItem: gac.PerformanceEvents.trackUserCreatedWidgetBuilds.name,
   description:
-      'Adds an event to the timeline for every Widget created in user code.',
+      '为用户代码中创建的每个组件添加一个时间线事件',
   tooltip: '',
 );
 
 final profileRenderObjectPaints =
     ToggleableServiceExtensionDescription<bool>.from(
       extensions.profileRenderObjectPaints,
-      title: 'Trace paints',
+      title: '追踪绘制',
       iconData: Icons.format_paint,
       gaScreenName: gac.performance,
       gaItem: gac.PerformanceEvents.trackPaints.name,
       description:
-          'Adds an event to the timeline for every RenderObject painted.',
+          '为每个绘制的 RenderObject 添加一个时间线事件',
       tooltip: '',
       documentationUrl:
-          'https://docs.flutter.dev/tools/devtools/performance#track-paints',
+          'https://docs.flutter.cn/tools/devtools/performance#track-paints',
       gaDocsItem: gac.PerformanceDocs.trackPaintsDocs.name,
     );
 
 final profileRenderObjectLayouts =
     ToggleableServiceExtensionDescription<bool>.from(
       extensions.profileRenderObjectLayouts,
-      title: 'Trace layouts',
+      title: '追踪布局',
       iconData: Icons.auto_awesome_mosaic,
       gaScreenName: gac.performance,
       gaItem: gac.PerformanceEvents.trackLayouts.name,
       description:
-          'Adds an event to the timeline for every RenderObject layout.',
+          '为每个 RenderObject 布局构建添加一个时间轴事件',
       tooltip: '',
       documentationUrl:
-          'https://docs.flutter.dev/tools/devtools/performance#track-layouts',
+          'https://docs.flutter.cn/tools/devtools/performance#track-layouts',
       gaDocsItem: gac.PerformanceDocs.trackLayoutsDocs.name,
     );
 
 final repaintRainbow = ToggleableServiceExtensionDescription<bool>.from(
   extensions.repaintRainbow,
-  title: 'Highlight Repaints',
+  title: '高亮重绘制内容',
   iconAsset: 'icons/repaints-white.png',
   gaScreenName: gac.inspector,
   gaItem: gac.repaintRainbow,
   tooltip:
-      'Show borders that change color when elements repaint. Useful for finding unnecessary repaints.',
+      '该选项会为所有的 RenderBox 绘制一层边框，在它们重新绘制时改变颜色',
   documentationUrl:
-      'https://docs.flutter.dev/tools/devtools/inspector#highlight-repaints',
+      'https://docs.flutter.cn/tools/devtools/inspector#highlight-repaints',
   gaDocsItem: gac.repaintRainbowDocs,
 );
 
 final slowAnimations = ToggleableServiceExtensionDescription<num>.from(
   extensions.slowAnimations,
-  title: 'Slow Animations',
+  title: '慢速动画',
   iconAsset: 'icons/slow-white.png',
   gaScreenName: gac.inspector,
   gaItem: gac.slowAnimation,
-  tooltip: 'Run animations 5 times slower to help fine-tune them.',
+  tooltip: '启用时，动画将以约五分之一的原有速度运行，方便对视觉效果进行检查',
   documentationUrl:
-      'https://docs.flutter.dev/tools/devtools/inspector#slow-animations',
+      'https://docs.flutter.cn/tools/devtools/inspector#slow-animations',
   gaDocsItem: gac.slowAnimationDocs,
 );
 
 final togglePlatformMode = ServiceExtensionDescription<String>.from(
   extensions.togglePlatformMode,
-  title: 'Override target platform',
+  title: '覆盖目标平台',
   iconAsset: 'icons/phone@2x.png',
   displayValues: [
-    'Platform: iOS',
-    'Platform: Android',
-    'Platform: Fuchsia',
-    'Platform: MacOS',
-    'Platform: Linux',
+    '平台: iOS',
+    '平台: Android',
+    '平台: Fuchsia',
+    '平台: MacOS',
+    '平台: Linux',
   ],
   gaScreenName: gac.inspector,
   gaItem: gac.togglePlatform,
-  tooltip: 'Override Target Platform',
+  tooltip: '覆盖目标平台',
 );
 
 final disableClipLayers = ToggleableServiceExtensionDescription<bool>.from(
   extensions.disableClipLayers,
-  title: 'Render Clip layers',
+  title: '渲染裁剪的图层',
   iconData: Icons.cut_outlined,
   gaScreenName: gac.performance,
   gaItem: gac.PerformanceEvents.disableClipLayers.name,
-  description: 'Render all clipping effects during paint.',
-  tooltip: '''Disable this option to check whether excessive use of clipping is
-affecting performance. If performance improves with this option
-disabled, try to reduce the use of clipping effects in your app.''',
+  description: '在绘制过程中渲染所有裁剪效果',
+  tooltip: '''禁用该选项来检查已使用的裁剪图层是否影响了性能；如果禁用后性能有显著提升，请尝试减少您的应用中裁剪效果的使用''',
   documentationUrl:
-      'https://docs.flutter.dev/tools/devtools/performance#more-debugging-options',
+      'https://docs.flutter.cn/tools/devtools/performance#more-debugging-options',
   gaDocsItem: gac.PerformanceDocs.disableClipLayersDocs.name,
 );
 
 final disableOpacityLayers = ToggleableServiceExtensionDescription<bool>.from(
   extensions.disableOpacityLayers,
-  title: 'Render Opacity layers',
+  title: '渲染透明度图层',
   iconData: Icons.opacity,
   gaScreenName: gac.performance,
   gaItem: gac.PerformanceEvents.disableOpacityLayers.name,
-  description: 'Render all opacity effects during paint.',
-  tooltip: '''Disable this option to check whether excessive use of opacity
-effects is affecting performance. If performance improves with this
-option disabled, try to reduce the use of opacity effects in your app.''',
+  description: '在绘制过程中渲染所有透明度效果',
+  tooltip: '''禁用该选项来检查已使用的透明度图层是否影响了性能；如果禁用后性能有显著提升，请尝试减少您的应用中透明度效果的使用''',
   documentationUrl:
-      'https://docs.flutter.dev/tools/devtools/performance#more-debugging-options',
+      'https://docs.flutter.cn/tools/devtools/performance#more-debugging-options',
   gaDocsItem: gac.PerformanceDocs.disableOpacityLayersDocs.name,
 );
 
 final disablePhysicalShapeLayers = ToggleableServiceExtensionDescription<bool>.from(
   extensions.disablePhysicalShapeLayers,
-  title: 'Render Physical Shape layers',
+  title: '渲染物理形状图层',
   iconData: Icons.format_shapes,
   gaScreenName: gac.performance,
   gaItem: gac.PerformanceEvents.disablePhysicalShapeLayers.name,
-  description: 'Render all physical modeling effects during paint.',
-  tooltip: '''Disable this option to check whether excessive use of physical
-modeling effects is affecting performance (shadows, elevations, etc.).
-If performance improves with this option disabled, try to reduce the
-use of physical modeling effects in your app.''',
+  description: '在绘制过程中渲染所有物理效果.',
+  tooltip: '''禁用该选项来检查已使用的物理形状图层是否影响了性能，例如阴影和背景特效；如果禁用后性能有显著提升，请尝试减少您的应用中物理效果的使用''',
   documentationUrl:
-      'https://docs.flutter.dev/tools/devtools/performance#more-debugging-options',
+      'https://docs.flutter.cn/tools/devtools/performance#more-debugging-options',
   gaDocsItem: gac.PerformanceDocs.disablePhysicalShapeLayersDocs.name,
 );
 
 final httpEnableTimelineLogging =
     ToggleableServiceExtensionDescription<bool>.from(
       extensions.httpEnableTimelineLogging,
-      title: 'Whether HTTP timeline logging is enabled',
+      title: '是否启用 HTTP 时间线日志记录',
       iconData: Icons.http,
       gaScreenName: null,
       gaItem: null,
-      tooltip: 'Toggle HTTP timeline logging',
+      tooltip: '切换 HTTP 时间线日志记录是否启用',
     );
 
 /// The icon used for all "Select widget mode" buttons, both in DevTools and in
@@ -449,12 +442,12 @@ final toggleOnDeviceWidgetInspector =
       // Technically this enables the on-device widget inspector but for older
       // versions of package:flutter it makes sense to describe this extension as
       // toggling widget select mode as it is the only way to toggle that mode.
-      title: 'Select Widget Mode',
-      shortTitle: 'Select',
+      title: '组件选择模式',
+      shortTitle: '选择',
       iconData: selectWidgetModeIcon,
       gaScreenName: gac.inspector,
       gaItem: gac.showOnDeviceInspector,
-      tooltip: 'Toggle select widget mode',
+      tooltip: '切换是否选择组件的模式',
     );
 
 // TODO(kenz): remove this if it is not needed. According to the comments,
@@ -464,11 +457,11 @@ final toggleOnDeviceWidgetInspector =
 /// normal interactions.
 final toggleSelectWidgetMode = ToggleableServiceExtensionDescription<bool>.from(
   extensions.toggleSelectWidgetMode,
-  title: 'Select widget mode',
+  title: '组件选择模式',
   iconData: selectWidgetModeIcon,
   gaScreenName: gac.inspector,
   gaItem: gac.selectWidgetMode,
-  tooltip: 'Toggle select widget mode',
+  tooltip: '切换是否启用选择组件的模式',
 );
 
 // TODO(kenz): remove this if it is not needed. According to the comments,
@@ -484,46 +477,42 @@ final toggleSelectWidgetMode = ToggleableServiceExtensionDescription<bool>.from(
 final enableOnDeviceInspector =
     ToggleableServiceExtensionDescription<bool>.from(
       extensions.enableOnDeviceInspector,
-      title: 'Enable on-device inspector',
+      title: '启用设备端检查器',
       iconAsset: 'icons/general/locate@2x.png',
       gaScreenName: gac.inspector,
       gaItem: gac.enableOnDeviceInspector,
-      tooltip: 'Toggle on-device inspector',
+      tooltip: '切换设备端检查器是否启用',
     );
 
 final structuredErrors = ToggleableServiceExtensionDescription<bool>.from(
   extensions.structuredErrors,
-  title: 'Show structured errors',
+  title: '显示结构化错误',
   iconAsset: 'icons/perf/RedExcl@2x.png',
   gaScreenName: gac.logging,
   gaItem: gac.structuredErrors,
-  tooltip: 'Toggle showing structured errors for Flutter framework issues',
+  tooltip: '切换是否显示来自 Flutter 框架问题的结构化错误',
 );
 
 final countWidgetBuilds = ToggleableServiceExtensionDescription<bool>.from(
   extensions.countWidgetBuilds,
-  title: 'Count widget builds',
+  title: '统计组件创建次数',
   iconAsset: 'icons/inspector/diagram@2x.png',
   gaScreenName: gac.performance,
   gaItem: gac.PerformanceEvents.countWidgetBuilds.nameOverride!,
-  description: 'Counts widget builds for each Flutter frame.',
-  tooltip: '''Enable this option to see the widgets that were built in each 
-Flutter frame using the Frame Analysis tool, or to see an aggregate
-summary of these counts using the Rebuild Stats tool.''',
+  description: '为每一 Flutter 帧渲染统计组件的创建次数',
+  tooltip: '''启用此选项后，您将能够使用帧分析工具查看每个 Flutter 帧中创建的组件，或使用重建统计工具查看这些计数的汇总信息''',
   // TODO(https://github.com/flutter/website/issues/10666): link docs
 );
 
 final profilePlatformChannels = ToggleableServiceExtensionDescription<bool>.from(
   extensions.profilePlatformChannels,
-  title: 'Trace platform channels',
+  title: '跟踪平台渠道',
   iconAsset: 'icons/trackwidget-white.png',
   gaScreenName: gac.performance,
   gaItem: gac.PerformanceEvents.profilePlatformChannels.name,
   description:
-      'Adds an event to the timeline for platform channel messages (useful for '
-      'apps with plugins). Also periodically prints platform channel '
-      'statistics to console.',
+      '为平台通道消息在时间轴中添加事件（对使用插件的应用特别有帮助），并定期将平台通道的统计数据输出到控制台',
   tooltip: '',
-  documentationUrl: 'https://flutter.dev/to/platform-channels',
+  documentationUrl: 'https://docs.flutter.cn/platform-integration/platform-channels',
   gaDocsItem: gac.PerformanceDocs.platformChannelsDocs.name,
 );

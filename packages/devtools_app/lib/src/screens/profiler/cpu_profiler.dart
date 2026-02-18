@@ -204,19 +204,19 @@ class _CpuProfilerState extends State<CpuProfiler>
                     Legend(
                       entries: [
                         LegendEntry(
-                          'App code (code from your app and imported packages)',
+                          'App 代码（来自您的应用及其引入的第三方包）',
                           appCodeColor.background.colorFor(colorScheme),
                         ),
                         LegendEntry(
-                          'Native code (code from the native runtime - Android, iOS, etc.)',
+                          'Native 代码（来自原生运行时，如 Android、iOS 等）',
                           nativeCodeColor.background.colorFor(colorScheme),
                         ),
                         LegendEntry(
-                          'Dart core libraries (code from the Dart SDK)',
+                          'Dart 核心库（来自 Dart SDK 的代码）',
                           dartCoreColor.background.colorFor(colorScheme),
                         ),
                         LegendEntry(
-                          'Flutter Framework (code from the Flutter SDK)',
+                          'Flutter 框架（来自 Flutter SDK 的代码）',
                           flutterCoreColor.background.colorFor(colorScheme),
                         ),
                       ],
@@ -355,25 +355,25 @@ class CpuProfileStats extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _stat(
-              tooltip: 'The duration of time spanned by the CPU samples',
-              text: 'Duration: ${durationText(metadata.time!.duration)}',
+              tooltip: 'CPU 采样所覆盖的时间范围',
+              text: '持续时间：${durationText(metadata.time!.duration)}',
               theme: theme,
             ),
             _stat(
-              tooltip: 'The number of samples included in the profile',
-              text: 'Sample count: ${metadata.sampleCount}',
+              tooltip: '分析中包含的采样数量',
+              text: '采样数：${metadata.sampleCount}',
               theme: theme,
             ),
             _stat(
               tooltip:
-                  'The frequency at which samples are collected by the profiler'
-                  '${samplePeriodValid ? ' (once every ${metadata.samplePeriod} micros)' : ''}',
-              text: 'Sampling rate: $samplingPeriodDisplay Hz',
+                  '分析器采集样本的频率'
+                  '${samplePeriodValid ? '（每 ${metadata.samplePeriod} 微秒采集一次）' : ''}',
+              text: '采样频率：$samplingPeriodDisplay Hz',
               theme: theme,
             ),
             _stat(
-              tooltip: 'The maximum stack trace depth of a collected sample',
-              text: 'Sampling depth: ${metadata.stackDepth}',
+              tooltip: '每个采样中记录的最大调用栈深度',
+              text: '采样深度：${metadata.stackDepth}',
               theme: theme,
             ),
           ],

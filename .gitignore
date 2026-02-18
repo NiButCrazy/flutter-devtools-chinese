@@ -5,6 +5,7 @@
 .packages
 .pub/
 pubspec.lock
+tool/build/
 
 .idea/
 .data_dir/

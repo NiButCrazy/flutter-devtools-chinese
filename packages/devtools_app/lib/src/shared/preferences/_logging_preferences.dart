@@ -6,7 +6,7 @@ part of 'preferences.dart';
 
 class LoggingPreferencesController extends DisposableController
     with AutoDisposeControllerMixin {
-  final retentionLimitTitle = 'Limit for the number of logs retained.';
+  final retentionLimitTitle = '日志保留数量上限';
 
   /// The number of logs to retain on the logging table.
   final retentionLimit = ValueNotifier<int>(_defaultRetentionLimit);

@@ -504,10 +504,10 @@ final class TimeRange {
   ///
   /// The [start] time must be less than or equal to the [end] time.
   TimeRange({required this.start, required this.end})
-    : assert(start <= end, '$start is not less than or equal to end time $end'),
+    : assert(start <= end, '开始时间 $start 必须小于或等于结束时间 $end'),
       assert(
         end >= start,
-        '$end is not greater than or equal to start time $start',
+        '结束时间 $end 必须大于或等于开始时间 $start',
       );
 
   /// Creates a [TimeRange] with the specified [start] time in microseconds and
@@ -771,7 +771,7 @@ class MovingAverage {
     this.averagePeriod = 50,
     this.ratio = 0.5,
     List<int>? newDataSet,
-  }) : assert(ratio >= 0 && ratio <= 1, 'Value ratio $ratio is not 0 to 1.') {
+  }) : assert(ratio >= 0 && ratio <= 1, '参数 ratio $ratio 必须在 0~1 之间') {
     if (newDataSet != null) {
       var initialDataSet = newDataSet;
       final count = newDataSet.length;
@@ -859,7 +859,7 @@ Color? ansiToColor(List<int>? ansiInput) {
     return null;
   }
 
-  assert(ansiInput.length == 3, 'Ansi color list should contain 3 elements');
+  assert(ansiInput.length == 3, 'ANSI 颜色列表应包含 3 个元素');
   return Color.fromRGBO(ansiInput[0], ansiInput[1], ansiInput[2], 1);
 }
 
@@ -875,7 +875,7 @@ extension LogicalKeySetExtension on LogicalKeySet {
 
   static final _modifierNames = <LogicalKeyboardKey, String>{
     LogicalKeyboardKey.alt: 'Alt',
-    LogicalKeyboardKey.control: 'Control',
+    LogicalKeyboardKey.control: 'Ctrl',
     LogicalKeyboardKey.meta: 'Meta',
     LogicalKeyboardKey.shift: 'Shift',
   };
@@ -903,7 +903,7 @@ extension LogicalKeySetExtension on LogicalKeySet {
           // to using ⌘ once supported on web.
           return kIsWeb ? 'Command-' : '⌘';
         }
-        return '${_modifierNames[key]}-';
+        return '${_modifierNames[key]} + ';
       } else {
         return key.keyLabel.toUpperCase();
       }
@@ -961,8 +961,7 @@ extension StringExtension on String {
       return lowerCase.contains(strLowerCase);
     }
     throw Exception(
-      'Unhandled pattern type ${pattern.runtimeType} from '
-      '`caseInsensitiveContains`',
+      '在 `caseInsensitiveContains` 中遇到未处理的模式类型：${pattern.runtimeType}',
     );
   }
 
@@ -1090,7 +1089,7 @@ extension BoolExtension on bool {
   }
 }
 
-const connectToNewAppText = 'Connect to a new app';
+const connectToNewAppText = '连接至一个新应用';
 
 /// Exception thrown when a request to process data has been cancelled in
 /// favor of a new request.

@@ -21,9 +21,9 @@ const mediumProfilePeriod = '250';
 const highProfilePeriod = '50';
 
 enum CpuSamplingRate {
-  low('CPU sampling rate: low', 'Low', lowProfilePeriod),
-  medium('CPU sampling rate: medium', 'Medium', mediumProfilePeriod),
-  high('CPU sampling rate: high', 'High', highProfilePeriod);
+  low('CPU 采样率：低', '低', lowProfilePeriod),
+  medium('CPU 采样率：中', '中', mediumProfilePeriod),
+  high('CPU 采样率：高', '高', highProfilePeriod);
 
   const CpuSamplingRate(this.display, this.displayShort, this.value);
 

@@ -25,6 +25,7 @@
                 "-d",
                 "chrome",
                 "--web-experimental-hot-reload",
+                "--dart-define=debug_devtools_server=http://127.0.0.1:8181"
             ]
         },
         {

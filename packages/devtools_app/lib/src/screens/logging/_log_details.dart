@@ -119,7 +119,7 @@ class _LogDetailsHeader extends StatelessWidget {
       dataProvider = log!.prettyPrinted;
     }
     return AreaPaneHeader(
-      title: const Text('Details'),
+      title: const Text('日志详情'),
       includeTopBorder: false,
       roundedTopBorder: false,
       actions: [
@@ -140,8 +140,8 @@ class LogDetailsFormatButton extends StatelessWidget {
 
   final LoggingDetailsFormat format;
 
-  static const viewAsJsonTooltip = 'View as JSON';
-  static const viewAsRawTextTooltip = 'View as raw text';
+  static const viewAsJsonTooltip = '查看 JSON 视图';
+  static const viewAsRawTextTooltip = '查看原始文本视图';
 
   @override
   Widget build(BuildContext context) {

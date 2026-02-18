@@ -56,7 +56,7 @@ class _UiPhases extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _FrameBlockGroup(
-      title: 'UI phases:',
+      title: 'UI 线程 - 阶段:',
       data: _generateBlockData(frameAnalysis),
       hasData: frameAnalysis.hasUiData,
     );
@@ -98,7 +98,7 @@ class _RasterPhases extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = _generateBlockData(frameAnalysis);
     return _FrameBlockGroup(
-      title: 'Raster ${pluralize('phase', data.length)}:',
+      title: '光栅线程 - 阶段:',
       data: data,
       hasData: frameAnalysis.hasRasterData,
     );
@@ -109,13 +109,13 @@ class _RasterPhases extends StatelessWidget {
     if (frame.hasShaderTime) {
       return [
         _FramePhaseBlockData(
-          title: 'Shader compilation',
+          title: '着色器编译',
           duration: frame.shaderDuration,
           flex: frameAnalysis.shaderCompilationFlex!,
           icon: Icons.image_outlined,
         ),
         _FramePhaseBlockData(
-          title: 'Other raster',
+          title: '其它光栅线程',
           duration: frame.rasterTime - frame.shaderDuration,
           flex: frameAnalysis.rasterFlex!,
           icon: Icons.grid_on,
@@ -173,7 +173,7 @@ class _FrameBlockGroup extends StatelessWidget {
         },
       );
     } else {
-      content = const Text('Data not available.');
+      content = const Text('无法获取数据');
     }
 
     return Column(

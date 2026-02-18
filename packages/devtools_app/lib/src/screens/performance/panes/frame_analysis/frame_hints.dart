@@ -41,7 +41,7 @@ class FrameHints extends StatelessWidget {
     final showUiJankHints = frame.isUiJanky(displayRefreshRate);
     final showRasterJankHints = frame.isRasterJanky(displayRefreshRate);
     if (!(showUiJankHints || showRasterJankHints)) {
-      return const Text('No suggestions for this frame - no jank detected.');
+      return const Text('此帧没有建议 - 未检测到卡顿');
     }
 
     final theme = Theme.of(context);
@@ -49,7 +49,7 @@ class FrameHints extends StatelessWidget {
     final intrinsicOperationsCount = frameAnalysis.intrinsicOperationsCount;
     final uiHints = showUiJankHints
         ? [
-            Text('UI Jank Detected', style: theme.errorTextStyle),
+            Text('检测到 UI 线程卡顿', style: theme.errorTextStyle),
             const SizedBox(height: denseSpacing),
             EnhanceTracingHint(
               longestPhase: frameAnalysis.longestUiPhase,
@@ -63,7 +63,7 @@ class FrameHints extends StatelessWidget {
         : <Widget>[];
     final rasterHints = showRasterJankHints
         ? [
-            Text('Raster Jank Detected', style: theme.errorTextStyle),
+            Text('检测到光栅线程卡顿', style: theme.errorTextStyle),
             const SizedBox(height: denseSpacing),
             if (saveLayerCount > 0) CanvasSaveLayerHint(saveLayerCount),
             const SizedBox(height: denseSpacing),
@@ -128,11 +128,11 @@ class EnhanceTracingHint extends StatelessWidget {
       message: RichText(
         maxLines: 2,
         text: TextSpan(
-          text: '',
+          text: '"',
           children: [
             TextSpan(text: longestPhase.title, style: theme.fixedFontStyle),
             TextSpan(
-              text: ' was the longest UI phase in this frame. ',
+              text: '" 是此帧中耗费时间最长的阶段，',
               style: theme.regularTextStyle,
             ),
             ..._hintForPhase(longestPhase, theme),
@@ -186,9 +186,9 @@ class EnhanceTracingHint extends StatelessWidget {
       return [
         TextSpan(
           text:
-              'Since "$settingTitle" was enabled while this frame was drawn, '
-              'you should be able to see timeline events for each '
-              '$eventDescription.',
+              '由于在绘制此帧时启用了 "$settingTitle"，'
+              '您应该能够看到每个 '
+              '$eventDescription 的时间线事件',
           style: theme.regularTextStyle,
         ),
       ];
@@ -204,12 +204,12 @@ class EnhanceTracingHint extends StatelessWidget {
     );
     return [
       TextSpan(
-        text: 'Consider enabling "$settingTitle" from the ',
+        text: '请考虑在上方或右侧的选项中启用 "$settingTitle"',
         style: theme.regularTextStyle,
       ),
       enhanceTracingButton,
       TextSpan(
-        text: ' options above and reproducing the behavior in your app.',
+        text: '，然后在应用中重现相关行为',
         style: theme.regularTextStyle,
       ),
     ];
@@ -242,7 +242,7 @@ class IntrinsicOperationsHint extends StatelessWidget {
   const IntrinsicOperationsHint(this.intrinsicOperationsCount, {super.key});
 
   static const _intrinsicOperationsDocs =
-      'https://flutter.dev/to/minimize-layout-passes';
+      'https://docs.flutter.cn/perf/best-practices#minimize-layout-passes-caused-by-intrinsic-operations';
 
   final int intrinsicOperationsCount;
 
@@ -260,9 +260,7 @@ class IntrinsicOperationsHint extends StatelessWidget {
             TextSpan(text: 'Intrinsic', style: theme.fixedFontStyle),
             TextSpan(
               text:
-                  ' passes were performed $intrinsicOperationsCount '
-                  '${pluralize('time', intrinsicOperationsCount)} during this '
-                  'frame.',
+                  ' 在此帧中被执行了 $intrinsicOperationsCount 次 ',
               style: theme.regularTextStyle,
             ),
           ],
@@ -280,7 +278,7 @@ class IntrinsicOperationsHint extends StatelessWidget {
 class CanvasSaveLayerHint extends StatelessWidget {
   const CanvasSaveLayerHint(this.saveLayerCount, {super.key});
 
-  static const _saveLayerDocs = 'https://flutter.dev/to/save-layer-perf';
+  static const _saveLayerDocs = 'https://docs.flutter.cn/perf/best-practices#use-savelayer-thoughtfully';
 
   final int saveLayerCount;
 
@@ -297,8 +295,7 @@ class CanvasSaveLayerHint extends StatelessWidget {
             TextSpan(text: 'Canvas.saveLayer()', style: theme.fixedFontStyle),
             TextSpan(
               text:
-                  ' was called $saveLayerCount '
-                  '${pluralize('time', saveLayerCount)} during this frame.',
+                  ' 在此帧中被调用了 $saveLayerCount 次',
               style: theme.regularTextStyle,
             ),
           ],
@@ -333,7 +330,7 @@ class ShaderCompilationHint extends StatelessWidget {
               style: theme.fixedFontStyle,
             ),
             TextSpan(
-              text: ' of shader compilation occurred during this frame.',
+              text: ' 的着色器编译发生在此帧期间，',
               style: theme.regularTextStyle,
             ),
           ],
@@ -342,8 +339,7 @@ class ShaderCompilationHint extends StatelessWidget {
             ? [
                 TextSpan(
                   text:
-                      ' Note: pre-compiling shaders is a legacy solution with many '
-                      'pitfalls. Try ',
+                      ' 注意：预编译着色器是一种带有诸多问题的旧方案，请尝试使用 ',
                   style: theme.regularTextStyle,
                 ),
                 GaLinkTextSpan(
@@ -356,7 +352,7 @@ class ShaderCompilationHint extends StatelessWidget {
                   ),
                   context: context,
                 ),
-                TextSpan(text: ' instead!', style: theme.regularTextStyle),
+                TextSpan(text: ' 来替代！', style: theme.regularTextStyle),
               ]
             : [],
       ),
@@ -377,13 +373,12 @@ class GeneralRasterJankHint extends StatelessWidget {
           children: [
             TextSpan(
               text:
-                  'To learn about rendering performance in Flutter, check '
-                  'out the Flutter documentation on ',
+                  '如需了解 Flutter 中的渲染性能，请查看 Flutter 文档中的 ',
               style: theme.regularTextStyle,
             ),
             GaLinkTextSpan(
               link: GaLink(
-                display: 'Performance & Optimization',
+                display: '性能优化',
                 url: flutterPerformanceDocsUrl,
                 gaScreenName: gac.performance,
                 gaSelectedItemDescription:
@@ -391,7 +386,7 @@ class GeneralRasterJankHint extends StatelessWidget {
               ),
               context: context,
             ),
-            TextSpan(text: '.', style: theme.regularTextStyle),
+            TextSpan(text: '', style: theme.regularTextStyle),
           ],
         ),
       ),
@@ -421,18 +416,18 @@ class _ExpensiveOperationHint extends StatelessWidget {
       text: TextSpan(
         children: [
           message,
-          TextSpan(text: ' This may ', style: theme.regularTextStyle),
+          TextSpan(text: ' 这可能会 ', style: theme.regularTextStyle),
           GaLinkTextSpan(
             context: context,
             link: GaLink(
-              display: 'negatively affect your app\'s performance',
+              display: '对应用性能造成负面影响',
               url: docsUrl,
               gaScreenName: gaScreenName,
               gaSelectedItemDescription:
                   'frameAnalysis_$gaSelectedItemDescription',
             ),
           ),
-          TextSpan(text: '.', style: theme.regularTextStyle),
+          TextSpan(text: '', style: theme.regularTextStyle),
           ...childrenSpans,
         ],
       ),

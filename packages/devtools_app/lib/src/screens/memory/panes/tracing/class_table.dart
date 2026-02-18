@@ -24,9 +24,9 @@ class _TraceCheckBoxColumn extends ColumnData<TracedClass>
     implements ColumnRenderer<TracedClass> {
   const _TraceCheckBoxColumn({required this.controller})
     : super(
-        'Trace',
+        '追踪',
         titleTooltip:
-            'Enable or disable allocation tracing for a specific type',
+            '为特定类型启用或禁用分配追踪',
         fixedWidthPx: 40.0,
         alignment: ColumnAlignment.left,
       );
@@ -68,7 +68,7 @@ class _TraceCheckBoxColumn extends ColumnData<TracedClass>
 
 class _ClassNameColumn extends ColumnData<TracedClass>
     implements ColumnRenderer<TracedClass> {
-  const _ClassNameColumn({required this.rootPackage}) : super.wide('Class');
+  const _ClassNameColumn({required this.rootPackage}) : super.wide('类');
 
   @override
   String? getValue(TracedClass stats) => stats.clazz.name;
@@ -98,9 +98,9 @@ class _ClassNameColumn extends ColumnData<TracedClass>
 class _InstancesColumn extends ColumnData<TracedClass> {
   const _InstancesColumn()
     : super(
-        'Delta',
+        '增量',
         titleTooltip:
-            'Number of instances, allocated after the class was selected for tracing.',
+            '在选择该类进行追踪之后分配的实例数量',
         fixedWidthPx: _defaultNumberFieldWidth,
       );
 
@@ -162,8 +162,8 @@ class _AllocationTracingTableState extends State<AllocationTracingTable> {
         Padding(
           padding: const EdgeInsets.all(denseSpacing),
           child: DevToolsClearableTextField(
-            labelText: 'Class Filter',
-            hintText: 'Filter by class name',
+            labelText: '类过滤器',
+            hintText: '通过类名过滤',
             onChanged: (value) {
               _sendFilterEditGaEvent();
               widget.controller.updateClassFilter(value);

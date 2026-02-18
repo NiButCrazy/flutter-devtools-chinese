@@ -120,13 +120,13 @@ class _DtdConnectedViewState extends State<DtdConnectedView> {
             padding: const EdgeInsets.all(densePadding),
             child: Row(
               children: [
-                Text('DTD connection:', style: Theme.of(context).boldTextStyle),
+                Text('DTD 连接:', style: Theme.of(context).boldTextStyle),
                 const SizedBox(width: denseSpacing),
                 Text(widget.dtdUri),
                 const SizedBox(width: defaultSpacing),
                 DevToolsButton(
                   icon: Icons.close,
-                  label: 'Disconnect',
+                  label: '断开连接',
                   onPressed: widget.onDisconnect,
                 ),
                 const Spacer(),
@@ -188,7 +188,7 @@ class _DtdNotConnectedViewState extends State<DtdNotConnectedView> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Please enter a DTD URI to connect to:'),
+        const Text('请输入需要连接的 DTD URI:'),
         const SizedBox(height: denseSpacing),
         Row(
           children: [
@@ -200,7 +200,7 @@ class _DtdNotConnectedViewState extends State<DtdNotConnectedView> {
             ),
             const SizedBox(width: defaultSpacing),
             DevToolsButton(
-              label: 'Connect',
+              label: '连接',
               elevated: true,
               onPressed: _connect,
             ),

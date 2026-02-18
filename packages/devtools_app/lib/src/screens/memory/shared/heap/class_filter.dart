@@ -109,7 +109,7 @@ class ClassFilter with Serializable {
       (filterType == ClassFilterType.only && (only ?? '').trim().isEmpty);
 
   String get buttonTooltip {
-    if (isEmpty) return 'Filter classes and packages.';
+    if (isEmpty) return '筛选类与包';
     return displayString;
   }
 
@@ -176,11 +176,11 @@ class ClassFilter with Serializable {
   String get displayString {
     switch (filterType) {
       case ClassFilterType.showAll:
-        return 'Show all classes';
+        return '显示所有类';
       case ClassFilterType.except:
-        return 'Show all classes, except:\n$except';
+        return '显示所有类，但排除：\n$except';
       case ClassFilterType.only:
-        return 'Show only:\n$only';
+        return '仅显示：\n$only';
     }
   }
 

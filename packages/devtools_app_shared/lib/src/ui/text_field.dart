@@ -111,7 +111,7 @@ final class InputDecorationSuffixButton extends StatelessWidget {
       InputDecorationSuffixButton(
         icon: Icons.clear,
         onPressed: onPressed,
-        tooltip: 'Clear',
+        tooltip: '清除',
       );
 
   factory InputDecorationSuffixButton.close({
@@ -120,7 +120,7 @@ final class InputDecorationSuffixButton extends StatelessWidget {
       InputDecorationSuffixButton(
         icon: Icons.close,
         onPressed: onPressed,
-        tooltip: 'Close',
+        tooltip: '关闭',
       );
 
   factory InputDecorationSuffixButton.help({
@@ -129,7 +129,7 @@ final class InputDecorationSuffixButton extends StatelessWidget {
       InputDecorationSuffixButton(
         icon: Icons.question_mark,
         onPressed: onPressed,
-        tooltip: 'Help',
+        tooltip: '帮助',
       );
 
   final IconData icon;

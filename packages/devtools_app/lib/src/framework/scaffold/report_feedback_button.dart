@@ -18,7 +18,7 @@ class ReportFeedbackButton extends ScaffoldAction {
   ReportFeedbackButton({super.key, super.color})
     : super(
         icon: Icons.bug_report_outlined,
-        tooltip: 'Report feedback',
+        tooltip: '报告反馈',
         onPressed: (_) {
           ga.select(gac.devToolsMain, gac.feedbackButton);
           unawaited(

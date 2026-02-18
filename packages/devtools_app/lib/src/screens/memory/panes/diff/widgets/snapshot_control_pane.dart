@@ -32,7 +32,7 @@ class SnapshotControlPane extends StatelessWidget {
               _DiffDropdown(current: current, controller: controller),
               const SizedBox(width: defaultSpacing),
               DownloadButton(
-                tooltip: 'Download data in CSV format',
+                tooltip: '以 CSV 格式下载数据',
                 label: 'CSV',
                 minScreenWidthForText: memoryControlsMinVerboseWidth,
                 gaScreen: gac.memory,
@@ -85,7 +85,7 @@ class _DiffDropdown extends StatelessWidget {
       valueListenable: current.diffWith,
       builder: (_, diffWith, _) => Row(
         children: [
-          const Text('Diff with:'),
+          const Text('对比快照:'),
           const SizedBox(width: defaultSpacing),
           RoundedDropDownButton<SnapshotDataItem>(
             isDense: true,
@@ -123,8 +123,8 @@ class _SnapshotSizeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = <String, int>{
-      'Dart Heap': footprint.dart,
-      'Reachable': footprint.reachable,
+      'Dart 堆': footprint.dart,
+      '可达内存': footprint.reachable,
     };
     return Text(
       items.entries

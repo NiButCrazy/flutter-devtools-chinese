@@ -36,7 +36,7 @@ final _baseUrlRelativeMarkdownLinkPattern = RegExp(
   multiLine: true,
 );
 const _releaseNotesPath = '/f/devtools-releases.json';
-final _flutterDocsSite = Uri.https('docs.flutter.dev');
+final _flutterDocsSite = Uri.https('docs.flutter.cn');
 
 class ReleaseNotesViewer extends SidePanelViewer {
   const ReleaseNotesViewer({required super.controller, super.child})
@@ -208,9 +208,9 @@ class ReleaseNotesController extends SidePanelController {
   /// Convert all site-base-url relative links in [markdownContent]
   /// to absolute links from the specified [baseUrl].
   ///
-  /// For example, if `baseUrl` is `https://docs.flutter.dev`,
+  /// For example, if `baseUrl` is `https://docs.flutter.cn`,
   /// the path `/tools/devtools` would be converted
-  /// to `https://docs.flutter.dev/tools/devtools`.
+  /// to `https://docs.flutter.cn/tools/devtools`.
   String _convertBaseUrlRelativeLinks(String markdownContent, Uri baseUrl) =>
       markdownContent.replaceAllMapped(
         _baseUrlRelativeMarkdownLinkPattern,

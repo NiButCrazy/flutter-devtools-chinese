@@ -18,8 +18,8 @@ import '../primitives/utils.dart';
 import 'common_widgets.dart';
 
 enum SaveFormat {
-  devtools('Save as DevTools .json file'),
-  har('Save as .har file');
+  devtools('另存为 DevTools .json 文件'),
+  har('另存为 .har 文件');
 
   const SaveFormat(this.display);
 
@@ -55,7 +55,7 @@ class OpenSaveButtonGroup extends StatelessWidget {
           children: [
             _SimpleOpenSaveButton(
               icon: Icons.file_upload,
-              tooltip: 'Open a file that was previously saved from DevTools',
+              tooltip: '打开之前从 DevTools 保存的文件',
               roundedLeftBorder: true,
               roundedRightBorder: false,
               onPressed: () async {
@@ -71,7 +71,7 @@ class OpenSaveButtonGroup extends StatelessWidget {
                   ).importData(importedFile, expectedScreenId: screenId);
                 } else {
                   notificationService.push(
-                    'Something went wrong. Could not open selected file.',
+                    '发生错误，无法打开所选文件',
                   );
                 }
               },
@@ -87,7 +87,7 @@ class OpenSaveButtonGroup extends StatelessWidget {
                       saveFormats.first == SaveFormat.devtools
                   ? _SimpleOpenSaveButton(
                       icon: Icons.file_download,
-                      tooltip: 'Save this screen\'s data for offline viewing',
+                      tooltip: '保存此界面数据以供离线查看',
                       roundedLeftBorder: false,
                       roundedRightBorder: true,
                       onPressed: onSave != null
@@ -343,7 +343,7 @@ class _FileImportContainerState extends State<FileImportContainer> {
       children: [
         Expanded(
           child: Text(
-            importedFile?.path ?? 'No File Selected',
+            importedFile?.path ?? '未选择文件',
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).regularTextStyle,
             textAlign: TextAlign.left,
@@ -464,7 +464,7 @@ class FileImportButton extends StatelessWidget {
     return GaDevToolsButton(
       onPressed: onPressed,
       icon: Icons.file_upload,
-      label: 'Open file',
+      label: '打开文件',
       gaScreen: gaScreen,
       gaSelection: gaSelection,
       elevated: elevatedButton,

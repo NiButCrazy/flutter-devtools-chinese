@@ -40,7 +40,7 @@ class MemoryChartLegend extends StatelessWidget {
     legendRows.add(
       Container(
         padding: _legendTitlePadding,
-        child: Text('Events Legend', style: theme.legendTextStyle),
+        child: Text('事件图例', style: theme.legendTextStyle),
       ),
     );
 
@@ -55,7 +55,7 @@ class MemoryChartLegend extends StatelessWidget {
     legendRows.add(
       Container(
         padding: _legendTitlePadding,
-        child: Text('Memory Legend', style: theme.legendTextStyle),
+        child: Text('内存图例', style: theme.legendTextStyle),
       ),
     );
 
@@ -68,7 +68,7 @@ class MemoryChartLegend extends StatelessWidget {
       legendRows.add(
         Container(
           padding: _legendTitlePadding,
-          child: Text('Android Legend', style: theme.legendTextStyle),
+          child: Text('Android 图例', style: theme.legendTextStyle),
         ),
       );
 
@@ -180,14 +180,14 @@ class _LegendRow extends StatelessWidget {
 // TODO(polina-c): this list overlaps with [_EventsTraceName] in [event_chart_controller.dart].
 // Consider refactoring to avoid duplication.
 enum _LegendCategory {
-  manualSnapshot('Snapshot'),
-  autoSnapshot('Auto'),
-  monitor('Monitor'),
-  reset('Reset'),
-  vmGC('GC VM'),
-  manualGC('Manual'),
-  event('Event'),
-  events('Events');
+  manualSnapshot('快照'),
+  autoSnapshot('自动'),
+  monitor('监控'),
+  reset('重置'),
+  vmGC('VM 垃圾回收'),
+  manualGC('手动'),
+  event('事件'),
+  events('事件集');
 
   const _LegendCategory(this.displayName);
 

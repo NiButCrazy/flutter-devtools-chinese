@@ -27,8 +27,8 @@ class _ClassNameColumn extends ColumnData<DiffClassData>
         ColumnHeaderRenderer<DiffClassData> {
   const _ClassNameColumn(this.diffData)
     : super(
-        'Class',
-        titleTooltip: 'Class name',
+        '类',
+        titleTooltip: '类名',
         fixedWidthPx: 200.0,
         alignment: ColumnAlignment.left,
       );
@@ -88,13 +88,13 @@ class _InstanceColumn extends ColumnData<DiffClassData>
   static String columnTitle(_DataPart dataPart) {
     switch (dataPart) {
       case _DataPart.created:
-        return 'New';
+        return '新创建';
       case _DataPart.deleted:
-        return 'Released';
+        return '已释放';
       case _DataPart.delta:
-        return 'Delta';
+        return '变化量';
       case _DataPart.persisted:
-        return 'Persisted';
+        return '保留';
     }
   }
 
@@ -173,13 +173,13 @@ class _SizeColumn extends ColumnData<DiffClassData> {
   static String columnTitle(_DataPart dataPart) {
     switch (dataPart) {
       case _DataPart.created:
-        return 'Allocated';
+        return '已分配';
       case _DataPart.deleted:
-        return 'Freed';
+        return '已释放';
       case _DataPart.delta:
-        return 'Delta';
+        return '变化量';
       case _DataPart.persisted:
-        return 'Persisted';
+        return '保留';
     }
   }
 
@@ -275,11 +275,11 @@ class _SizeGroupTitle extends StatelessWidget {
                   .toList(),
             ),
             const SizedBox(width: denseSpacing),
-            const Text('Size'),
+            const Text('大小'),
           ],
         ),
       ),
-      tooltip: '${sizeType.displayName} size:\n${sizeType.description}',
+      tooltip: '${sizeType.displayName} 大小：\n${sizeType.description}',
     );
   }
 }
@@ -299,7 +299,7 @@ class ClassesTableDiff extends StatelessWidget {
     return [
       ColumnGroup.fromText(title: '', range: const Range(0, 1)),
       ColumnGroup.fromText(
-        title: 'Instances',
+        title: '实例集',
         range: const Range(1, 5),
         tooltip: nonGcableInstancesColumnTooltip,
       ),

@@ -124,7 +124,7 @@ class DisconnectObserverState extends State<DisconnectObserver>
             child: Column(
               children: [
                 const Spacer(),
-                Text('Disconnected', style: theme.textTheme.headlineMedium),
+                Text('已断开连接', style: theme.textTheme.headlineMedium),
                 const SizedBox(height: defaultSpacing),
                 if (!isEmbedded())
                   ConnectToNewAppButton(
@@ -133,12 +133,12 @@ class DisconnectObserverState extends State<DisconnectObserver>
                     gaScreen: gac.devToolsMain,
                   )
                 else
-                  const Text('Run a new debug session to reconnect.'),
+                  const Text('启动新的调试会话以重新连接'),
                 const Spacer(),
                 if (offlineDataController.offlineDataJson.isNotEmpty) ...[
                   ElevatedButton(
                     onPressed: _reviewHistory,
-                    child: const Text('Review recent data (offline)'),
+                    child: const Text('查看最近数据（离线）'),
                   ),
                   const Spacer(),
                 ],

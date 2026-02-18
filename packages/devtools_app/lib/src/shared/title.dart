@@ -8,13 +8,13 @@ import 'globals.dart';
 
 void generateDevToolsTitle() {
   if (!serviceConnection.serviceManager.connectedAppInitialized) {
-    _devToolsTitle.value = 'DevTools for Flutter & Dart';
+    _devToolsTitle.value = 'Flutter & Dart 开发者工具';
     return;
   }
   _devToolsTitle.value =
       serviceConnection.serviceManager.connectedApp!.isFlutterAppNow!
-      ? 'Flutter DevTools'
-      : 'Dart DevTools';
+      ? 'Flutter 开发者工具'
+      : 'Dart 开发者工具';
 }
 
 ValueListenable<String> get devToolsTitle => _devToolsTitle;

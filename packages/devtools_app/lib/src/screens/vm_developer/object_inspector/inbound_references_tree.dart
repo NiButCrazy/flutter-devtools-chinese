@@ -41,7 +41,7 @@ class InboundReferencesTreeNode extends TreeNode<InboundReferencesTreeNode> {
       LibraryRef(:final name, :final uri) => name.isNullOrEmpty ? uri : name,
       ScriptRef(:final uri) => fileNameFromUri(uri),
       InstanceRef(:final name, :final classRef) =>
-        name ?? 'Instance of ${classRef?.name ?? '<Class>'}',
+        name ?? '属于 ${classRef?.name ?? '<Class>'} 的实例',
       _ => (objectRef.vmType ?? objectRef.type)..replaceFirst('@', ''),
     };
   }
@@ -56,7 +56,7 @@ class InboundReferencesTreeNode extends TreeNode<InboundReferencesTreeNode> {
 
   String _parentListElementDescription(int listIndex, ObjRef? obj) {
     final parentListName = _instanceClassName(obj) ?? '<parentList>';
-    return 'element [$listIndex] of $parentListName';
+    return '$parentListName 的第 [$listIndex] 个元素';
   }
 
   /// Describes the given InboundReference [inboundRef] and its parentListIndex,
@@ -64,23 +64,23 @@ class InboundReferencesTreeNode extends TreeNode<InboundReferencesTreeNode> {
   String _inboundRefDescription(InboundReference inboundRef, int? offset) {
     final parentListIndex = inboundRef.parentListIndex;
     if (parentListIndex != null) {
-      return 'Referenced by ${_parentListElementDescription(parentListIndex, inboundRef.source)}';
+      return '由 ${_parentListElementDescription(parentListIndex, inboundRef.source)} 引用';
     }
 
-    final description = StringBuffer('Referenced by ');
+    final description = StringBuffer('引用来源：');
 
     if (offset != null) {
-      description.write('offset $offset of ');
+      description.write('偏移量 $offset，来源于 ');
     }
 
     if (inboundRef.parentField is int) {
       assert((inboundRef.source as InstanceRef).kind == InstanceKind.kRecord);
-      description.write('\$${inboundRef.parentField} of ');
+      description.write('\$${inboundRef.parentField} 属于 ');
     } else if (inboundRef.parentField is String) {
       assert((inboundRef.source as InstanceRef).kind == InstanceKind.kRecord);
-      description.write('${inboundRef.parentField} of ');
+      description.write('${inboundRef.parentField} 属于 ');
     } else if (inboundRef.parentField is FieldRef) {
-      description.write('${_objectName(inboundRef.parentField)} of ');
+      description.write('${_objectName(inboundRef.parentField)} 属于 ');
     }
 
     description.write(_objectDescription(inboundRef.source) ?? '<object>');
@@ -93,8 +93,8 @@ class InboundReferencesTreeNode extends TreeNode<InboundReferencesTreeNode> {
     if (object == null) return null;
     return switch (object) {
       FieldRef(:final declaredType, :final name, :final owner) =>
-        '${declaredType?.name ?? 'Field'} $name of ${_objectName(owner) ?? '<Owner>'}',
-      FuncRef() => qualifiedName(object) ?? '<Function Name>',
+        '${declaredType?.name ?? '字段'} $name 属于 ${_objectName(owner) ?? '<所有者>'}',
+      FuncRef() => qualifiedName(object) ?? '<函数名称>',
       _ => _objectName(object),
     };
   }

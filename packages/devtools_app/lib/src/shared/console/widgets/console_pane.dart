@@ -18,7 +18,7 @@ import 'help_dialog.dart';
 class ConsolePaneHeader extends AreaPaneHeader {
   ConsolePaneHeader({super.key})
     : super(
-        title: const Text('Console'),
+        title: const Text('控制台'),
         roundedTopBorder: true,
         actions: [
           const ConsoleHelpLink(),
@@ -31,7 +31,7 @@ class ConsolePaneHeader extends AreaPaneHeader {
           const SizedBox(width: densePadding),
           DeleteControl(
             buttonKey: ConsolePane.clearStdioButtonKey,
-            tooltip: 'Clear console output',
+            tooltip: '清除控制台输出',
             onPressed: () => serviceConnection.consoleService.clearStdio(),
           ),
         ],

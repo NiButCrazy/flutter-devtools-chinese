@@ -37,7 +37,7 @@ class _FieldClassNameColumn extends ColumnData<ProfileRecord>
         ColumnRenderer<ProfileRecord>,
         ColumnHeaderRenderer<ProfileRecord> {
   const _FieldClassNameColumn(this.classFilterData)
-    : super('Class', fixedWidthPx: 200);
+    : super('类', fixedWidthPx: 200);
 
   @override
   String? getValue(ProfileRecord dataObject) => dataObject.heapClass.className;
@@ -104,8 +104,8 @@ class _FieldInstanceCountColumn extends ColumnData<ProfileRecord>
     implements ColumnRenderer<ProfileRecord> {
   const _FieldInstanceCountColumn({required this.heap})
     : super(
-        'Instances',
-        titleTooltip: 'The number of instances of the class in the heap',
+        '实例数量',
+        titleTooltip: '堆中该类的实例数量',
         alignment: ColumnAlignment.right,
         fixedWidthPx: _defaultNumberFieldWidth,
       );
@@ -146,9 +146,9 @@ class _FieldInstanceCountColumn extends ColumnData<ProfileRecord>
 class _FieldExternalSizeColumn extends _FieldSizeColumn {
   const _FieldExternalSizeColumn({required super.heap})
     : super(
-        title: 'External',
+        title: '外部',
         titleTooltip:
-            'Non-Dart heap allocated memory associated with a Dart object',
+            '与 Dart 对象关联的、由非 Dart 堆分配的内存',
       );
 
   @override
@@ -166,7 +166,7 @@ class _FieldExternalSizeColumn extends _FieldSizeColumn {
 
 class _FieldDartHeapSizeColumn extends _FieldSizeColumn {
   _FieldDartHeapSizeColumn({required super.heap})
-    : super(title: 'Dart Heap', titleTooltip: SizeType.shallow.description);
+    : super(title: 'Dart 堆', titleTooltip: SizeType.shallow.description);
 
   @override
   int? getValue(ProfileRecord dataObject) {
@@ -183,11 +183,10 @@ class _FieldDartHeapSizeColumn extends _FieldSizeColumn {
 
 class _FieldSizeColumn extends ColumnData<ProfileRecord> {
   const _FieldSizeColumn({
-    String title = 'Total Size',
+    String title = '总大小',
     String titleTooltip =
-        "The sum of the type's total shallow memory "
-        'consumption in the Dart heap and associated external (e.g., '
-        'non-Dart heap) allocations',
+        '该类型在 Dart 堆中的浅层总内存消耗，'
+        '以及其关联的外部（例如非 Dart 堆）内存分配之和',
     required this.heap,
   }) : super(
          title,
@@ -249,7 +248,7 @@ class _GCHeapNameColumn extends ColumnData<AdaptedProfile> {
 
   @override
   String? getValue(AdaptedProfile dataObject) {
-    return 'GC Statistics';
+    return 'GC 统计';
   }
 
   @override
@@ -259,8 +258,8 @@ class _GCHeapNameColumn extends ColumnData<AdaptedProfile> {
 class _GCHeapUsageColumn extends _GCHeapStatsColumn {
   _GCHeapUsageColumn({required super.generation})
     : super(
-        'Usage',
-        titleTooltip: 'The current amount of memory allocated from the heap',
+        '占用',
+        titleTooltip: '当前从堆中分配的内存量',
         alignment: ColumnAlignment.right,
         fixedWidthPx: _defaultNumberFieldWidth,
       );
@@ -282,9 +281,9 @@ class _GCHeapUsageColumn extends _GCHeapStatsColumn {
 class _GCHeapCapacityColumn extends _GCHeapStatsColumn {
   _GCHeapCapacityColumn({required super.generation})
     : super(
-        'Capacity',
+        '容量',
         titleTooltip:
-            'The current size of the heap, including unallocated memory',
+            '堆的当前大小，包括尚未分配的内存',
         alignment: ColumnAlignment.right,
         fixedWidthPx: _defaultNumberFieldWidth,
       );
@@ -306,8 +305,8 @@ class _GCHeapCapacityColumn extends _GCHeapStatsColumn {
 class _GCCountColumn extends _GCHeapStatsColumn {
   _GCCountColumn({required super.generation})
     : super(
-        'Collections',
-        titleTooltip: 'The number of garbage collections run on the heap',
+        '回收次数',
+        titleTooltip: '在堆上执行的垃圾回收总次数',
         alignment: ColumnAlignment.right,
         fixedWidthPx: _defaultNumberFieldWidth,
       );
@@ -324,9 +323,9 @@ class _GCCountColumn extends _GCHeapStatsColumn {
 class _GCLatencyColumn extends _GCHeapStatsColumn {
   _GCLatencyColumn({required super.generation})
     : super(
-        'Latency',
+        '延迟',
         titleTooltip:
-            'The average time taken to perform a garbage collection on the heap (ms)',
+            '在堆上执行一次垃圾回收所花费的平均时间（毫秒）',
         alignment: ColumnAlignment.right,
         fixedWidthPx: _defaultNumberFieldWidth,
       );
@@ -610,7 +609,7 @@ class _ExportAllocationProfileButton extends StatelessWidget {
           gaScreen: gac.memory,
           gaSelection: gac.MemoryEvents.profileDownloadCsv.name,
           minScreenWidthForText: memoryControlsMinVerboseWidth,
-          tooltip: 'Download allocation profile data in CSV format',
+          tooltip: '以 CSV 格式下载分配概况数据',
           label: 'CSV',
           onPressed: currentAllocationProfile == null
               ? null
@@ -634,8 +633,8 @@ class _RefreshOnGCToggleButton extends StatelessWidget {
       valueListenable: allocationProfileController.refreshOnGc,
       builder: (context, refreshOnGc, _) {
         return DevToolsToggleButton(
-          message: 'Auto-refresh on garbage collection',
-          label: 'Refresh on GC',
+          message: '在垃圾回收时自动刷新',
+          label: 'GC 自动刷新',
           icon: Icons.autorenew_outlined,
           isSelected: refreshOnGc,
           onPressed: () {
@@ -661,7 +660,7 @@ class _ProfileHelpLink extends StatelessWidget {
       gaSelection: gac.topicDocumentationButton(
         gac.MemoryEvents.profileHelp.name,
       ),
-      dialogTitle: 'Memory Allocation Profile Help',
+      dialogTitle: '内存分配概况帮助',
       actions: [
         MoreInfoLink(
           url: DocLinks.profile.value,
@@ -675,9 +674,9 @@ class _ProfileHelpLink extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            'The allocation profile tab displays information about\n'
-            'allocated objects in the Dart heap of the selected\n'
-            'isolate.',
+            '分配概况选项卡显示 Dart 堆中'
+            '已分配对象的信息，\n'
+            '基于当前选定的 isolate',
           ),
           SizedBox(height: denseSpacing),
           ClassTypeLegend(),

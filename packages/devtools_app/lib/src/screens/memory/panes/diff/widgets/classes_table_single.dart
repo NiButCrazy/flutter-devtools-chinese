@@ -24,8 +24,8 @@ class _ClassNameColumn extends ColumnData<SingleClassData>
         ColumnHeaderRenderer<SingleClassData> {
   const _ClassNameColumn(this.data)
     : super(
-        'Class',
-        titleTooltip: 'Class name',
+        '类',
+        titleTooltip: '类名',
         fixedWidthPx: 200.0,
         alignment: ColumnAlignment.left,
       );
@@ -73,7 +73,7 @@ class _InstanceColumn extends ColumnData<SingleClassData>
     implements ColumnRenderer<SingleClassData> {
   const _InstanceColumn(this.classData)
     : super(
-        'Instances',
+        '实例数量',
         titleTooltip: nonGcableInstancesColumnTooltip,
         fixedWidthPx: 80.0,
         alignment: ColumnAlignment.right,
@@ -106,7 +106,7 @@ class _InstanceColumn extends ColumnData<SingleClassData>
 class _ShallowSizeColumn extends ColumnData<SingleClassData> {
   _ShallowSizeColumn()
     : super(
-        'Shallow Dart Size',
+        '浅层 Dart 大小',
         titleTooltip: SizeType.shallow.description,
         fixedWidthPx: 120.0,
         alignment: ColumnAlignment.right,
@@ -126,7 +126,7 @@ class _ShallowSizeColumn extends ColumnData<SingleClassData> {
 class _RetainedSizeColumn extends ColumnData<SingleClassData> {
   _RetainedSizeColumn(this.classData)
     : super(
-        'Retained Dart Size',
+        '保留 Dart 大小',
         titleTooltip: SizeType.retained.description,
         fixedWidthPx: 130.0,
         alignment: ColumnAlignment.right,

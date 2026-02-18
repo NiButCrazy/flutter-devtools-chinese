@@ -14,7 +14,7 @@ class SelfTimeColumn extends TimeAndPercentageColumn<CpuStackFrame> {
     super.titleTooltip,
     RichTooltipBuilder<CpuStackFrame>? dataTooltipProvider,
   }) : super(
-         title: 'Self Time',
+         title: '自身耗时',
          timeProvider: (stackFrame) => stackFrame.selfTime,
          percentAsDoubleProvider: (stackFrame) => stackFrame.selfTimeRatio,
          richTooltipProvider: dataTooltipProvider,
@@ -27,7 +27,7 @@ class TotalTimeColumn extends TimeAndPercentageColumn<CpuStackFrame> {
     super.titleTooltip,
     RichTooltipBuilder<CpuStackFrame>? dataTooltipProvider,
   }) : super(
-         title: 'Total Time',
+         title: '总体耗时',
          timeProvider: (stackFrame) => stackFrame.totalTime,
          percentAsDoubleProvider: (stackFrame) => stackFrame.totalTimeRatio,
          richTooltipProvider: dataTooltipProvider,
@@ -37,7 +37,7 @@ class TotalTimeColumn extends TimeAndPercentageColumn<CpuStackFrame> {
 
 class MethodAndSourceColumn extends TreeColumnData<CpuStackFrame>
     implements ColumnRenderer<CpuStackFrame> {
-  const MethodAndSourceColumn() : super('Method');
+  const MethodAndSourceColumn() : super('方法');
 
   @override
   String getValue(CpuStackFrame dataObject) => dataObject.name;

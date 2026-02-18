@@ -46,8 +46,8 @@ class _ReconnectingOverlayState extends State<ReconnectingOverlay> {
           const SizedBox(height: defaultSpacing),
           Text(
             _secondsUntilReconnection > 0
-                ? 'Reconnecting in $_secondsUntilReconnection'
-                : 'Reconnecting...',
+                ? '将在 $_secondsUntilReconnection 秒后重新连接'
+                : '正在重新连接…',
             style: theme.textTheme.headlineMedium,
           ),
         ],

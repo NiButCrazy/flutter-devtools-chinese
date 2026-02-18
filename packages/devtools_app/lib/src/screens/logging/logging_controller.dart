@@ -152,7 +152,7 @@ class LoggingController extends DevToolsScreenController
   static final loggingSettingFilters = <SettingFilter<LogData, Object>>[
     SettingFilter<LogData, int>(
       id: _minLogLevelFilterId,
-      name: 'Hide logs below the minimum log level',
+      name: '隐藏低于最低日志级别的日志',
       includeCallback: (LogData element, int currentFilterValue) =>
           element.level >= currentFilterValue,
       enabledCallback: (int filterValue) => filterValue > Level.ALL.value,
@@ -165,8 +165,7 @@ class LoggingController extends DevToolsScreenController
       ToggleFilter<LogData>(
         id: _verboseFlutterFrameworkFilterId,
         name:
-            'Hide verbose Flutter framework logs (initialization, frame '
-            'times, image sizes)',
+            '隐藏 Flutter 框架的详细日志（初始化、帧时间、图像尺寸）',
         includeCallback: (log) => !_verboseFlutterFrameworkLogKinds.any(
           (kind) => kind.caseInsensitiveEquals(log.kind),
         ),
@@ -175,8 +174,7 @@ class LoggingController extends DevToolsScreenController
       ToggleFilter<LogData>(
         id: _verboseFlutterServiceFilterId,
         name:
-            'Hide verbose Flutter service logs (service extension state '
-            'changes)',
+            '隐藏 Flutter 服务的详细日志（服务扩展状态变化）',
         includeCallback: (log) => !_verboseFlutterServiceLogKinds.any(
           (kind) => kind.caseInsensitiveEquals(log.kind),
         ),
@@ -185,7 +183,7 @@ class LoggingController extends DevToolsScreenController
     ],
     ToggleFilter<LogData>(
       id: _gcFilterId,
-      name: 'Hide garbage collection logs',
+      name: '隐藏垃圾回收日志',
       includeCallback: (log) => !log.kind.caseInsensitiveEquals(_gcLogKind),
       defaultValue: true,
     ),

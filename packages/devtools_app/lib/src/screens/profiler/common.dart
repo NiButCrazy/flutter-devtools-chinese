@@ -5,10 +5,10 @@
 import 'package:flutter/foundation.dart';
 
 enum ProfilerTab {
-  bottomUp('Bottom Up', _bottomUpTab),
-  callTree('Call Tree', _callTreeTab),
-  methodTable('Method Table', _methodTableTab),
-  cpuFlameChart('CPU Flame Chart', _flameChartTab);
+  bottomUp('自下而上', _bottomUpTab),
+  callTree('调用树', _callTreeTab),
+  methodTable('方法表', _methodTableTab),
+  cpuFlameChart('火焰图', _flameChartTab);
 
   const ProfilerTab(this.title, this.key);
 

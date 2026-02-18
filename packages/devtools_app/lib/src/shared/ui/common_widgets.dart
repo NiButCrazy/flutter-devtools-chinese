@@ -108,27 +108,27 @@ class GaDevToolsButton extends DevToolsButton {
 class PauseButton extends GaDevToolsButton {
   PauseButton({
     super.key,
-    super.tooltip = 'Pause',
+    super.tooltip = '暂停',
     required super.onPressed,
     required super.gaScreen,
     required super.gaSelection,
     super.outlined = true,
     super.minScreenWidthForText,
     bool iconOnly = false,
-  }) : super(label: iconOnly ? null : 'Pause', icon: Icons.pause);
+  }) : super(label: iconOnly ? null : '暂停', icon: Icons.pause);
 }
 
 class ResumeButton extends GaDevToolsButton {
   ResumeButton({
     super.key,
-    super.tooltip = 'Resume',
+    super.tooltip = '恢复',
     required super.onPressed,
     required super.gaScreen,
     required super.gaSelection,
     super.outlined = true,
     super.minScreenWidthForText,
     bool iconOnly = false,
-  }) : super(label: iconOnly ? null : 'Resume', icon: Icons.play_arrow);
+  }) : super(label: iconOnly ? null : '恢复', icon: Icons.play_arrow);
 }
 
 /// A button that groups pause and resume controls and automatically manages
@@ -139,8 +139,8 @@ class PauseResumeButtonGroup extends StatelessWidget {
     required this.paused,
     required this.onPause,
     required this.onResume,
-    this.pauseTooltip = 'Pause',
-    this.resumeTooltip = 'Resume',
+    this.pauseTooltip = '暂停',
+    this.resumeTooltip = '恢复',
     required this.gaScreen,
     required this.gaSelectionPause,
     required this.gaSelectionResume,
@@ -190,21 +190,21 @@ class ClearButton extends GaDevToolsButton {
   ClearButton({
     super.key,
     super.color,
-    super.tooltip = 'Clear',
+    super.tooltip = '清除',
     super.outlined = true,
     super.minScreenWidthForText,
     required super.gaScreen,
     required super.gaSelection,
     required super.onPressed,
     bool iconOnly = false,
-    String label = 'Clear',
+    String label = '清除',
   }) : super(icon: Icons.block, label: iconOnly ? null : label);
 }
 
 class RefreshButton extends GaDevToolsButton {
   RefreshButton({
     super.key,
-    String label = 'Refresh',
+    String label = '刷新',
     super.tooltip,
     super.minScreenWidthForText,
     super.outlined,
@@ -221,7 +221,7 @@ class ToolbarRefresh extends ToolbarAction {
     super.key,
     super.icon = Icons.refresh,
     required super.onPressed,
-    super.tooltip = 'Refresh',
+    super.tooltip = '刷新',
   });
 }
 
@@ -247,10 +247,10 @@ class StartStopRecordingButton extends GaDevToolsButton {
       recording ? Icons.stop : Icons.fiber_manual_record;
 
   static String _label(bool recording) =>
-      recording ? 'Stop recording' : 'Start recording';
+      recording ? '停止记录' : '开始记录';
 
   static String _tooltip(bool recording) =>
-      recording ? 'Stop recording' : 'Start recording';
+      recording ? '停止记录' : '开始记录';
 
   static Color? _color(bool recording) => recording ? Colors.red : null;
 
@@ -272,12 +272,12 @@ class RecordButton extends GaDevToolsButton {
     required super.gaScreen,
     required super.gaSelection,
     super.minScreenWidthForText,
-    super.tooltip = 'Start recording',
+    super.tooltip = '开始记录',
     String? labelOverride,
   }) : super(
          onPressed: recording ? null : onPressed,
          icon: Icons.fiber_manual_record,
-         label: labelOverride ?? 'Record',
+         label: labelOverride ?? '记录',
        );
 }
 
@@ -295,11 +295,11 @@ class StopRecordingButton extends GaDevToolsButton {
     required super.gaScreen,
     required super.gaSelection,
     super.minScreenWidthForText,
-    super.tooltip = 'Stop recording',
+    super.tooltip = '停止记录',
   }) : super(
          onPressed: !recording ? null : onPressed,
          icon: Icons.stop,
-         label: 'Stop',
+         label: '停止',
        );
 }
 
@@ -320,7 +320,7 @@ class HelpButton extends GaDevToolsButton {
     required super.gaSelection,
     required super.onPressed,
     super.outlined = true,
-  }) : super(icon: Icons.help_outline, tooltip: 'Help');
+  }) : super(icon: Icons.help_outline, tooltip: '帮助');
 }
 
 class ExpandAllButton extends StatelessWidget {
@@ -344,8 +344,8 @@ class ExpandAllButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GaDevToolsButton(
       icon: Icons.unfold_more,
-      label: 'Expand All',
-      tooltip: 'Expand All',
+      label: '展开全部',
+      tooltip: '展开全部',
       onPressed: onPressed,
       gaScreen: gaScreen,
       gaSelection: gaSelection,
@@ -375,8 +375,8 @@ class CollapseAllButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GaDevToolsButton(
       icon: Icons.unfold_less,
-      label: 'Collapse All',
-      tooltip: 'Collapse All',
+      label: '收起全部',
+      tooltip: '收起全部',
       onPressed: onPressed,
       gaScreen: gaScreen,
       gaSelection: gaSelection,
@@ -492,7 +492,7 @@ class ProcessingInfo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Processing $processedObject',
+            '正在处理 $processedObject',
             style: Theme.of(context).regularTextStyle,
           ),
           const SizedBox(height: defaultSpacing),
@@ -517,7 +517,7 @@ class ExitOfflineButton extends StatelessWidget {
     final routerDelegate = DevToolsRouterDelegate.of(context);
     return GaDevToolsButton(
       key: const Key('exit offline button'),
-      label: 'Exit offline mode',
+      label: '退出离线模式',
       icon: Icons.clear,
       gaScreen: gaScreen,
       gaSelection: gac.stopShowingOfflineData,
@@ -1210,7 +1210,7 @@ class _JsonViewerState extends State<JsonViewer> {
             unawaited(
               copyToClipboard(
                 jsonData,
-                successMessage: 'JSON copied to clipboard',
+                successMessage: 'JSON 已复制至剪贴板',
               ),
             );
           },
@@ -1268,7 +1268,7 @@ class MoreInfoLink extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text('More info', style: theme.linkTextStyle),
+            Text('更多信息', style: theme.linkTextStyle),
             const SizedBox(width: densePadding),
             Icon(
               Icons.launch,
@@ -1408,8 +1408,8 @@ class CopyToClipboardControl extends StatelessWidget {
   const CopyToClipboardControl({
     super.key,
     this.dataProvider,
-    this.successMessage = 'Copied to clipboard.',
-    this.tooltip = 'Copy to clipboard',
+    this.successMessage = '已成功复制至剪切板',
+    this.tooltip = '复制至剪切板',
     this.buttonKey,
     this.size,
     this.gaScreen,
@@ -1767,23 +1767,21 @@ class PubWarningText extends StatelessWidget {
       child: Text.rich(
         TextSpan(
           text:
-              'Warning: you should no longer be launching DevTools from'
-              ' pub.\n\n',
+              '警告：您不应再启动来自 pub 的 DevTools\n\n',
           style: theme.subtleTextStyle.copyWith(color: theme.colorScheme.error),
           children: [
             TextSpan(
               text:
-                  'DevTools version 2.8.0 will be the last version to '
-                  'be shipped on pub. As of $sdkName\nversion >= '
-                  '$minSdkVersion, DevTools should be launched by running '
-                  'the ',
+                  'DevTools 2.8.0 将是发布到 pub 的最后一个版本。'
+                    '从 $sdkName 版本 >= $minSdkVersion 开始，'
+                    'DevTools 应通过运行以下命令来启动：',
               style: theme.subtleTextStyle,
             ),
             TextSpan(
               text: '`dart devtools`',
               style: theme.subtleFixedFontStyle,
             ),
-            TextSpan(text: '\ncommand.', style: theme.subtleTextStyle),
+            TextSpan(text: '', style: theme.subtleTextStyle),
           ],
         ),
       ),
@@ -2060,8 +2058,8 @@ class DownloadButton extends StatelessWidget {
   const DownloadButton({
     super.key,
     this.onPressed,
-    this.tooltip = 'Download data',
-    this.label = 'Download',
+    this.tooltip = '下载数据',
+    this.label = '下载',
     required this.minScreenWidthForText,
     required this.gaScreen,
     required this.gaSelection,
@@ -2192,7 +2190,7 @@ class _PositiveIntegerSettingState extends State<PositiveIntegerSetting>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final textFieldValidationText = 'Enter an integer > ${widget.minimumValue}';
+    final textFieldValidationText = '输入一个整数 > ${widget.minimumValue}';
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -2217,7 +2215,7 @@ class _PositiveIntegerSettingState extends State<PositiveIntegerSetting>
               controller: _textEditingController,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: InputDecoration(
-                labelText: 'Integer > ${widget.minimumValue}',
+                labelText: '整数 > ${widget.minimumValue}',
                 border: const OutlineInputBorder(),
                 errorBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: theme.colorScheme.error),

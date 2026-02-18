@@ -18,10 +18,10 @@ import '../http/http_service.dart' as http_service;
 import '../primitives/utils.dart';
 import '../ui/common_widgets.dart';
 
-const _runInProfileModeDocsUrl = 'https://flutter.dev/to/use-profile-mode';
+const _runInProfileModeDocsUrl = 'https://docs.flutter.cn/perf/ui-performance#run-in-profile-mode';
 
 const _cpuSamplingRateDocsUrl =
-    'https://docs.flutter.dev/tools/devtools/cpu-profiler#cpu-sampling-rate';
+    'https://docs.flutter.cn/tools/devtools/cpu-profiler#cpu-sampling-rate';
 
 /// Screen id to use for banner messages that are intended to be universal for
 /// every DevTools screen.
@@ -336,19 +336,16 @@ class DebugModePerformanceMessage extends BannerWarning {
         buildTextSpans: (context) => [
           const TextSpan(
             text:
-                'You are running your app in debug mode. Debug mode performance '
-                'is not indicative of release performance, but you may use debug '
-                'mode to gain visibility into the work the system performs (e.g. '
-                'building widgets, calculating layouts, rasterizing scenes,'
-                ' etc.). For precise measurement of performance, relaunch your '
-                'application in ',
+                '您正在以调试模式运行应用。调试模式的性能并不能代表发布版本的性能，'
+                '但您可以使用调试模式来观察系统执行的各种工作（例如构建组件、计算布局、光栅化场景等）。'
+                '如需精确测量性能，请以 ',
           ),
           _runInProfileModeTextSpan(
             context,
             screenId: screenId,
             style: Theme.of(context).warningMessageLinkStyle,
           ),
-          const TextSpan(text: '.'),
+          const TextSpan(text: ' 重新启动应用'),
         ],
       );
 }
@@ -369,10 +366,9 @@ class ShaderJankMessage extends _BannerError {
            return [
              TextSpan(
                text:
-                   'Shader compilation jank detected. $jankyFramesCount '
-                   '${pluralize('frame', jankyFramesCount)} janked with a total of '
-                   '$jankDurationText spent in shader compilation. To pre-compile '
-                   'shaders, see the instructions at ',
+                   '检测到着色器编译卡顿，$jankyFramesCount '
+                   '帧出现卡顿，总计花费 '
+                   '$jankDurationText 于着色器编译上。要预编译着色器，请参见以下说明：',
              ),
              GaLinkTextSpan(
                link: GaLink(
@@ -389,8 +385,7 @@ class ShaderJankMessage extends _BannerError {
              if (serviceConnection.serviceManager.connectedApp!.isIosApp) ...[
                const TextSpan(
                  text:
-                     '\n\nNote: this is a legacy solution with many pitfalls. '
-                     'Try ',
+                     '\n\n注意：这是一个存在诸多问题的旧方案。请尝试 ',
                ),
                GaLinkTextSpan(
                  link: GaLink(
@@ -403,7 +398,7 @@ class ShaderJankMessage extends _BannerError {
                  context: context,
                  style: theme.errorMessageLinkStyle,
                ),
-               const TextSpan(text: ' instead!'),
+               const TextSpan(text: ' 来替代！'),
              ],
            ];
          },
@@ -417,11 +412,11 @@ class HighCpuSamplingRateMessage extends BannerWarning {
         buildTextSpans: (context) => [
           const TextSpan(
             text: '''
-You are opting in to a high CPU sampling rate. This may affect the performance of your application. Please read our ''',
+您正在选择使用较高的 CPU 采样率，这可能会影响您的应用性能，请阅读我们的 ''',
           ),
           GaLinkTextSpan(
             link: GaLink(
-              display: 'documentation',
+              display: '文档',
               url: _cpuSamplingRateDocsUrl,
               gaScreenName: screenId,
               gaSelectedItemDescription:
@@ -431,7 +426,7 @@ You are opting in to a high CPU sampling rate. This may affect the performance o
             style: Theme.of(context).warningMessageLinkStyle,
           ),
           const TextSpan(
-            text: ' to understand the trade-offs associated with this setting.',
+            text: ' 以了解此设置所涉及的权衡',
           ),
         ],
       );
@@ -447,16 +442,16 @@ class HttpLoggingEnabledMessage extends BannerWarning {
         buildTextSpans: (context) => [
           const TextSpan(
             text: '''
-HTTP traffic is being logged for debugging purposes. This may result in increased memory usage for your app. If this is not intentional, consider ''',
+HTTP 流量正在被记录以用于调试，这可能会导致您的应用程序增加内存使用。如果这并非您的意图，请考虑 ''',
           ),
           TextSpan(
-            text: 'disabling http logging',
+            text: '关闭 HTTP 日志记录',
             style: Theme.of(context).warningMessageLinkStyle,
             recognizer: TapGestureRecognizer()
               ..onTap = () async {
                 await http_service.toggleHttpRequestLogging(false).then((_) {
                   if (!http_service.httpLoggingEnabled) {
-                    notificationService.push('Http logging disabled.');
+                    notificationService.push('已关闭 HTTP 日志记录');
                     bannerMessages.removeMessageByKey(
                       _generateKey(screenId),
                       screenId,
@@ -466,7 +461,7 @@ HTTP traffic is being logged for debugging purposes. This may result in increase
               },
           ),
           const TextSpan(
-            text: ' before profiling the memory of your application.',
+            text: '，再对您的应用进行内存分析',
           ),
         ],
       );
@@ -482,15 +477,15 @@ class DebugModeMemoryMessage extends BannerWarning {
         buildTextSpans: (context) => [
           const TextSpan(
             text: '''
-You are running your app in debug mode. Absolute memory usage may be higher in a debug build than in a release build.
-For the most accurate absolute memory stats, relaunch your application in ''',
+您正在以调试模式运行应用，在调试构建中，绝对内存占用可能会比发布构建更高。
+如需获得最准确的绝对内存统计数据，请重新以 ''',
           ),
           _runInProfileModeTextSpan(
             context,
             screenId: screenId,
             style: Theme.of(context).warningMessageLinkStyle,
           ),
-          const TextSpan(text: '.'),
+          const TextSpan(text: ' 启动应用'),
         ],
       );
 }
@@ -509,13 +504,13 @@ class DebuggerIdeRecommendationMessage extends BannerWarning {
           return [
             TextSpan(
               text: '''
-The $codeType DevTools debugger is in maintenance mode. For the best debugging experience, we recommend debugging your $codeType code in a supported IDE''',
+$codeType DevTools 调试器当前处于维护模式，为了获得最佳的调试体验，我们建议您在受支持的 IDE 中调试您的 $codeType 代码''',
             ),
             if (recommendedDebuggers != null) ...[
-              const TextSpan(text: ', such as '),
+              const TextSpan(text: '，比如 '),
               ...recommendedDebuggers,
             ],
-            const TextSpan(text: '.'),
+            const TextSpan(text: ''),
           ];
         },
       );
@@ -528,19 +523,19 @@ class WelcomeToNewInspectorMessage extends BannerInfo {
         buildTextSpans: (context) => [
           const TextSpan(
             text: '''
-👋 Welcome to the new Flutter inspector! To get started, check out the ''',
+👋 欢迎使用全新的 Flutter 检查器！要开始使用，请查看 ''',
           ),
           GaLinkTextSpan(
             link: GaLink(
-              display: 'documentation',
-              url: 'https://docs.flutter.dev/tools/devtools/inspector#new',
+              display: '文档',
+              url: 'https://docs.flutter.cn/tools/devtools/inspector#new',
               gaScreenName: screenId,
               gaSelectedItemDescription: gac.inspectorV2Docs,
             ),
             context: context,
             style: Theme.of(context).linkTextStyle,
           ),
-          const TextSpan(text: '.'),
+          const TextSpan(text: ''),
         ],
       );
 }
@@ -554,21 +549,21 @@ class WasmWelcomeMessage extends BannerInfo {
         buildTextSpans: (context) => [
           const TextSpan(
             text:
-                '🚀 A faster and more performant DevTools is now available on WebAssembly! Click ',
+                '🚀 基于 WebAssembly 的更快、更高性能的 DevTools 现已可用！点击 ',
           ),
           const TextSpan(
-            text: 'Enable',
+            text: '启用',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          const TextSpan(text: ' to try it out now.'),
+          const TextSpan(text: ' 立刻体验。'),
           const TextSpan(
-            text: ' Please note that this will trigger a reload of DevTools.',
+            text: '请注意，这将触发 DevTools 的重新加载',
             style: TextStyle(fontStyle: FontStyle.italic),
           ),
         ],
         buildActions: (context) => [
           DevToolsButton(
-            label: 'Enable',
+            label: '启用',
             onPressed: () async {
               await preferences.enableWasmInStorage();
               webReload();
@@ -633,7 +628,7 @@ GaLinkTextSpan _runInProfileModeTextSpan(
 }) {
   return GaLinkTextSpan(
     link: GaLink(
-      display: 'profile mode',
+      display: 'Profile 模式',
       url: _runInProfileModeDocsUrl,
       gaScreenName: screenId,
       gaSelectedItemDescription: gac.profileModeDocs,

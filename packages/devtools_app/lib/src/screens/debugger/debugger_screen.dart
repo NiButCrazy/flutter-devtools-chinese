@@ -168,9 +168,9 @@ class DebuggerScreenBody extends StatelessWidget {
 class DebuggerWindows extends StatelessWidget {
   const DebuggerWindows({super.key});
 
-  static const callStackTitle = 'Call Stack';
-  static const variablesTitle = 'Variables';
-  static const breakpointsTitle = 'Breakpoints';
+  static const callStackTitle = '调用堆栈';
+  static const variablesTitle = '变量区';
+  static const breakpointsTitle = '断点';
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +232,7 @@ class _BreakpointsWindowActions extends StatelessWidget {
           children: [
             BreakpointsCountBadge(breakpoints: breakpoints),
             DevToolsTooltip(
-              message: 'Remove all breakpoints',
+              message: '移除所有断点',
               child: ToolbarAction(
                 icon: Icons.delete,
                 size: defaultIconSize,
@@ -471,7 +471,7 @@ class _DebuggerStatusState extends State<DebuggerStatus> with AutoDisposeMixin {
 
   Future<String> _computeStatus() async {
     if (!_isPaused) {
-      return 'running';
+      return '运行中';
     }
 
     final event = widget.controller.lastEvent;
@@ -485,26 +485,26 @@ class _DebuggerStatusState extends State<DebuggerStatus> with AutoDisposeMixin {
       frame = event.topFrame;
       // TODO(polina-c): https://github.com/flutter/devtools/issues/5387
       // Reason may be wrong.
-      reason = event.kind == EventKind.kPauseException ? ' on exception' : '';
+      reason = event.kind == EventKind.kPauseException ? '，由于异常' : '';
     }
 
     final location = frame?.location;
     final scriptUri = location?.script?.uri;
     if (scriptUri == null) {
-      return 'paused$reason';
+      return '已暂停$reason';
     }
 
     final fileName = ' at ${fileNameFromUri(scriptUri)}';
     final tokenPos = location?.tokenPos;
     final scriptRef = location?.script;
     if (tokenPos == null || scriptRef == null) {
-      return 'paused$reason$fileName';
+      return '已暂停$reason$fileName';
     }
 
     final script = await scriptManager.getScript(scriptRef);
     final pos = SourcePosition.calculatePosition(script!, tokenPos);
 
-    return 'paused$reason$fileName $pos';
+    return '已暂停$reason$fileName $pos';
   }
 }
 
@@ -561,12 +561,12 @@ class _FloatingDebuggerControlsState extends State<FloatingDebuggerControls>
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: defaultSpacing),
               child: Text(
-                'Main isolate is paused in the debugger',
+                '主程序 Isolate 已在调试器中暂停',
                 style: TextStyle(color: colorScheme.onWarningContainer),
               ),
             ),
             DevToolsTooltip(
-              message: 'Resume',
+              message: '恢复执行',
               child: TextButton(
                 onPressed: _controller.resume,
                 child: const DevToolsIcon(
@@ -577,7 +577,7 @@ class _FloatingDebuggerControlsState extends State<FloatingDebuggerControls>
               ),
             ),
             DevToolsTooltip(
-              message: 'Step over',
+              message: '步过',
               child: TextButton(
                 onPressed: _controller.stepOver,
                 child: const DevToolsIcon(

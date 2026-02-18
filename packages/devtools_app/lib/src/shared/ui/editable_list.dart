@@ -173,7 +173,7 @@ class EditableListActionBar extends StatelessWidget {
               _addNewItem();
             },
             child: const Text(
-              'Add',
+              '添加',
             ), // TODO:(https://github.com/flutter/devtools/issues/4381)
           ),
           const SizedBox(width: densePadding),
@@ -268,7 +268,7 @@ class EditableListCopyDirectoryButton extends StatelessWidget {
       outlined: false,
       onPressed: () {
         unawaited(
-          copyToClipboard(value, successMessage: 'Copied to clipboard.'),
+          copyToClipboard(value, successMessage: '复制至剪切板'),
         );
       },
     );

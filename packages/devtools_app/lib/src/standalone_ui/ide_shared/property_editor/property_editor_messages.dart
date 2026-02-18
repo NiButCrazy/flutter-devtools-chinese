@@ -63,15 +63,14 @@ class HowToUseMessage extends StatelessWidget {
     return Text.rich(
       TextSpan(
         children: [
-          const TextSpan(text: '\nPlease move your cursor anywhere inside a '),
+          const TextSpan(text: '\n请将光标移动到任意一个 '),
           TextSpan(
-            text: 'Flutter widget constructor invocation',
+            text: 'Flutter 组件构造方法调用',
             style: theme.boldTextStyle,
           ),
-          const TextSpan(text: ' to view and edit its properties.\n\n'),
+          const TextSpan(text: ' 中，以查看和编辑其属性。\n\n'),
           const TextSpan(
-            text:
-                'For example, the highlighted code below is a constructor invocation of a ',
+            text: '例如，下面高亮的代码就是一个 ',
           ),
           TextSpan(
             text: 'Text',
@@ -79,7 +78,7 @@ class HowToUseMessage extends StatelessWidget {
               context,
             ).fixedFontStyle.copyWith(color: colorScheme.primary),
           ),
-          const TextSpan(text: ' widget:\n\n'),
+          const TextSpan(text: ' 组件:\n\n'),
           colorA('@override\n'),
           colorB('Widget '),
           colorG('build'),
@@ -129,7 +128,7 @@ class NoDartCodeMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'No Dart code found at the current cursor location.',
+      '当前光标位置未找到 Dart 代码',
       style: Theme.of(context).textTheme.bodyLarge,
     );
   }
@@ -140,7 +139,7 @@ class NoMatchingPropertiesMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('No properties matching the current filter.');
+    return const Text('没有符合当前筛选条件的属性');
   }
 }
 
@@ -150,7 +149,7 @@ class NoWidgetAtLocationMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'No Flutter widget found at the current cursor location.',
+      '当前光标位置未找到 Flutter 组件',
       style: Theme.of(context).textTheme.bodyLarge,
     );
   }
@@ -162,7 +161,7 @@ class WelcomeMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      '👋 Welcome to the Flutter Property Editor!',
+      '👋 欢迎使用 Flutter 属性编辑器！',
       style: Theme.of(context).textTheme.bodyLarge,
     );
   }

@@ -48,17 +48,17 @@ class _DetailsTableState extends State<DetailsTable> {
       widget.controller.selectedNodeProperties.value.layoutProperties;
 
   final _widgetPropertiesTab = DevToolsTab.create(
-    tabName: 'Widget properties',
+    tabName: '组件属性',
     gaPrefix: DetailsTable.gaPrefix,
   );
 
   final _renderObjectTab = DevToolsTab.create(
-    tabName: 'Render object',
+    tabName: '渲染对象',
     gaPrefix: DetailsTable.gaPrefix,
   );
 
   final _flexExplorerTab = DevToolsTab.create(
-    tabName: 'Flex explorer',
+    tabName: 'Flex 查看器',
     gaPrefix: DetailsTable.gaPrefix,
   );
 
@@ -292,7 +292,7 @@ class _PropertiesViewState extends State<PropertiesView> {
                   index: index - layoutExplorerOffset,
                   child: PaddedText(
                     child: Text(
-                      'No widget properties to display.',
+                      '没有可显示的组件属性',
                       style: Theme.of(context).regularTextStyle,
                     ),
                   ),
@@ -369,16 +369,16 @@ class LayoutPropertiesList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LayoutPropertyItem(name: 'height', value: widgetHeight),
-        LayoutPropertyItem(name: 'width', value: widgetWidth),
+        LayoutPropertyItem(name: '高度', value: widgetHeight),
+        LayoutPropertyItem(name: '宽度', value: widgetWidth),
         if (hasTopPadding)
-          LayoutPropertyItem(name: 'top padding', value: topPadding),
+          LayoutPropertyItem(name: '顶部内边距', value: topPadding),
         if (hasBottomPadding)
-          LayoutPropertyItem(name: 'bottom padding', value: bottomPadding),
+          LayoutPropertyItem(name: '底部内边距', value: bottomPadding),
         if (hasLeftPadding)
-          LayoutPropertyItem(name: 'left padding', value: leftPadding),
+          LayoutPropertyItem(name: '左侧内边距', value: leftPadding),
         if (hasRightPadding)
-          LayoutPropertyItem(name: 'right padding', value: rightPadding),
+          LayoutPropertyItem(name: '右侧内边距', value: rightPadding),
       ],
     );
   }

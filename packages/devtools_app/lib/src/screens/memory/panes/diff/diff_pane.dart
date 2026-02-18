@@ -141,47 +141,47 @@ String _snapshotDocumentation({required bool isDark}) {
   final uploadImageUrl = '${imagePath}assets/img/doc/upload_$filePostfix.png';
 
   // `\v` adds vertical space
-  return '''
-Find unexpected memory usage by comparing two heap snapshots:
+return '''
+通过比较两个堆快照来查找意外的内存使用情况：
 
 \v
 
-1. Understand [Dart memory concepts](https://docs.flutter.dev/tools/devtools/memory#basic-memory-concepts).
+1. 了解 [Dart 内存概念](https://docs.flutter.cn/tools/devtools/memory#basic-memory-concepts)。
 
 \v
 
-2. Use one of the following ways to get a **heap snapshot**:
+2. 通过以下方式之一获取 **堆快照**：
 
-    a. To take snapshot of the connected application click the ● button
+    a. 要为已连接的应用程序生成快照，请点击 ● 按钮
 
-    b. To import a snapshot exported from DevTools or taken with
-    [auto-snapshotting](https://github.com/dart-lang/leak_tracker/blob/main/doc/USAGE.md) or
+    b. 要导入从 DevTools 导出的快照，或使用
+    [auto-snapshotting](https://github.com/dart-lang/leak_tracker/blob/main/doc/USAGE.md)、
     [writeHeapSnapshotToFile](https://api.flutter.dev/flutter/dart-developer/NativeRuntime/writeHeapSnapshotToFile.html)
-    click the ![import]($uploadImageUrl) button
+    生成的快照，请点击 ![import]($uploadImageUrl) 按钮
 
 \v
 
-3. Review the snapshot:
+3. 查看快照：
 
-    b. If you want to refine results, use the **Filter** button
+    b. 若需要精确结果，请使用 **Filter**（过滤）按钮
 
-    c. Select a class from the snapshot table to view its retaining paths
+    c. 从快照表格中选择某个类以查看其保留链路（retaining paths）
 
-    d. View the path detail by selecting from the **Shortest Retaining Paths…** table
+    d. 在 **最短保留链路…** 表格中选择条目查看保留链路详情
 
 \v
 
-4. Check the **diff** between snapshots to detect allocation issues:
+4. 对比两个快照的 **diff** 来检测内存分配问题：
 
-    a. Get **snapshots** before and after a feature execution.
-       If you are experiencing DevTools crashes due to size of snapshots,
-       switch to the [desktop version](https://github.com/flutter/devtools/blob/master/BETA_TESTING.md).
+    a. 在某个功能执行前后分别获取 **快照**。
+       如果由于快照过大导致 DevTools 崩溃，
+       请切换到 [桌面版](https://github.com/flutter/devtools/blob/master/BETA_TESTING.md)。
 
-    b. While viewing the second snapshot, click **Diff with:** and select the first snapshot from the drop-down menu;
-    the results area will display the diff
+    b. 查看第二个快照时，点击 **对比快照:** 并在下拉菜单中选择第一个快照；
+       结果区域将显示差异
 
-    c. Use the **Filter** button to refine the diff results, if needed
+    c. 如有需要，可使用 **Filter**（过滤）按钮进一步筛选 diff 结果
 
-    d. Select a class from the diff to view its retaining paths, and see which objects hold the references to those instances
+    d. 从 diff 中选择某个类以查看其保留链路，了解哪些对象持有这些实例的引用
 ''';
 }

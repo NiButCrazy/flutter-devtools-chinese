@@ -71,17 +71,17 @@ class _RebuildStatsViewState extends State<RebuildStatsView>
       rebuildsForFrame = widget.model.rebuildsForFrame(selectedFrame.id);
     }
     if (rebuildsForFrame != null) {
-      names.add('Selected frame');
+      names.add('已选择帧');
       data.add(rebuildsForFrame);
     } else if (selectedFrame == null) {
       final rebuildsForLastFrame = widget.model.rebuildsForLastFrame;
       if (rebuildsForLastFrame != null) {
-        names.add('Latest frame');
+        names.add('最新帧');
         data.add(rebuildsForLastFrame);
       }
     }
 
-    names.add('Overall');
+    names.add('总计');
     data.add(widget.model.locationStats.value);
 
     setState(() {
@@ -131,13 +131,13 @@ class _RebuildStatsViewState extends State<RebuildStatsView>
               if (metrics.isEmpty && !state.enabled) {
                 return const Center(
                   child: Text(
-                    'Count widget builds must be enabled to see data.',
+                    '要查看数据，必须先启用统计组件创建次数',
                   ),
                 );
               }
               if (metrics.isEmpty) {
                 return const Center(
-                  child: Text('Interact with the app to trigger rebuilds.'),
+                  child: Text('与应用交互以触发组件重建'),
                 ); // No data to display but there should be data soon.
               }
               return RebuildTable(
@@ -229,22 +229,22 @@ class _RebuildTableState extends State<RebuildTable> {
 }
 
 class _WidgetColumn extends ColumnData<RebuildLocationStats> {
-  const _WidgetColumn() : super('Widget', fixedWidthPx: 200);
+  const _WidgetColumn() : super('组件', fixedWidthPx: 200);
 
   @override
   String getValue(RebuildLocationStats dataObject) {
-    return dataObject.location.name ?? '<unknown>';
+    return dataObject.location.name ?? '<未知>';
   }
 }
 
 class _LocationColumn extends ColumnData<RebuildLocationStats> {
-  const _LocationColumn() : super.wide('Location');
+  const _LocationColumn() : super.wide('位置');
 
   @override
   String getValue(RebuildLocationStats dataObject) {
     final fileUriString = dataObject.location.fileUriString;
     if (fileUriString == null) {
-      return '<resolving location>';
+      return '<正在解析位置>';
     }
 
     return '${fileNameFromUri(fileUriString)}:${dataObject.location.line}';
@@ -253,7 +253,7 @@ class _LocationColumn extends ColumnData<RebuildLocationStats> {
   @override
   String getTooltip(RebuildLocationStats dataObject) {
     if (dataObject.location.fileUriString == null) {
-      return '<resolving location>';
+      return '<正在解析位置>';
     }
 
     return '${dataObject.location.fileUriString}:${dataObject.location.line}';

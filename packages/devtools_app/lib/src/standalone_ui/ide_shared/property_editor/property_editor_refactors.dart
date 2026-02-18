@@ -64,7 +64,7 @@ class _WrapWithRefactorsState extends State<WrapWithRefactors> {
       children: [
         const Padding(
           padding: EdgeInsets.all(densePadding),
-          child: Text('Wrap with:'),
+          child: Text('可添加:'),
         ),
         if (showMainRefactors)
           Wrap(
@@ -140,7 +140,7 @@ class _WrapWithOverflowButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return DevToolsTooltip(
-      message: 'More widgets...',
+      message: '更多组件...',
       child: ContextMenuButton(
         color: WrapWithRefactors.buttonColor(theme),
         icon: Icons.arrow_drop_down,

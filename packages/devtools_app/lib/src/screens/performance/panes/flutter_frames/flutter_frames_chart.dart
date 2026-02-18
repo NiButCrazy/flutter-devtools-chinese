@@ -354,7 +354,7 @@ class _FramesChartState extends State<FramesChart> with AutoDisposeMixin {
               right: denseSpacing,
               top: densePadding,
               child: Text(
-                'Engine: ${impellerEnabled ? 'Impeller' : 'Skia'}',
+                '引擎: ${impellerEnabled ? 'Impeller' : 'Skia'}',
                 style: themeData.subtleChartTextStyle,
               ),
             );
@@ -376,9 +376,9 @@ class FramesChartControls extends StatelessWidget {
     required this.impellerEnabled,
   });
 
-  static const _pauseTooltip = 'Pause Flutter frame recording';
+  static const _pauseTooltip = '暂停帧分析记录';
 
-  static const _resumeTooltip = 'Resume Flutter frame recording';
+  static const _resumeTooltip = '恢复帧分析记录';
 
   final FlutterFramesController framesController;
 
@@ -420,15 +420,15 @@ class FramesChartControls extends StatelessWidget {
             return Legend(
               dense: true,
               entries: [
-                LegendEntry(terse ? 'UI' : 'Frame Time (UI)', mainUiColor),
+                LegendEntry(terse ? 'UI' : '帧时间（UI）', mainUiColor),
                 LegendEntry(
-                  terse ? 'Raster' : 'Frame Time (Raster)',
+                  terse ? '光栅' : '帧时间（光栅）',
                   mainRasterColor,
                 ),
-                LegendEntry(terse ? 'Jank' : 'Jank (slow frame)', uiJankColor),
+                LegendEntry(terse ? '卡顿' : '卡顿（慢帧）', uiJankColor),
                 if (!impellerEnabled)
                   LegendEntry(
-                    'Shader Compilation',
+                    '着色器编译',
                     shaderCompilationColor.background,
                   ),
               ],
@@ -668,11 +668,11 @@ class FlutterFrameTooltip extends StatelessWidget {
 
   HoverCardData _buildCardData(TextStyle textStyle) {
     final uiText =
-        'UI: ${durationText(frame.buildTime, unit: DurationDisplayUnit.milliseconds, allowRoundingToZero: false)}';
+        'UI 线程: ${durationText(frame.buildTime, unit: DurationDisplayUnit.milliseconds, allowRoundingToZero: false)}';
     final rasterText =
-        'Raster: ${durationText(frame.rasterTime, unit: DurationDisplayUnit.milliseconds, allowRoundingToZero: false)}';
+        '光栅线程: ${durationText(frame.rasterTime, unit: DurationDisplayUnit.milliseconds, allowRoundingToZero: false)}';
     final shaderText = hasShaderJank
-        ? 'Shader Compilation: ${durationText(frame.shaderDuration, unit: DurationDisplayUnit.milliseconds, allowRoundingToZero: false)}  -'
+        ? '着色器编译: ${durationText(frame.shaderDuration, unit: DurationDisplayUnit.milliseconds, allowRoundingToZero: false)}  -'
         : '';
     return HoverCardData(
       position: HoverCardPosition.element,
@@ -772,7 +772,7 @@ class AverageFPS extends StatelessWidget {
       fpsText = '$avgFps';
     }
     return Text(
-      '$fpsText FPS (${terse ? 'avg' : 'average'})',
+      '$fpsText FPS（平均）',
       maxLines: 2,
       style: Theme.of(context).legendTextStyle,
     );

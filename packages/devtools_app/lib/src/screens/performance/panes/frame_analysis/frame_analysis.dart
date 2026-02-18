@@ -49,7 +49,7 @@ class FlutterFrameAnalysisView extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: 'Flutter frame: ',
+                  text: 'Flutter 帧: ',
                   style: theme.regularTextStyle,
                 ),
                 TextSpan(
@@ -64,10 +64,8 @@ class FlutterFrameAnalysisView extends StatelessWidget {
           const PaddedDivider.noPadding(),
           if (frameAnalysis == null) ...[
             const Text(
-              'No timeline event analysis data available for this frame. This '
-              'means that the timeline events for this frame occurred too long '
-              'ago and DevTools could not access them. To avoid this, open the '
-              'DevTools Performance page earlier.',
+              '此帧没有可用的时间线事件分析数据，原因可能是该帧的时间线事件发生时间过久，'
+  'DevTools 无法再访问。为避免这种情况，请更早打开 DevTools 的性能页面。',
             ),
           ] else ...[
             // TODO(jacobr): we might have so many frame hints that this content
@@ -103,7 +101,7 @@ class FlutterFrameAnalysisView extends StatelessWidget {
                   return Row(
                     children: [
                       const Text(
-                        'To see widget rebuilds for Flutter frames, enable',
+                        '要查看 Flutter 帧的组件重建，请启用',
                       ),
                       Flexible(
                         child: ServiceExtensionCheckbox(
@@ -119,17 +117,16 @@ class FlutterFrameAnalysisView extends StatelessWidget {
             ),
           ],
           if (rebuilds == null)
-            const Text('Rebuild information not available for this frame.')
+            const Text('此帧没有可用的组件重建信息')
           else if (rebuilds.isEmpty)
             const Text(
-              'No widget rebuilds occurred for widgets that were directly '
-              'created in your project.',
+              '在此帧中，没有发生由您项目中直接创建的组件的重建',
             )
           else ...[
             const SizedBox(height: defaultSpacing),
             Expanded(
               child: RebuildTable(
-                metricNames: const ['Rebuild Count'],
+                metricNames: const ['重建次数'],
                 metrics: combineStats([rebuilds]),
               ),
             ),

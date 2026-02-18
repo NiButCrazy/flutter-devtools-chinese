@@ -219,8 +219,8 @@ class _PropertyLabels extends StatelessWidget {
               Padding(
                 padding: _labelPadding(isTopLabel: true),
                 child: RoundedLabel(
-                  labelText: _maybeTruncateLabel('set', width: width),
-                  tooltipText: 'Property argument is set.',
+                  labelText: _maybeTruncateLabel('已设置', width: width),
+                  tooltipText: '该属性参数已被设置',
                   fontSize: smallFontSize,
                   backgroundColor: colorScheme.primary,
                   textColor: colorScheme.onPrimary,
@@ -232,8 +232,8 @@ class _PropertyLabels extends StatelessWidget {
               Padding(
                 padding: _labelPadding(isTopLabel: !isSet),
                 child: RoundedLabel(
-                  labelText: _maybeTruncateLabel('deprecated', width: width),
-                  tooltipText: 'Property argument is deprecated.',
+                  labelText: _maybeTruncateLabel('已弃用', width: width),
+                  tooltipText: '该属性参数已被弃用',
                   fontSize: smallFontSize,
                   backgroundColor: colorScheme.error,
                   textColor: colorScheme.onError,
@@ -245,8 +245,8 @@ class _PropertyLabels extends StatelessWidget {
               Padding(
                 padding: _labelPadding(isTopLabel: !isSet),
                 child: RoundedLabel(
-                  labelText: _maybeTruncateLabel('default', width: width),
-                  tooltipText: 'Property argument matches the default value.',
+                  labelText: _maybeTruncateLabel('默认', width: width),
+                  tooltipText: '该属性参数与默认值一致',
                   fontSize: smallFontSize,
                 ),
               ),
@@ -311,16 +311,16 @@ class _InfoTooltip extends StatelessWidget {
 
     final defaultValueSpans = property.hasDefault
         ? [
-            TextSpan(text: '\n\nDefault value: ', style: boldFontStyle),
+            TextSpan(text: '\n\n默认值：', style: boldFontStyle),
             TextSpan(
               text: property.defaultValue.toString(),
               style: fixedFontStyle,
             ),
           ]
         : [
-            TextSpan(text: '\n\nDefault value:\n', style: boldFontStyle),
+            TextSpan(text: '\n\n默认值：\n', style: boldFontStyle),
             TextSpan(text: property.name, style: fixedFontStyle),
-            TextSpan(text: ' has no default value.', style: regularFontStyle),
+            TextSpan(text: ' 没有默认值', style: regularFontStyle),
           ];
 
     final spans = [...propertyNameSpans, ...defaultValueSpans];
@@ -328,13 +328,14 @@ class _InfoTooltip extends StatelessWidget {
     final documentation = property.documentation;
     if (documentation != null && documentation != widgetDocumentation) {
       spans.addAll([
-        TextSpan(text: '\n\nDocumentation:\n', style: boldFontStyle),
+        TextSpan(text: '\n\n文档说明：\n', style: boldFontStyle),
         ...DartDocConverter(documentation).toTextSpans(
           regularFontStyle: regularFontStyle,
           fixedFontStyle: fixedFontStyle,
         ),
       ]);
     }
+
 
     return TextSpan(children: spans);
   }
@@ -404,11 +405,11 @@ class _NoEditablePropertiesMessage extends StatelessWidget {
         style: theme.regularTextStyle,
         children: [
           name == null
-              ? const TextSpan(text: 'The selected widget ')
+              ? const TextSpan(text: '选中的组件 ')
               : TextSpan(text: name, style: fixedFontStyle),
           TextSpan(
             text:
-                ' has no editable widget properties.\n\nThe Flutter Property Editor currently supports editing properties of type ',
+                ' 没有可编辑的组件属性。\n\nFlutter 属性编辑器当前仅支持以下类型的属性编辑：',
             style: theme.regularTextStyle,
           ),
           TextSpan(text: 'String', style: fixedFontStyle),
@@ -418,7 +419,7 @@ class _NoEditablePropertiesMessage extends StatelessWidget {
           TextSpan(text: 'double', style: fixedFontStyle),
           const TextSpan(text: ', '),
           TextSpan(text: 'bool', style: fixedFontStyle),
-          const TextSpan(text: ', and '),
+          const TextSpan(text: ', 和 '),
           TextSpan(text: 'enum', style: fixedFontStyle),
           const TextSpan(text: '.'),
         ],
@@ -454,7 +455,7 @@ class _WidgetNameAndDocumentation extends StatelessWidget {
             Expanded(
               child: _ExpandableWidgetDocumentation(
                 documentation:
-                    documentation ?? 'Creates ${addIndefiniteArticle(name)}.',
+                    documentation ?? '创建 ${addIndefiniteArticle(name)}.',
               ),
             ),
           ],
@@ -536,7 +537,7 @@ class _ExpandableWidgetDocumentationState
         InkWell(
           onTap: _toggleExpansion,
           child: Text(
-            _isExpanded ? 'Show less' : 'Show more',
+            _isExpanded ? '收起更多' : '显示更多',
             style: theme.boldTextStyle.copyWith(
               color: theme.colorScheme.primary,
             ),

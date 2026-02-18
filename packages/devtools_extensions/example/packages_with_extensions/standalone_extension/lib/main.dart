@@ -18,16 +18,14 @@ class DartFooDevToolsExtension extends StatelessWidget {
       child: Center(
         child: Text(
           '''
-This is a basic example to show a standalone extension. A standalone extension
-is an extension that is not a companion tool for an existing package, but rather
-is a development tool that can be used on an arbitrary Dart / Flutter project.
+这是一个用于展示独立扩展（standalone extension）的基础示例。
+独立扩展并不是某个现有 package 的配套工具，而是可用于任意 Dart / Flutter 项目的开发工具。
 
-This example also shows an example of an extension that does not require a
-running application. The app_that_uses_foo project will import this example as a
-dev_dependency.
+本示例还展示了一个不依赖正在运行的应用程序即可使用的扩展示例。
+“app_that_uses_foo” 项目会将此示例作为 dev_dependency 引入。
 
-For a more interesting example of things you can do with a DevTools extension,
-see the example extension for "package:foo" instead.
+如果你想了解更有趣、功能更多的 DevTools 扩展示例，
+可以查看 “package:foo” 提供的扩展示例。
 ''',
         ),
       ),

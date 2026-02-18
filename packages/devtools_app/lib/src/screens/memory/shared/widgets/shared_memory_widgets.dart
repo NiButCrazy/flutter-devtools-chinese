@@ -52,7 +52,7 @@ class HeapClassView extends StatelessWidget {
         if (showCopyButton)
           CopyToClipboardControl(
             dataProvider: () => theClass.fullName,
-            tooltip: 'Copy full class name to clipboard.',
+            tooltip: '将完整的类名复制到剪贴板',
             size: tableIconSize,
             gaScreen: gac.memory,
             gaItem: copyGaItem,
@@ -71,7 +71,7 @@ class ClassTypeLegend extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Class type legend:'),
+        const Text('Class 类型图例:'),
         ...ClassType.values.map(
           (t) => Row(children: [t.icon, Text(' ${t.aliasDescription}')]),
         ),

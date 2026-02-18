@@ -19,9 +19,9 @@ class MoreDebuggingOptionsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ServiceExtensionCheckboxGroupButton(
-      title: 'More debugging options',
+      title: '更多调试选项',
       icon: Icons.build,
-      tooltip: 'Opens a list of options you can use to help debug performance',
+      tooltip: '打开可用于帮助调试性能的选项列表',
       minScreenWidthForText: PerformanceControls.minScreenWidthForText,
       extensions: [
         extensions.disableClipLayers,
@@ -33,10 +33,8 @@ class MoreDebuggingOptionsButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'After toggling a rendering layer on/off, '
-            'reproduce the activity in your app to see the effects. '
-            'All layers are rendered by default - disabling a '
-            'layer might help identify expensive operations in your app.',
+            '在开启或关闭某个渲染图层后，请重新在应用中执行相关操作以查看效果。'
+            '默认情况下所有图层都会被渲染 —— 禁用某个图层可能帮助您识别应用中开销较大的操作。',
             style: theme.subtleTextStyle,
           ),
           if (serviceConnection
@@ -47,8 +45,8 @@ class MoreDebuggingOptionsButton extends StatelessWidget {
             RichText(
               text: TextSpan(
                 text:
-                    "These debugging options aren't available in profile mode. "
-                    'To use them, run your app in debug mode.',
+                    '这些调试选项在 Profile 模式下不可用，'
+                    '如需使用它们，请在 Debug 模式下运行您的应用',
                 style: theme.subtleTextStyle.copyWith(
                   color: theme.colorScheme.error,
                 ),

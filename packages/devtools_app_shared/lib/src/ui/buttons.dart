@@ -390,7 +390,7 @@ final class DevToolsFilterButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.isFilterActive,
-    this.message = 'Filter',
+    this.message = '过滤器',
     this.outlined = true,
   });
 

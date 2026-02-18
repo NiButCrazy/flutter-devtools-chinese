@@ -69,6 +69,7 @@ void main() {
       }
 
       fetchingSizeNotifier.value = false;
+      return null;
     });
 
     when(mockClassObject.retainingPath).thenReturn(retainingPathNotifier);
@@ -77,6 +78,7 @@ void main() {
     // ignore: discarded_futures
     when(mockClassObject.requestRetainingPath()).thenAnswer((_) async {
       retainingPathNotifier.value = testRetainingPath;
+      return null;
     });
 
     when(mockClassObject.inboundReferencesTree).thenReturn(inboundRefsNotifier);
@@ -88,6 +90,7 @@ void main() {
       inboundRefsNotifier.addAll(
         InboundReferencesTreeNode.buildTreeRoots(testInboundRefs),
       );
+      return null;
     });
 
     // Intentionally unawaited.
@@ -103,6 +106,7 @@ void main() {
         );
       }
       inboundRefsNotifier.notifyListeners();
+      return null;
     });
   });
 

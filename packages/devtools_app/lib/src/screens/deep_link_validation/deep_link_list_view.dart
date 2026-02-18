@@ -79,8 +79,8 @@ class _DeepLinkListViewMainPanel extends StatelessWidget {
                 const SizedBox(height: densePadding),
                 Text(
                   pagePhase == PagePhase.linksLoading
-                      ? 'Loading deep links...'
-                      : 'Validating deep links...',
+                      ? '正在加载深度链接...'
+                      : '正在验证深度链接...',
                   style: theme.subtleTextStyle,
                 ),
               ],
@@ -90,7 +90,7 @@ class _DeepLinkListViewMainPanel extends StatelessWidget {
           case PagePhase.noLinks:
             // TODO(hangyujin): This is just a place holder to add UI.
             return const CenteredMessage(
-              message: 'Your Flutter project has no Links to verify.',
+              message: '您的 Flutter 项目中没有可验证的链接',
             );
           case PagePhase.analyzeErrorPage:
             assert(controller.currentAppLinkSettings?.error != null);
@@ -98,8 +98,7 @@ class _DeepLinkListViewMainPanel extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Failed to retrieve deep links from the Flutter project. '
-                  'This can be a result of errors in the project.',
+                  '无法从 Flutter 项目中获取深度链接，这可能是由于项目中存在错误导致的',
                 ),
                 const SizedBox(height: densePadding),
                 Expanded(
@@ -118,7 +117,7 @@ class _DeepLinkListViewMainPanel extends StatelessWidget {
 
           case PagePhase.validationErrorPage:
             // TODO(hangyujin): This is just a place holder to add Error handling.
-            return const CenteredMessage(message: 'Error validating domain ');
+            return const CenteredMessage(message: '验证域名时发生错误 ');
         }
       },
     );
@@ -251,12 +250,12 @@ class _DeepLinkListViewTopPanel extends StatelessWidget {
       title: Row(
         children: [
           Text(
-            'Validate and fix',
+            '验证并修复',
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const Spacer(),
           _ConfigurationDropdown(
-            title: 'Android Variant:',
+            title: 'Android 构建变体：',
             valueListenable: controller.selectedAndroidVariantIndex,
             configurations: controller.selectedProject.value!.androidVariants,
             onChanged: controller.updateSelectedAndroidVariantIndex,
@@ -264,7 +263,7 @@ class _DeepLinkListViewTopPanel extends StatelessWidget {
 
           const SizedBox(width: denseSpacing),
           _ConfigurationDropdown(
-            title: 'iOS Configuration:',
+            title: 'iOS 配置：',
             valueListenable: controller.selectedIosConfigurationIndex,
             configurations: controller
                 .selectedProject
@@ -275,7 +274,7 @@ class _DeepLinkListViewTopPanel extends StatelessWidget {
           ),
           const SizedBox(width: denseSpacing),
           _ConfigurationDropdown(
-            title: 'iOS Target:',
+            title: 'iOS 目标：',
             valueListenable: controller.selectedIosTargetIndex,
             configurations:
                 controller.selectedProject.value!.iosBuildOptions.targets,
@@ -349,7 +348,7 @@ class _AllDeepLinkDataTable extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                     horizontal: defaultSpacing,
                   ),
-                  child: Text('All deep links', style: textTheme.titleMedium),
+                  child: Text('所有深度链接', style: textTheme.titleMedium),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: denseSpacing),
@@ -359,7 +358,7 @@ class _AllDeepLinkDataTable extends StatelessWidget {
                         : _kSearchFieldFullWidth,
                     child: DevToolsClearableTextField(
                       labelText: '',
-                      hintText: 'Search a URL, domain or path',
+                      hintText: '搜索 URL、域名或路径',
                       prefixIcon: const Icon(Icons.search),
                       onChanged: (value) {
                         controller.searchContent = value;
@@ -376,10 +375,10 @@ class _AllDeepLinkDataTable extends StatelessWidget {
           height: defaultHeaderHeight,
           child: TabBar(
             tabs: [
-              DevToolsTab.create(tabName: 'Domain view', gaPrefix: gaPrefix),
-              DevToolsTab.create(tabName: 'Path view', gaPrefix: gaPrefix),
+              DevToolsTab.create(tabName: '域名视图', gaPrefix: gaPrefix),
+              DevToolsTab.create(tabName: '路径视图', gaPrefix: gaPrefix),
               DevToolsTab.create(
-                tabName: 'Single URL view',
+                tabName: '单一 URL 视图',
                 gaPrefix: gaPrefix,
               ),
             ],
@@ -439,9 +438,9 @@ class _NotificationCardSection extends StatelessWidget {
           children: [
             if (domainErrorCount > 0)
               NotificationCard(
-                title: '$domainErrorCount domain not verified',
+                title: '$domainErrorCount 个域名未通过验证',
                 description:
-                    'This affects all deep links. Fix issues to make users go directly to your app.',
+                    '这会影响所有深度链接。请修复这些问题以确保用户能够直接进入您的应用',
                 actionButton: TextButton(
                   onPressed: () {
                     // Switch to the domain view. Select the first link with domain error and show the split screen.
@@ -453,7 +452,7 @@ class _NotificationCardSection extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                       horizontal: intermediateSpacing,
                     ),
-                    child: Text('Fix domain'),
+                    child: Text('修复域名'),
                   ),
                 ),
               ),
@@ -461,9 +460,9 @@ class _NotificationCardSection extends StatelessWidget {
               const SizedBox(width: defaultSpacing),
             if (pathErrorCount > 0)
               NotificationCard(
-                title: '$pathErrorCount path not working',
+                title: '$pathErrorCount 个路径不可用',
                 description:
-                    'Fix these path to make sure users are directed to your app',
+                    '请修复这些路径以确保用户能正确跳转到您的应用',
                 actionButton: TextButton(
                   onPressed: () {
                     // Switch to the path view. Select the first link with path error and show the split screen.
@@ -475,7 +474,7 @@ class _NotificationCardSection extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                       horizontal: intermediateSpacing,
                     ),
-                    child: Text('Fix path'),
+                    child: Text('修复路径'),
                   ),
                 ),
               ),

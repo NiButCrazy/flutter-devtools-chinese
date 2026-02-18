@@ -19,15 +19,15 @@ class ProviderScreen extends Screen {
       richMessage: [
         const TextSpan(
           text:
-              'The Provider screen is now shipped as a DevTools extension.\n'
-              'If you want to use this tool, please upgrade your ',
+              'Provider 标签页面（未汉化）现已作为 DevTools 扩展提供，'
+              '如果您想使用此工具，\n请将 ',
         ),
         TextSpan(
           text: 'package:provider',
           style: Theme.of(context).fixedFontStyle,
         ),
         const TextSpan(
-          text: ' dependency to the latest version, and then re-open DevTools.',
+          text: ' 依赖升级到最新版本，然后重新打开 DevTools',
         ),
       ],
     );

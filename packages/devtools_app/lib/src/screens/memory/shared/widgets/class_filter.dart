@@ -127,7 +127,7 @@ class _ClassFilterDialogState extends State<ClassFilterDialog> {
     );
 
     return StateUpdateDialog(
-      title: 'Filter Classes and Packages',
+      title: '筛选类与包',
       helpBuilder: _helpBuilder,
       onResetDefaults: () {
         ga.select(gac.memory, gac.MemoryEvents.diffSnapshotFilterReset.name);
@@ -152,12 +152,12 @@ class _ClassFilterDialogState extends State<ClassFilterDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            radio(ClassFilterType.showAll, 'Show all classes'),
+            radio(ClassFilterType.showAll, '显示所有类'),
             const SizedBox(height: defaultSpacing),
-            radio(ClassFilterType.except, 'Show all classes except:'),
+            radio(ClassFilterType.except, '显示除以下类之外的所有类：'),
             textField(_except),
             const SizedBox(height: defaultSpacing),
-            radio(ClassFilterType.only, 'Show only:'),
+            radio(ClassFilterType.only, '仅显示：'),
             textField(_only),
           ],
         ),
@@ -176,7 +176,7 @@ Widget _helpBuilder(BuildContext context) {
         (t) => Row(
           children: [
             t.icon,
-            Text(' ${t.alias} - for ${t.aliasDescription}', style: textStyle),
+            Text(' ${t.alias} - 过滤 ${t.aliasDescription}', style: textStyle),
             CopyToClipboardControl(
               dataProvider: () => t.alias,
               size: tableIconSize,
@@ -189,9 +189,9 @@ Widget _helpBuilder(BuildContext context) {
 }
 
 const _helpText =
-    'Choose and customize the filter.\n'
-    'List full or partial class names separated by new lines. For example:\n\n'
+    '选择并自定义过滤器。\n'
+    '列出完整或部分类名，每行一个，例如：\n\n'
     '  package:myPackage/src/myFolder/myLibrary.dart/MyClass\n'
     '  MyClass\n'
     '  package:myPackage/src/\n\n'
-    'Use aliases to filter classes by type:\n';
+    '使用别名按类型来过滤类：\n';

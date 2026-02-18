@@ -227,7 +227,7 @@ class ExpressionEvalFieldState extends State<ExpressionEvalField>
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide.none,
                 ),
-                labelText: 'Eval. Enter "?" for help.',
+                labelText: '表达式求值，输入 "?" 查看帮助',
                 labelStyle: Theme.of(context).subtleTextStyle,
               ),
               overlayXPositionBuilder:
@@ -336,7 +336,7 @@ class ExpressionEvalFieldState extends State<ExpressionEvalField>
         if (_tryProcessAssignment(expressionText)) return;
         if (isolateRef == null) {
           _emitToConsole(
-            'Cannot evaluate expression because the selected isolate is null.',
+            '无法求值表达式，因为当前选中的 isolate 为 null',
           );
           return;
         }
@@ -435,7 +435,7 @@ class ExpressionEvalFieldState extends State<ExpressionEvalField>
     final value = variable?.value;
     if (value is! InstanceRef) {
       _emitToConsole(
-        'Item #${assignment.consoleItemIndex} cannot be assigned to a variable.',
+        '无法将 #${assignment.consoleItemIndex} 赋值给变量',
       );
       return kSuccess;
     }
@@ -454,15 +454,15 @@ class ExpressionEvalFieldState extends State<ExpressionEvalField>
         ?.name;
 
     if (isolateId == null || isolateName == null) {
-      _emitToConsole('Selected isolate cannot be detected.');
+      _emitToConsole('无法检测到选中的 isolate');
       return kSuccess;
     }
 
     evalService.scope.add(isolateId, assignment.variableName, value);
 
     _emitToConsole(
-      'Variable ${assignment.variableName} is created and now can be used '
-      'in expressions for the isolate "$isolateName".',
+      '变量 ${assignment.variableName} 已创建，'
+      '现在可以在 isolate "$isolateName" 的表达式中使用',
     );
 
     return kSuccess;

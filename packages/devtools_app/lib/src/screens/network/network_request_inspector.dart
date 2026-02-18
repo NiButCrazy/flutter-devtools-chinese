@@ -17,10 +17,10 @@ import 'network_request_inspector_views.dart';
 class NetworkRequestInspector extends StatelessWidget {
   const NetworkRequestInspector({super.key});
 
-  static const _overviewTabTitle = 'Overview';
-  static const _headersTabTitle = 'Headers';
-  static const _requestTabTitle = 'Request';
-  static const _responseTabTitle = 'Response';
+  static const _overviewTabTitle = '概览';
+  static const _headersTabTitle = '标头';
+  static const _requestTabTitle = '请求';
+  static const _responseTabTitle = '响应';
   static const _cookiesTabTitle = 'Cookies';
 
   NetworkController get controller =>
@@ -43,7 +43,7 @@ class NetworkRequestInspector extends StatelessWidget {
             ? RoundedOutlinedBorder(
                 child: Center(
                   child: Text(
-                    'No request selected',
+                    '未选择网络请求',
                     style: Theme.of(context).regularTextStyle,
                   ),
                 ),

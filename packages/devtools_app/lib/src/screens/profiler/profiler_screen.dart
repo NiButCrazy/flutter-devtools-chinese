@@ -183,13 +183,13 @@ class DisconnectedCpuProfilerScreenBody extends StatelessWidget {
   const DisconnectedCpuProfilerScreenBody({super.key});
 
   static const importInstructions =
-      'Open a CPU profile that was previously saved from DevTools';
+      '打开之前从 DevTools 保存的 CPU 性能分析文件';
 
   @override
   Widget build(BuildContext context) {
     return FileImportContainer(
       instructions: importInstructions,
-      actionText: 'Load data',
+      actionText: '加载数据',
       gaScreen: gac.cpuProfiler,
       gaSelectionImport: gac.CpuProfilerEvents.openDataFile.name,
       gaSelectionAction: gac.CpuProfilerEvents.loadDataFromFile.name,

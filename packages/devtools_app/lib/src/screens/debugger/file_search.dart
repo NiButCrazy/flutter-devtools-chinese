@@ -74,7 +74,7 @@ class FileSearchFieldState extends State<FileSearchField>
       keyEventsToIgnore: {LogicalKeyboardKey.escape},
       onSelection: _onSelection,
       onClose: _onClose,
-      label: 'Open file',
+      label: '打开文件',
       onFocusLost: _onClose,
     );
   }

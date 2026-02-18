@@ -75,7 +75,7 @@ class PropertyEditorController extends DisposableController
   static final propertyFilters = <SettingFilter<EditableProperty, Object>>[
     ToggleFilter<EditableProperty>(
       id: _setPropertiesFilterId,
-      name: 'Only include properties that are set in the code.',
+      name: '仅显示在代码中已被设置的属性',
       includeCallback: (property) => property.hasArgument,
       defaultValue: false,
     ),

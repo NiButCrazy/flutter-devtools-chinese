@@ -144,13 +144,13 @@ class DisconnectedPerformanceScreenBody extends StatelessWidget {
   const DisconnectedPerformanceScreenBody({super.key});
 
   static const importInstructions =
-      'Open a performance data file that was previously saved from DevTools.';
+      '打开之前从 DevTools 保存的性能分析数据文件';
 
   @override
   Widget build(BuildContext context) {
     return FileImportContainer(
       instructions: importInstructions,
-      actionText: 'Load data',
+      actionText: '加载数据',
       gaScreen: gac.performance,
       gaSelectionImport: gac.PerformanceEvents.openDataFile.name,
       gaSelectionAction: gac.PerformanceEvents.loadDataFromFile.name,
@@ -182,39 +182,34 @@ const performancePanelLink =
 
 const flutterWebInstructionsMd =
     '''
-## How to use Chrome DevTools for performance profiling
+## 如何使用 Chrome DevTools 进行性能分析
 
-The Flutter framework emits timeline events as it works to build frames, draw
-scenes, and track other activity such as garbage collections. These events are
-exposed in the Chrome DevTools performance panel for debugging.
+Flutter 框架在构建帧、绘制场景，以及跟踪垃圾回收等活动时，会发出时间线事件。
+这些事件会在 Chrome DevTools 的 Performance 面板中暴露用于调试。
 
-You can also emit your own timeline events using the `dart:developer`
-[Timeline]($timelineLink) and [TimelineTask]($timelineTaskLink) APIs for further
-performance analysis.
+你也可以使用 `dart:developer` 中的
+[Timeline]($timelineLink) 和 [TimelineTask]($timelineTaskLink) API 来发出你自己的时间线事件，以便进行进一步的性能分析。
 
-### Optional flags to enhance tracing
+### 可选标志以增强跟踪
 
-- [debugProfileBuildsEnabled]($debugBuildsLink): Adds Timeline events for every Widget built.
-- [debugProfileBuildsEnabledUserWidgets]($debugUserBuildsLink): Adds Timeline events for every user-created Widget built.
-- [debugProfileLayoutsEnabled]($debugLayoutsLink): Adds Timeline events for every RenderObject layout.
-- [debugProfilePaintsEnabled]($debugPaintsLink): Adds Timeline events for every RenderObject painted.
+- [debugProfileBuildsEnabled]($debugBuildsLink)：为每个构建的 Widget 添加时间线事件
+- [debugProfileBuildsEnabledUserWidgets]($debugUserBuildsLink)：为每个用户创建的 Widget 添加时间线事件
+- [debugProfileLayoutsEnabled]($debugLayoutsLink)：为每个 RenderObject 的布局添加时间线事件
+- [debugProfilePaintsEnabled]($debugPaintsLink)：为每个 RenderObject 的绘制添加时间线事件
 
-### Instructions
+### 使用说明
 
-1. *[Optional]* Set any desired tracing flags to true from your app's main method.
-2. Run your Flutter web app in [profile mode]($profileModeLink).
-3. Open up the [Chrome DevTools' Performance panel]($performancePanelLink) for
-your application, and start recording to capture timeline events.
+1. *[可选]* 在应用的 main 方法中将任意需要的跟踪标志设置为 true。
+2. 在 [profile 模式]($profileModeLink) 下运行你的 Flutter Web 应用。
+3. 打开你的应用对应的 [Chrome DevTools 的 Performance 面板]($performancePanelLink)，并开始录制以捕获时间线事件。
 ''';
 
 const dartWebInstructionsMd =
     '''
-## How to use Chrome DevTools for performance profiling
+## 如何使用 Chrome DevTools 进行性能分析
 
-Any events emitted using the `dart:developer` [Timeline]($timelineLink) and
-[TimelineTask]($timelineTaskLink) APIs are exposed in the Chrome DevTools
-performance panel.
+通过 `dart:developer` 的 [Timeline]($timelineLink) 和
+[TimelineTask]($timelineTaskLink) API 发出的任何事件，都会在 Chrome DevTools 的 Performance 面板中展示。
 
-Open up the [Chrome DevTools' Performance panel]($performancePanelLink) for
-your application, and start recording to capture timeline events.
+打开你的应用对应的 [Chrome DevTools 的 Performance 面板]($performancePanelLink)，并开始录制以捕获时间线事件。
 ''';

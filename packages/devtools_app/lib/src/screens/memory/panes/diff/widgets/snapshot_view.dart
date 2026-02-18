@@ -30,12 +30,12 @@ class SnapshotView extends StatelessWidget {
         final singleClasses = values.first as ClassDataList<SingleClassData>?;
         final diffClasses = values.second as ClassDataList<DiffClassData>?;
         if (controller.derived.updatingValues) {
-          return const Center(child: Text('Calculating...'));
+          return const Center(child: Text('计算中...'));
         }
 
         final classes = controller.derived.classesBeforeFiltering.value;
         if (classes == null) {
-          return const Center(child: Text('Processing snapshot...'));
+          return const Center(child: Text('正在处理快照...'));
         }
 
         assert((singleClasses == null) != (diffClasses == null));

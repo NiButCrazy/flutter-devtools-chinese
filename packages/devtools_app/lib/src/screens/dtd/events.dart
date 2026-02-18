@@ -69,7 +69,7 @@ class EventsView extends StatelessWidget {
         actions: [
           DevToolsButton(
             icon: Icons.delete,
-            label: 'Clear',
+            label: '清除',
             onPressed: () {
               controller.events.clear();
               controller.selectedEvent.value = null;

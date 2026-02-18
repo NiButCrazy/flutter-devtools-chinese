@@ -19,14 +19,14 @@ class UserTagDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const filterByTag = 'Filter by tag:';
+    const filterByTag = '按标签过滤: ';
     return ValueListenableBuilder<String>(
       valueListenable: controller.userTagFilter,
       builder: (context, userTag, _) {
         final userTags = controller.userTags;
         final tooltip = userTags.isNotEmpty
-            ? 'Filter the CPU profile by the given UserTag'
-            : 'No UserTags found for this CPU profile';
+            ? '根据指定的 UserTag 过滤 CPU 分析数据'
+            : '未找到可用于此 CPU 分析的 UserTag';
         return SizedBox(
           height: defaultButtonHeight,
           child: DevToolsTooltip(
@@ -54,13 +54,13 @@ class UserTagDropdown extends StatelessWidget {
                           value: tag,
                         ),
                       _buildMenuItem(
-                        display: 'Group by: User Tag',
+                        display: '组别: User Tag',
                         value: CpuProfilerController.groupByUserTag,
                       ),
                     ],
                     if (advancedDeveloperModeEnabled)
                       _buildMenuItem(
-                        display: 'Group by: VM Tag',
+                        display: '组别: VM Tag',
                         value: CpuProfilerController.groupByVmTag,
                       ),
                   ],
@@ -104,16 +104,13 @@ class ModeDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const mode = 'View:';
+    const mode = '视图：';
     return ValueListenableBuilder<CpuProfilerViewType>(
       valueListenable: controller.viewType,
       builder: (context, viewType, _) {
         final tooltip = viewType == CpuProfilerViewType.function
-            ? 'Display the profile in terms of the Dart call stack '
-                  '(i.e., inlined frames are expanded)'
-            : 'Display the profile in terms of native stack frames '
-                  '(i.e., inlined frames are not expanded, display code objects '
-                  'rather than individual functions)';
+            ? '以 Dart 调用栈的方式展示概要（即展开内联帧）'
+            : '以原生栈帧的方式展示概要（即不展开内联帧，并显示代码对象而非单个函数）';
         return SizedBox(
           height: defaultButtonHeight,
           child: DevToolsTooltip(

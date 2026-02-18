@@ -37,7 +37,7 @@ enum ScreenMetaData {
   ),
   inspector(
     'inspector',
-    title: 'Flutter Inspector',
+    title: 'Flutter 检查器',
     iconAsset: 'icons/app_bar/inspector.png',
     requiresFlutter: true,
     requiresDebugBuild: true,
@@ -46,7 +46,7 @@ enum ScreenMetaData {
   ),
   performance(
     'performance',
-    title: 'Performance',
+    title: '性能',
     iconAsset: 'icons/app_bar/performance.png',
     worksWithOfflineData: true,
     requiresConnection: false,
@@ -54,7 +54,7 @@ enum ScreenMetaData {
   ),
   cpuProfiler(
     'cpu-profiler',
-    title: 'CPU Profiler',
+    title: 'CPU 分析器',
     iconAsset: 'icons/app_bar/cpu_profiler.png',
     requiresDartVm: true,
     worksWithOfflineData: true,
@@ -63,7 +63,7 @@ enum ScreenMetaData {
   ),
   memory(
     'memory',
-    title: 'Memory',
+    title: '内存',
     iconAsset: 'icons/app_bar/memory.png',
     requiresDartVm: true,
     requiresConnection: false,
@@ -72,14 +72,14 @@ enum ScreenMetaData {
   ),
   debugger(
     'debugger',
-    title: 'Debugger',
+    title: '调试',
     icon: Octicons.bug,
     requiresDebugBuild: true,
     tutorialVideoTimestamp: '?t=513',
   ),
   network(
     'network',
-    title: 'Network',
+    title: '网络',
     iconAsset: 'icons/app_bar/network.png',
     requiresDartVm: true,
     tutorialVideoTimestamp: '?t=547',
@@ -89,7 +89,7 @@ enum ScreenMetaData {
   ),
   logging(
     'logging',
-    title: 'Logging',
+    title: '日志',
     iconAsset: 'icons/app_bar/logging.png',
     supportsWebServerDevice: true,
     tutorialVideoTimestamp: '?t=558',
@@ -103,7 +103,7 @@ enum ScreenMetaData {
   ),
   appSize(
     'app-size',
-    title: 'App Size',
+    title: '应用体积',
     iconAsset: 'icons/app_bar/app_size.png',
     requiresConnection: false,
     requiresDartVm: true,
@@ -111,20 +111,20 @@ enum ScreenMetaData {
   ),
   deepLinks(
     'deep-links',
-    title: 'Deep Links',
+    title: '深度链接',
     iconAsset: 'icons/app_bar/deep_links.png',
     requiresConnection: false,
     requiresDartVm: true,
   ),
   vmTools(
     'vm-tools',
-    title: 'VM Tools',
+    title: 'VM 工具',
     icon: Icons.settings_applications,
     requiresAdvancedDeveloperMode: true,
   ),
   dtdTools(
     'dtdTools',
-    title: 'DTD Tools',
+    title: 'DTD 工具',
     icon: Icons.settings_applications,
     requiresAdvancedDeveloperMode: true,
     requiresConnection: false,
@@ -147,7 +147,7 @@ enum ScreenMetaData {
     this.tutorialVideoTimestamp,
   }) : assert(
          icon == null || iconAsset == null,
-         'Only one of icon or iconAsset may be specified.',
+         '只能指定 icon 或 iconAsset 中的一个',
        );
 
   final String id;
@@ -214,11 +214,11 @@ abstract class Screen {
     this.showFloatingDebuggerControls = true,
   }) : assert(
          title == null || titleGenerator == null,
-         'Only one of title or titleGenerator may be specified.',
+         '只能指定 title 或 titleGenerator 中的一个',
        ),
        assert(
          icon == null || iconAsset == null,
-         'Only one of icon or iconAsset may be specified.',
+         '只能指定 icon 或 iconAsset 中的一个',
        );
 
   const Screen.conditional({
@@ -580,19 +580,19 @@ class ShortcutsConfiguration {
 }
 
 enum ScreenDisabledReason {
-  offlineDataNotSupported('does not support offline data.'),
+  offlineDataNotSupported('不支持离线数据'),
   requiresDartLibrary(null),
-  requiresDartVm('requires the Dart VM, but it is not available.'),
-  requiresDebugBuild('only supports debug builds.'),
-  requiresFlutter('only supports Flutter applications.'),
+  requiresDartVm('需要 Dart VM，但当前不可用'),
+  requiresDebugBuild('仅支持调试版本'),
+  requiresFlutter('仅支持 Flutter 应用程序'),
   requiresAdvancedDeveloperMode(
-    'only works when Advanced Developer Mode is enabled',
+    '仅在启用高级开发者模式时才有效',
   ),
   requiresDebuggableWebApp(
-    'only works with web applications with full debugging support.',
+    '仅适用于具有完整调试支持的 Web 应用程序',
   ),
   serviceNotReady(
-    'requires a connected application, but there is no connection available.',
+    '需要连接的应用程序，但没有可用的连接',
   );
 
   const ScreenDisabledReason(this.message);

@@ -71,9 +71,9 @@ class NetworkScreen extends Screen {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Showing ${nf.format(filteredCount)} of '
+              '正在显示 ${nf.format(filteredCount)} 项条目 - 来源于 '
               '${nf.format(totalCount)} '
-              '${pluralize('request', totalCount)}',
+              '条请求',
             ),
             const SizedBox(width: denseSpacing),
             child!,
@@ -102,13 +102,13 @@ class DisconnectedNetworkScreenBody extends StatelessWidget {
   const DisconnectedNetworkScreenBody({super.key});
 
   static const importInstructions =
-      'Open a network data file that was previously saved from DevTools.';
+      '打开之前从 DevTools 保存的网络数据文件';
 
   @override
   Widget build(BuildContext context) {
     return FileImportContainer(
       instructions: importInstructions,
-      actionText: 'Load data',
+      actionText: '加载数据',
       gaScreen: gac.network,
       gaSelectionImport: gac.PerformanceEvents.openDataFile.name,
       gaSelectionAction: gac.PerformanceEvents.loadDataFromFile.name,
@@ -215,8 +215,8 @@ class _NetworkProfilerControlsState extends State<_NetworkProfilerControls>
               onPressed: () async =>
                   await controller.togglePolling(!_recording),
               tooltipOverride: _recording
-                  ? 'Stop recording network traffic'
-                  : 'Resume recording network traffic',
+                  ? '停止记录网络流量'
+                  : '继续记录网络流量',
               minScreenWidthForText: double.infinity,
               gaScreen: gac.network,
               gaSelection: _recording ? gac.pause : gac.resume,
@@ -268,7 +268,7 @@ class _NetworkProfilerControlsState extends State<_NetworkProfilerControls>
               )
             else
               DownloadButton(
-                tooltip: 'Download as .har file',
+                tooltip: '另存为 .har 文件',
                 minScreenWidthForText:
                     _NetworkProfilerControls._includeTextWidth,
                 onPressed: controller.exportAsHarFile,
@@ -305,8 +305,7 @@ class _RecordingPausedBanner extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'Network traffic recording is paused. Click the resume button '
-                'to continue.',
+                '网络流量记录已暂停，单击恢复按钮以继续',
                 style: theme.regularTextStyle.copyWith(
                   color: theme.colorScheme.onSecondaryContainer,
                 ),
@@ -406,7 +405,7 @@ class AddressColumn extends ColumnData<NetworkRequest>
     implements ColumnRenderer<NetworkRequest> {
   AddressColumn()
     : super.wide(
-        'Address',
+        '远程地址',
         minWidthPx: isEmbedded() ? 100 : 150.0,
         showTooltip: true,
       );
@@ -433,7 +432,7 @@ class AddressColumn extends ColumnData<NetworkRequest>
 }
 
 class MethodColumn extends ColumnData<NetworkRequest> {
-  const MethodColumn() : super('Method', fixedWidthPx: 60);
+  const MethodColumn() : super('方法', fixedWidthPx: 60);
 
   @override
   String getValue(NetworkRequest dataObject) {
@@ -473,23 +472,23 @@ class ActionsColumn extends ColumnData<NetworkRequest>
     return ContextMenuButton(
       menuChildren: [
         MenuItemButton(
-          child: const Text('Copy as URL'),
+          child: const Text('复制为 URL'),
           onPressed: () {
             unawaited(
               copyToClipboard(
                 data.uri,
-                successMessage: 'Copied the URL to the clipboard',
+                successMessage: '已将 URL 复制到剪贴板',
               ),
             );
           },
         ),
         MenuItemButton(
-          child: const Text('Copy as cURL'),
+          child: const Text('复制为 cURL'),
           onPressed: () {
             unawaited(
               copyToClipboard(
                 CurlCommand.from(data).toString(),
-                successMessage: 'Copied the cURL command to the clipboard',
+                successMessage: '已将 cURL 复制到剪贴板',
               ),
             );
           },
@@ -503,7 +502,7 @@ class StatusColumn extends ColumnData<NetworkRequest>
     implements ColumnRenderer<NetworkRequest> {
   const StatusColumn()
     : super(
-        'Status',
+        '状态',
         alignment: ColumnAlignment.right,
         headerAlignment: TextAlign.right,
         fixedWidthPx: 50,
@@ -539,7 +538,7 @@ class StatusColumn extends ColumnData<NetworkRequest>
 class TypeColumn extends ColumnData<NetworkRequest> {
   const TypeColumn()
     : super(
-        'Type',
+        '类型',
         alignment: ColumnAlignment.right,
         headerAlignment: TextAlign.right,
         fixedWidthPx: 50,
@@ -559,7 +558,7 @@ class TypeColumn extends ColumnData<NetworkRequest> {
 class DurationColumn extends ColumnData<NetworkRequest> {
   const DurationColumn()
     : super(
-        'Duration',
+        '时间',
         alignment: ColumnAlignment.right,
         headerAlignment: TextAlign.right,
         fixedWidthPx: 75,
@@ -574,7 +573,7 @@ class DurationColumn extends ColumnData<NetworkRequest> {
   String getDisplayValue(NetworkRequest dataObject) {
     final ms = getValue(dataObject);
     return ms == null
-        ? 'Pending'
+        ? '等待中'
         : durationText(Duration(milliseconds: ms), fractionDigits: 0);
   }
 }
@@ -582,7 +581,7 @@ class DurationColumn extends ColumnData<NetworkRequest> {
 class TimestampColumn extends ColumnData<NetworkRequest> {
   TimestampColumn()
     : super(
-        'Timestamp',
+        '时间戳',
         alignment: ColumnAlignment.right,
         headerAlignment: TextAlign.right,
         fixedWidthPx: 115,

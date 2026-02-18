@@ -181,7 +181,7 @@ class _DropdownContent extends StatelessWidget {
         if (showDefaultLabel && option.isDefault)
           const RoundedLabel(
             labelText: 'D',
-            tooltipText: 'Matches the default value.',
+            tooltipText: '与默认值一致.',
           ),
       ],
     );
@@ -410,8 +410,8 @@ mixin _PropertyInputMixin<T extends StatefulWidget, U> on State<T> {
     final errorMessage =
         (messageFromType != null && messageFromResponse != null)
         ? '$messageFromType / $messageFromResponse'
-        : messageFromType ?? messageFromResponse ?? 'Unknown error.';
-    final propertyInfo = '(Property: ${property.name})';
+        : messageFromType ?? messageFromResponse ?? '未知错误';
+    final propertyInfo = '（属性：${property.name}）';
     final errorCode = errorType?.code != null ? '${errorType!.code}: ' : '';
     return '$errorCode$errorMessage $propertyInfo';
   }

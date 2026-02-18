@@ -42,7 +42,7 @@ class _WidgetDetailsState extends State<WidgetDetails> with AutoDisposeMixin {
           return const RoundedOutlinedBorder(
             child: Center(
               child: Text(
-                'Select a widget to view its layout and properties.',
+                '选择一个组件以查看其布局与属性',
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.clip,
               ),

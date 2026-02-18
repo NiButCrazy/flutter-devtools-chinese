@@ -123,7 +123,7 @@ class _TabbedPerformanceViewState extends State<TabbedPerformanceView>
     return [
       if (showFrameAnalysis)
         (
-          tab: _buildTab(tabName: 'Frame Analysis'),
+          tab: _buildTab(tabName: '帧分析'),
           tabView: KeepAliveWrapper(
             child: _selectedFlutterFrame != null
                 ? FlutterFrameAnalysisView(
@@ -135,14 +135,14 @@ class _TabbedPerformanceViewState extends State<TabbedPerformanceView>
                         controller.flutterFramesController.displayRefreshRate,
                   )
                 : const CenteredMessage(
-                    message: 'Select a frame above to view analysis data.',
+                    message: '在上方视图选择一个帧以查看分析数据',
                   ),
           ),
           featureController: null,
         ),
       if (showRebuildStats)
         (
-          tab: _buildTab(tabName: 'Rebuild Stats'),
+          tab: _buildTab(tabName: '重建统计'),
           tabView: KeepAliveWrapper(
             child: RebuildStatsView(
               model: controller.rebuildCountModel,
@@ -153,7 +153,7 @@ class _TabbedPerformanceViewState extends State<TabbedPerformanceView>
         ),
       (
         tab: _buildTab(
-          tabName: 'Timeline Events',
+          tabName: '时间线事件表',
           trailing: TimelineEventsTabControls(
             controller: controller.timelineEventsController,
           ),

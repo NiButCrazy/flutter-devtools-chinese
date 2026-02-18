@@ -17,10 +17,10 @@ import '../../controller/class_data.dart';
 class _RetainingPathColumn extends ColumnData<PathData> {
   const _RetainingPathColumn(String className)
     : super.wide(
-        'Shortest Retaining Path for Instances of $className',
+        '针对 $className 实例的最短保留路径',
         titleTooltip:
-            'The shortest sequence of objects\n'
-            'retaining $className instances from garbage collection.',
+            '从垃圾回收中保留 $className 实例的\n'
+            '最短对象链路',
         alignment: ColumnAlignment.left,
       );
 
@@ -35,10 +35,9 @@ class _RetainingPathColumn extends ColumnData<PathData> {
 class _InstanceColumn extends ColumnData<PathData> {
   const _InstanceColumn(bool isDiff)
     : super(
-        isDiff ? 'Instance\nDelta' : 'Instances',
+        isDiff ? '实例\n变化量' : '实例数',
         titleTooltip:
-            'Number of instances of the class\n'
-            'retained by the path.',
+            '该路径所保留的类实例数量',
         fixedWidthPx: 80.0,
         alignment: ColumnAlignment.right,
       );
@@ -53,7 +52,7 @@ class _InstanceColumn extends ColumnData<PathData> {
 class _ShallowSizeColumn extends ColumnData<PathData> {
   _ShallowSizeColumn(bool isDiff)
     : super(
-        isDiff ? 'Shallow\nSize Delta' : 'Shallow\nDart Size',
+        isDiff ? '浅层\n大小变化量' : '浅层\nDart 大小',
         titleTooltip: SizeType.shallow.description,
         fixedWidthPx: 80.0,
         alignment: ColumnAlignment.right,
@@ -73,7 +72,7 @@ class _ShallowSizeColumn extends ColumnData<PathData> {
 class _RetainedSizeColumn extends ColumnData<PathData> {
   _RetainedSizeColumn(bool isDiff)
     : super(
-        isDiff ? 'Retained\nSize Delta' : 'Retained\nDart Size',
+        isDiff ? '保留\n大小变化量' : '保留\nDart 大小',
         titleTooltip: SizeType.retained.description,
         fixedWidthPx: 80.0,
         alignment: ColumnAlignment.right,

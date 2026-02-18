@@ -235,7 +235,7 @@ class _FilterDialogState<T> extends State<FilterDialog<T>>
   @override
   Widget build(BuildContext context) {
     return StateUpdateDialog(
-      title: 'Filters',
+      title: '过滤器',
       onApply: _applyFilterChanges,
       onCancel: _restoreOldValues,
       onResetDefaults: _resetFilters,
@@ -655,7 +655,7 @@ class _StandaloneFilterFieldState<T> extends State<StandaloneFilterField<T>>
             valueListenable: widget.controller.useRegExp,
             builder: (context, useRegExp, _) {
               return DevToolsClearableTextField(
-                hintText: 'Filter',
+                hintText: '过滤器',
                 controller: queryTextFieldController,
                 prefixIcon: widget.controller.settingFilters.isNotEmpty
                     ? Container(
@@ -668,7 +668,7 @@ class _StandaloneFilterFieldState<T> extends State<StandaloneFilterField<T>>
                           valueListenable: widget.controller.activeFilter,
                           builder: (context, _, _) {
                             return DevToolsFilterButton(
-                              message: 'More filters',
+                              message: '更多过滤器',
                               onPressed: () {
                                 unawaited(
                                   showDialog(
@@ -691,7 +691,7 @@ class _StandaloneFilterFieldState<T> extends State<StandaloneFilterField<T>>
                       onPressed: () {
                         showDevToolsDialog(
                           context: context,
-                          title: 'Filter Syntax',
+                          title: '过滤语法',
                           content: _FilterSyntax(
                             controller: widget.controller,
                             filteredItem: widget.filteredItem,
@@ -701,7 +701,7 @@ class _StandaloneFilterFieldState<T> extends State<StandaloneFilterField<T>>
                     ),
                   DevToolsToggleButton(
                     icon: Icons.emergency,
-                    message: 'Use regular expressions',
+                    message: '使用正则表达式',
                     outlined: false,
                     isSelected: useRegExp,
                     onPressed: () {
@@ -752,12 +752,12 @@ class _FilterSyntax<T> extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text('''
-Type a query to show or hide specific ${pluralize(filteredItem, 2)}.
+输入查询内容以显示或隐藏指定的 $filteredItem
 
-Any text that is not paired with an available filter key below will
-be queried against all available data for each $filteredItem.
+任何未与下方可用过滤键匹配的文本
+都会在所有可用的 $filteredItem 数据中进行查询
 
-Available filters:
+可用过滤器：
 '''),
         Padding(
           padding: const EdgeInsets.only(left: defaultSpacing),
@@ -780,7 +780,7 @@ Available filters:
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     for (final exampleUsage in filterExampleUsages)
-                      Text('(e.g. $exampleUsage)', style: usageTextStyle),
+                      Text('（例如，$exampleUsage）', style: usageTextStyle),
                   ],
                 ),
               ),
