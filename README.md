@@ -5,24 +5,24 @@ found in the LICENSE file or at https://developers.google.com/open-source/licens
 -->
 # Dart & Flutter DevTools
 
-[![Build Status](https://github.com/flutter/devtools/workflows/devtools/badge.svg)](https://github.com/flutter/devtools/actions)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/flutter/devtools/badge)](https://deps.dev/project/github/flutter%2Fdevtools)
+自用 Flutter DevTools, 大部分都汉化了, 和官方中文文档大差不差, 小部分文本为了方便理解换成了另一种表达
 
-## What is this?
+> 由于官方插件喜欢拿硬编码逻辑判断, 可能有未知BUG, 请自行测试
 
-[Dart & Flutter DevTools](https://docs.flutter.dev/tools/devtools) is a suite of performance tools for Dart and Flutter.
+# 使用方法
 
-## Getting started
+首先先根据 tags 检出相应代码 `git checkout xxx`
 
-For documentation on installing and trying out DevTools, please see our
-[docs](https://docs.flutter.dev/tools/devtools).
+1. 运行 `flutter pub get` 获取依赖
+2. 运行 `flutter build web --release --no-tree-shake-icons --wasm` 生成构建后的代码
+3. 替换 flutter-sdk 里的源文件(记得备份), 大抵是`..\caches\xxx\dart-sdk\bin\resources\devtools`
 
-## Contributing and development
+# 目前已汉化版本
 
-Contributions welcome! See our
-[contributing page](https://github.com/flutter/devtools/blob/master/CONTRIBUTING.md)
-for an overview of how to build and contribute to the project.
+- v2.51.1
+- v2.54.1
 
-## Terms and Privacy
 
-By using Dart DevTools, you agree to the [Google Terms of Service](https://policies.google.com/terms). To understand how we use data collected from this service, see the [Google Privacy Policy](https://policies.google.com/privacy?hl=en).
+调试部分去看官方文档吧
+
+如果需要我帮你 build 并 release, 请提 issue
