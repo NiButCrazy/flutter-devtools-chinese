@@ -17,9 +17,7 @@ import '../analytics/constants.dart' as gac;
 import '../config_specific/logger/logger_helpers.dart';
 import '../constants.dart';
 import '../diagnostics/inspector_service.dart';
-import '../feature_flags.dart';
 import '../globals.dart';
-import '../managers/banner_messages.dart';
 import '../primitives/query_parameters.dart';
 import '../server/server.dart';
 import '../utils/utils.dart';
@@ -38,9 +36,20 @@ const _thirdPartyPathSegment = 'third_party';
 
 /// DevTools preferences for experimental features.
 enum _ExperimentPreferences {
-  wasm;
+  /// Deprecated, we ignore this key in favor of [wasmOptOut].
+  wasm,
 
-  String get storageKey => '$storagePrefix.$name';
+  /// Whether a user has opted out of the dart2wasm experiment.
+  wasmOptOut;
+
+  String get storageKey {
+    if (name == 'wasm') {
+      _log.warning(
+        '[deprecated] The "wasm" key is deprecated, use "wasmOptOut" instead.',
+      );
+    }
+    return '$storagePrefix.$name';
+  }
 
   static const storagePrefix = 'experiment';
 }
@@ -66,8 +75,6 @@ enum _GeneralPreferences { verboseLogging }
 /// A controller for global application preferences.
 class PreferencesController extends DisposableController
     with AutoDisposeControllerMixin {
-  static const _welcomeShownStorageId = 'wasmWelcomeShown';
-
   /// Whether the user preference for DevTools theme is set to dark mode.
   ///
   /// To check whether DevTools is using a light or dark theme, other parts of
@@ -121,9 +128,7 @@ class PreferencesController extends DisposableController
     // Get the current values and listen for and write back changes.
     await _initDarkMode();
     await _initAdvancedDeveloperMode();
-    if (FeatureFlags.wasmOptInSetting.isEnabled) {
-      await _initWasmEnabled();
-    }
+    await _initWasmEnabled();
     await _initVerboseLogging();
 
     await cpuProfiler.init();
@@ -182,34 +187,25 @@ class PreferencesController extends DisposableController
   Future<void> _initWasmEnabled() async {
     wasmEnabled.value = kIsWasm;
 
+    final queryParams = DevToolsQueryParams.load();
     // If the user forced the dart2js-compiled DevTools via query parameter,
     // then set the storage value to match. This will persist across multiple
     // sessions of DevTools.
-    if (DevToolsQueryParams.load().useJs) {
+    final jsEnabledFromQueryParams = queryParams.useJs;
+    if (jsEnabledFromQueryParams) {
       safeUnawaited(
-        storage.setValue(_ExperimentPreferences.wasm.storageKey, 'false'),
+        storage.setValue(_ExperimentPreferences.wasmOptOut.storageKey, 'true'),
       );
+      ga.impression(gac.devToolsMain, gac.forceLoadJs);
     }
-
-    // Maybe show the WASM welcome message on app connection if this is the
-    // first time the user is loading DevTools after the WASM experiment was
-    // enabled.
-    addAutoDisposeListener(
-      serviceConnection.serviceManager.connectedState,
-      () async {
-        if (serviceConnection.serviceManager.connectedState.value.connected) {
-          await _maybeShowWasmWelcomeMessage();
-        }
-      },
-    );
 
     addAutoDisposeListener(wasmEnabled, () async {
       final enabled = wasmEnabled.value;
       _log.fine('preference update (wasmEnabled = $enabled)');
 
       await storage.setValue(
-        _ExperimentPreferences.wasm.storageKey,
-        '$enabled',
+        _ExperimentPreferences.wasmOptOut.storageKey,
+        '${!enabled}',
       );
 
       // Update the wasm mode query parameter if it does not match the value of
@@ -227,11 +223,11 @@ class PreferencesController extends DisposableController
       }
     });
 
-    final enabledFromStorage = await boolValueFromStorage(
-      _ExperimentPreferences.wasm.storageKey,
+    final optOutFromStorage = await boolValueFromStorage(
+      _ExperimentPreferences.wasmOptOut.storageKey,
       defaultsTo: false,
     );
-    final queryParams = DevToolsQueryParams.load();
+    final enabledFromStorage = !optOutFromStorage;
     final enabledFromQueryParams = queryParams.useWasm;
 
     if (enabledFromQueryParams && !kIsWasm) {
@@ -259,6 +255,7 @@ class PreferencesController extends DisposableController
 
     final shouldEnableWasm =
         (enabledFromStorage || enabledFromQueryParams) &&
+        !jsEnabledFromQueryParams &&
         kIsWeb &&
         // Wasm cannot be enabled if DevTools was built using `flutter run`.
         !usingDebugDevToolsServer;
@@ -267,23 +264,6 @@ class PreferencesController extends DisposableController
     // renderer properly, but we call this to be safe in case something went
     // wrong.
     toggleWasmEnabled(shouldEnableWasm);
-  }
-
-  Future<void> _maybeShowWasmWelcomeMessage() async {
-    // If we have already shown the welcome message, don't show it again.
-    final welcomeAlreadyShown = await storage.getValue(_welcomeShownStorageId);
-    if (welcomeAlreadyShown == 'true') return;
-
-    // Show the welcome message if the WASM experiment is enabled but the user
-    // is not using the WASM build.
-    final connectedApp = serviceConnection.serviceManager.connectedApp;
-    if (connectedApp != null &&
-        FeatureFlags.wasmByDefault.isEnabled(connectedApp) &&
-        !kIsWasm) {
-      // Mark the welcome message as shown.
-      await storage.setValue(_welcomeShownStorageId, 'true');
-      pushWasmWelcomeMessage();
-    }
   }
 
   Future<void> _initVerboseLogging() async {

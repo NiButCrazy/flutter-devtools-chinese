@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 import '../../shared/analytics/analytics_controller.dart';
 import '../../shared/analytics/constants.dart' as gac;
 import '../../shared/config_specific/copy_to_clipboard/copy_to_clipboard.dart';
-import '../../shared/feature_flags.dart';
 import '../../shared/globals.dart';
 import '../../shared/log_storage.dart';
 import '../../shared/server/server.dart';
@@ -77,22 +76,20 @@ class SettingsDialog extends StatelessWidget {
               gaItem: gac.vmDeveloperMode,
             ),
           ),
-          if (FeatureFlags.wasmOptInSetting.isEnabled) ...[
-            const SizedBox(height: largeSpacing),
-            ...dialogSubHeader(theme, '实验性功能'),
-            Flexible(
-              child: CheckboxSetting(
-                title: '启用 WebAssembly',
-                description:
-                    '这将重新加载页面，加载开发者工具'
-                    '使用 WebAssembly 编译，这可能会带来更好的性能表现',
-                notifier: preferences.wasmEnabled,
-                onChanged: preferences.toggleWasmEnabled,
-                gaScreen: gac.settingsDialog,
-                gaItem: gac.wasm,
-              ),
+          const SizedBox(height: largeSpacing),
+          ...dialogSubHeader(theme, '实验性功能'),
+          Flexible(
+            child: CheckboxSetting(
+              title: '[建议] 启用 WebAssembly',
+              description:
+                  '这将重新加载页面，加载开发者工具'
+                  '使用 WebAssembly 编译，这可能会带来更好的性能表现',
+              notifier: preferences.wasmEnabled,
+              onChanged: preferences.toggleWasmEnabled,
+              gaScreen: gac.settingsDialog,
+              gaItem: gac.wasm,
             ),
-          ],
+          ),
           const SizedBox(height: largeSpacing),
           ...dialogSubHeader(theme, '故障检测'),
           const _VerboseLoggingSetting(),

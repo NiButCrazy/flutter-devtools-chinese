@@ -516,21 +516,22 @@ $codeType DevTools 调试器当前处于维护模式，为了获得最佳的调�
       );
 }
 
-class WelcomeToNewInspectorMessage extends BannerInfo {
-  WelcomeToNewInspectorMessage({required super.screenId})
+class LegacyInspectorWarningMessage extends BannerWarning {
+  LegacyInspectorWarningMessage({required super.screenId})
     : super(
-        key: Key('WelcomeToNewInspectorMessage - $screenId'),
+        key: buildKey(screenId),
         buildTextSpans: (context) => [
           const TextSpan(
-            text: '''
-👋 欢迎使用全新的 Flutter 检查器！要开始使用，请查看 ''',
+            text:
+                '旧版检查器将在未来的版本中移除，'
+                '请在检查器设置中启用新版检查器。'
+                '如果有问题导致你无法使用新版检查器，'
+                '请提交一份 ',
           ),
           GaLinkTextSpan(
-            link: GaLink(
-              display: '文档',
-              url: 'https://docs.flutter.cn/tools/devtools/inspector#new',
-              gaScreenName: screenId,
-              gaSelectedItemDescription: gac.inspectorV2Docs,
+            link: const GaLink(
+              display: 'bug',
+              url: 'https://github.com/flutter/devtools/issues/new',
             ),
             context: context,
             style: Theme.of(context).linkTextStyle,
@@ -538,39 +539,9 @@ class WelcomeToNewInspectorMessage extends BannerInfo {
           const TextSpan(text: ''),
         ],
       );
-}
 
-class WasmWelcomeMessage extends BannerInfo {
-  WasmWelcomeMessage()
-    : super(
-        key: const Key('WasmWelcomeMessage'),
-        screenId: universalScreenId,
-        dismissOnConnectionChanges: true,
-        buildTextSpans: (context) => [
-          const TextSpan(
-            text:
-                '🚀 基于 WebAssembly 的更快、更高性能的 DevTools 现已可用！点击 ',
-          ),
-          const TextSpan(
-            text: '启用',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const TextSpan(text: ' 立刻体验。'),
-          const TextSpan(
-            text: '请注意，这将触发 DevTools 的重新加载',
-            style: TextStyle(fontStyle: FontStyle.italic),
-          ),
-        ],
-        buildActions: (context) => [
-          DevToolsButton(
-            label: '启用',
-            onPressed: () async {
-              await preferences.enableWasmInStorage();
-              webReload();
-            },
-          ),
-        ],
-      );
+  static Key buildKey(String screenId) =>
+      Key('LegacyInspectorWarningMessage - $screenId');
 }
 
 void maybePushDebugModePerformanceMessage(String screenId) {
@@ -601,12 +572,8 @@ void pushDebuggerIdeRecommendationMessage(String screenId) {
   );
 }
 
-void pushWelcomeToNewInspectorMessage(String screenId) {
-  bannerMessages.addMessage(WelcomeToNewInspectorMessage(screenId: screenId));
-}
-
-void pushWasmWelcomeMessage() {
-  bannerMessages.addMessage(WasmWelcomeMessage());
+void pushLegacyInspectorWarning(String screenId) {
+  bannerMessages.addMessage(LegacyInspectorWarningMessage(screenId: screenId));
 }
 
 extension BannerMessageThemeExtension on ThemeData {
