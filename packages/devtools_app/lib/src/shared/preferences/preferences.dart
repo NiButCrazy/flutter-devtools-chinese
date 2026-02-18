@@ -246,8 +246,8 @@ class PreferencesController extends DisposableController
           queryParams.embedMode.embedded && queryParams.ide == 'VSCode';
       if (!embeddedInVsCode) {
         notificationService.push(
-          'Something went wrong when trying to load DevTools with WebAssembly. '
-          'Falling back to Javascript.',
+          '加载使用 WebAssembly 的 DevTools 时出现问题，'
+          '已回退到 Javascript 模式',
         );
       }
       return;

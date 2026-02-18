@@ -155,14 +155,14 @@ class _SelectProjectViewState extends State<SelectProjectView> {
       builder: (_) {
         final theme = Theme.of(context);
         return DevToolsDialog(
-          title: const Text('No iOS or Android build options found.'),
+          title: const Text('未找到 iOS 或 Android 构建选项'),
           content: SizedBox(
             width: defaultDialogWidth,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'DevTools could not verify the build options for this project.',
+                  'DevTools 无法验证此项目的构建选项',
                 ),
                 const SizedBox(height: largeSpacing),
                 ..._deepLinksInstructions(
@@ -209,8 +209,8 @@ class _SelectProjectViewState extends State<SelectProjectView> {
       DeepLinksTarget.ios => '/ios',
     };
     final documentationUrl = switch (target) {
-      DeepLinksTarget.android => 'https://docs.flutter.dev/deployment/android',
-      DeepLinksTarget.ios => 'https://docs.flutter.dev/deployment/ios',
+      DeepLinksTarget.android => 'https://docs.flutter.cn/deployment/android',
+      DeepLinksTarget.ios => 'https://docs.flutter.cn/deployment/ios',
     };
     final command = switch (target) {
       DeepLinksTarget.android =>
@@ -219,7 +219,7 @@ class _SelectProjectViewState extends State<SelectProjectView> {
     };
 
     return [
-      Text('For $title', style: theme.textTheme.titleMedium),
+      Text('关于 $title', style: theme.textTheme.titleMedium),
       const SizedBox(height: intermediateSpacing),
       RichText(
         text: TextSpan(
@@ -227,22 +227,22 @@ class _SelectProjectViewState extends State<SelectProjectView> {
           children: [
             TextSpan(
               text:
-                  'These are configured in the $directory directory. Please refer to the ',
+                  '这些内容在 $directory 目录中进行配置，请参考  ',
             ),
             GaLinkTextSpan(
               link: GaLink(
-                display: 'Flutter documentation',
+                display: 'Flutter 文档',
                 url: documentationUrl,
               ),
               context: context,
             ),
-            const TextSpan(text: ' for more information.'),
+            const TextSpan(text: ' 以获取更多信息'),
           ],
         ),
       ),
       const SizedBox(height: intermediateSpacing),
       const Text(
-        'To confirm your setup, run the following command in your terminal:',
+        '要确认您的环境配置，请在终端中运行以下命令：',
       ),
       const SizedBox(height: denseSpacing),
       Card(

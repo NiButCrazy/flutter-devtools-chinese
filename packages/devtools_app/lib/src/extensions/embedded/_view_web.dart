@@ -134,13 +134,12 @@ class _ExtensionIFrameController extends DisposableController
           // request or show a more permanent error UI where we guide them to
           // file an issue against the extension package.
           notificationService.pushError(
-            'Something went wrong. The '
-            '${embeddedExtensionController.extensionConfig.name} extension is '
-            'not ready.',
+            '出现错误，'
+            '${embeddedExtensionController.extensionConfig.name} 扩展尚未准备就绪。',
             reportExplanation:
-                'The extension did not respond to multiple '
-                'DevToolsExtensionEventType.ping events with the expected '
-                'DevToolsExtensionEventType.pong event.',
+                '该扩展在多次收到 '
+                'DevToolsExtensionEventType.ping 事件后，'
+                '未按预期返回 DevToolsExtensionEventType.pong 事件。',
           );
         }
       }),

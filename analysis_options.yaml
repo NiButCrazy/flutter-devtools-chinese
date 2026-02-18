@@ -18,6 +18,8 @@ analyzer:
     - '**/build/**'
     - '**.freezed.dart'
     - tool/flutter-sdk/
+    - packages/devtools_test
+    - packages/devtools_app/test
 
 linter:
   rules:

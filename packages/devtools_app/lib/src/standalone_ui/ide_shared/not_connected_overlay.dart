@@ -29,14 +29,14 @@ class _NotConnectedOverlayState extends State<NotConnectedOverlay> {
     final showSpinner = connectionState is! ConnectionFailedDTDState;
     final showReconnectButton = connectionState is ConnectionFailedDTDState;
     final stateLabel = switch (connectionState) {
-      NotConnectedDTDState() => 'Waiting to connect...',
-      ConnectingDTDState() => 'Connecting...',
+      NotConnectedDTDState() => '等待连接中...',
+      ConnectingDTDState() => '正在连接...',
       WaitingToRetryDTDState(seconds: final seconds) =>
-        'Reconnecting in $seconds...',
-      ConnectionFailedDTDState() => 'Connection Failed',
+        '$seconds 秒后重新连接...',
+      ConnectionFailedDTDState() => '连接失败',
       // We should never present this widget when connected, but provide a label
       // for debugging if it happens.
-      ConnectedDTDState() => 'Connected',
+      ConnectedDTDState() => '已连接',
     };
 
     return DevToolsOverlay(
@@ -52,7 +52,7 @@ class _NotConnectedOverlayState extends State<NotConnectedOverlay> {
           if (showReconnectButton)
             ElevatedButton(
               onPressed: () => dtdManager.reconnect(),
-              child: const Text('Retry'),
+              child: const Text('重试'),
             ),
         ],
       ),
