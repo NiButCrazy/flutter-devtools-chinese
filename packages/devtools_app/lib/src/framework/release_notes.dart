@@ -36,14 +36,14 @@ final _baseUrlRelativeMarkdownLinkPattern = RegExp(
   multiLine: true,
 );
 const _releaseNotesPath = '/f/devtools-releases.json';
-final _flutterDocsSite = Uri.https('docs.flutter.cn');
+final _flutterDocsSite = Uri.https('docs.flutter.dev');
 
 class ReleaseNotesViewer extends SidePanelViewer {
   const ReleaseNotesViewer({required super.controller, super.child})
     : super(
         key: releaseNotesKey,
-        title: 'What\'s new in DevTools?',
-        textIfMarkdownDataEmpty: 'Stay tuned for updates.',
+        title: 'DevTools 中有哪些新功能？',
+        textIfMarkdownDataEmpty: '敬请关注更新',
       );
 }
 
@@ -200,7 +200,7 @@ class ReleaseNotesController extends SidePanelController {
     }
 
     _emptyAndClose(
-      'Could not find release notes for DevTools version $checkVersion.',
+      '找不到 DevTools 版本 $checkVersion 的发布说明',
     );
     return;
   }
@@ -237,7 +237,7 @@ class ReleaseNotesController extends SidePanelController {
     final releases = releaseIndex['releases'];
     if (releases is! Map<String, Object?>) {
       _emptyAndClose(
-        'The DevTools release index file was incorrectly formatted.',
+        'Devtools 发布索引文件格式不正确',
       );
       return null;
     }

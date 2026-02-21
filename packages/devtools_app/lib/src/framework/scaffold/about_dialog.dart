@@ -45,8 +45,7 @@ class DevToolsAboutDialog extends StatelessWidget {
             const Wrap(
               children: [
                 Text('遇到问题了吗？请告诉我们 '),
-                _FeedbackLink(),
-                Text('.'),
+                _FeedbackLink()
               ],
             ),
             const SizedBox(height: defaultSpacing),
@@ -99,7 +98,7 @@ class _ContributingLink extends StatelessWidget {
     return RichText(
       text: GaLinkTextSpan(
         link: const GaLink(
-          display: 'CONTRIBUTING',
+          display: '贡献',
           url: _contributingGuideUrl,
           gaScreenName: gac.devToolsMain,
           gaSelectedItemDescription: gac.contributingLink,
