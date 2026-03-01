@@ -69,7 +69,7 @@ extension FrameworkCore on Never {
 
     // Print DevTools info at startup.
     _log.info(
-      'Version: $devToolsVersion, Renderer: ${kIsWasm ? 'skwasm' : 'canvaskit'}',
+      '版本: $devToolsVersion, 渲染器: ${kIsWasm ? 'skwasm' : 'canvaskit'}',
     );
 
     await _initDTDConnection();
@@ -216,7 +216,7 @@ Future<void> _initDTDConnection() async {
         )..listenForThemeChanges();
       }
     } else {
-      _log.info('No DTD uri provided from the server during initialization.');
+      _log.info('初始化期间，服务器未提供 DTD URI');
     }
   } catch (e, st) {
     // Dtd failing to connect does not interfere with devtools starting up so

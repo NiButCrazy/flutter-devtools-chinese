@@ -18,12 +18,12 @@ Future<bool> checkServerHttpApiAvailable() async {
     // content to confirm it came from our server.
     // See https://github.com/flutter/flutter/issues/67053
     if (response.statusCode != 200 || response.body != 'OK') {
-      _log.info('DevTools server not available (${response.statusCode})');
+      _log.info('开发者服务器不可用 (${response.statusCode})');
       return false;
     }
   } catch (e) {
     // unable to locate dev server
-    _log.info('DevTools server not available ($e)');
+    _log.info('开发者服务器不可用 ($e)');
     return false;
   }
 

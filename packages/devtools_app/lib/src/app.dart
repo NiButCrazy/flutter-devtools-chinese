@@ -14,6 +14,7 @@ import 'package:devtools_app_shared/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'extensions/extension_screen.dart';
 import 'framework/framework_core.dart';
@@ -454,6 +455,16 @@ class DevToolsAppState extends State<DevToolsApp> with AutoDisposeMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      // ✅ 2. 声明支持语言
+      supportedLocales: const [
+        Locale('zh', 'CN'), // 中文
+        Locale('en', 'US'),
+      ],
       debugShowCheckedModeBanner: false,
       themeMode: isDarkThemeEnabled() ? ThemeMode.dark : ThemeMode.light,
       theme: themeFor(

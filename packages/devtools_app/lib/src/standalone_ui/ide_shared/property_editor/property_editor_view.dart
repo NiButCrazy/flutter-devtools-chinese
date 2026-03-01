@@ -421,7 +421,7 @@ class _NoEditablePropertiesMessage extends StatelessWidget {
           TextSpan(text: 'bool', style: fixedFontStyle),
           const TextSpan(text: ', 和 '),
           TextSpan(text: 'enum', style: fixedFontStyle),
-          const TextSpan(text: '.'),
+          const TextSpan(text: ''),
         ],
       ),
     );
@@ -455,7 +455,7 @@ class _WidgetNameAndDocumentation extends StatelessWidget {
             Expanded(
               child: _ExpandableWidgetDocumentation(
                 documentation:
-                    documentation ?? '创建 ${addIndefiniteArticle(name)}.',
+                    documentation ?? '创建 ${addIndefiniteArticle(name)}',
               ),
             ),
           ],
@@ -537,7 +537,7 @@ class _ExpandableWidgetDocumentationState
         InkWell(
           onTap: _toggleExpansion,
           child: Text(
-            _isExpanded ? '收起更多' : '显示更多',
+            _isExpanded ? '收起' : '显示更多',
             style: theme.boldTextStyle.copyWith(
               color: theme.colorScheme.primary,
             ),

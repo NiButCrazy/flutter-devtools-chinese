@@ -329,7 +329,7 @@ mixin _PropertyInputMixin<T extends StatefulWidget, U> on State<T> {
   }) {
     return InputDecoration(
       contentPadding: EdgeInsets.all(padding),
-      helperText: property.isRequired ? '*required' : '',
+      helperText: property.isRequired ? '*必须' : '',
       errorText: property.errorText,
       isDense: true,
       label: inputLabel(property, theme: theme),

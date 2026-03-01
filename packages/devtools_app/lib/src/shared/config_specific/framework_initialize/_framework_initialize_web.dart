@@ -49,7 +49,7 @@ Future<String> initializePlatform() async {
     //  open.
     await DevToolsServerConnection.connect();
   } else {
-    _log.info('Server HTTP API is not available, using browser for storage.');
+    _log.info('服务器 HTTP API 不可用，使用浏览器进行存储');
     setGlobal(Storage, BrowserStorage());
   }
 

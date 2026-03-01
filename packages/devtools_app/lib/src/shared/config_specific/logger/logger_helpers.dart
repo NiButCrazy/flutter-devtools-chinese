@@ -11,7 +11,7 @@ import 'logger.dart';
 /// Helper for setting the log level for the global [Logger].
 void setDevToolsLoggingLevel(Level level) {
   Logger.root.level = level;
-  Logger.root.warning('DevTools log level changed to ${level.name}');
+  Logger.root.warning('开发者工具日志级别已更改为 ${level.name}');
 }
 
 /// Helper for initializing the [Logger] record handler.
