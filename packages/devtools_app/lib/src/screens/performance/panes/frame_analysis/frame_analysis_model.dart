@@ -235,7 +235,6 @@ enum FramePhaseType {
 
   static const _paintEventNameLegacy = 'Paint';
 
-  static const _rasterEventName = 'Raster';
 
   String get display {
     switch (this) {
