@@ -14,13 +14,14 @@ found in the LICENSE file or at https://developers.google.com/open-source/licens
 首先先根据 tags 检出相应代码 `git checkout xxx`
 
 1. 运行 `flutter pub get` 获取依赖
-2. 运行 `flutter build web --release --no-tree-shake-icons --wasm` 生成构建后的代码
+2. 运行 `flutter build web --release --no-tree-shake-icons --wasm --source-maps` 生成构建后的代码
 3. 替换 flutter-sdk 里的源文件(记得备份), 大抵是`..\caches\xxx\dart-sdk\bin\resources\devtools`
 
 # 目前已汉化版本
 
 - v2.51.1
 - v2.54.1
+- v2.60.0
 
 
 调试部分去看官方文档吧
