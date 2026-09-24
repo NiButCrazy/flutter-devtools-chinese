@@ -91,11 +91,23 @@ class NetworkController extends DevToolsScreenController
     return null;
   }
 
+  static const hideHttpSocketsFilterId = 'network-hide-http-sockets';
+
   static const methodFilterId = 'network-method-filter';
 
   static const statusFilterId = 'network-status-filter';
 
   static const typeFilterId = 'network-type-filter';
+
+  @override
+  SettingFilters<NetworkRequest> createSettingFilters() => [
+    ToggleFilter<NetworkRequest>(
+      id: hideHttpSocketsFilterId,
+      name: 'Hide HTTP profiler sockets',
+      includeCallback: (request) => request is! Socket,
+      defaultValue: false,
+    ),
+  ];
 
   @override
   Map<String, QueryFilterArgument<NetworkRequest>> createQueryFilterArgs() => {
@@ -191,6 +203,10 @@ class NetworkController extends DevToolsScreenController
     selectedRequest.dispose();
     _recordingNotifier.dispose();
     _currentNetworkRequests.dispose();
+    for (final r in _httpRequests ?? <DartIOHttpRequestData>[]) {
+      r.dispose();
+    }
+    _httpRequests?.clear();
     super.dispose();
   }
 
@@ -237,7 +253,6 @@ class NetworkController extends DevToolsScreenController
     }
   }
 
-  @visibleForTesting
   void processNetworkTrafficHelper(
     List<SocketStatistic> sockets,
     List<HttpProfileRequest>? httpRequests,
@@ -438,7 +453,7 @@ class NetworkController extends DevToolsScreenController
     super.filterData(filter);
     serviceConnection.errorBadgeManager.clearErrorCount(NetworkScreen.id);
     final queryFilter = filter.queryFilter;
-    if (queryFilter.isEmpty) {
+    if (filter.isEmpty) {
       _currentNetworkRequests.value.forEach(_checkForError);
       filteredData
         ..clear()
@@ -449,6 +464,11 @@ class NetworkController extends DevToolsScreenController
       ..clear()
       ..addAll(
         _currentNetworkRequests.value.where((NetworkRequest r) {
+          final filteredOutBySettingFilters = filter.settingFilters.any(
+            (settingFilter) => !settingFilter.includeData(r),
+          );
+          if (filteredOutBySettingFilters) return false;
+
           final filteredOutByQueryFilterArgument = queryFilter.filterArguments
               .any((argument) => !argument.matchesValue(r));
           if (filteredOutByQueryFilterArgument) return false;

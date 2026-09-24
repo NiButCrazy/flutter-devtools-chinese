@@ -6,7 +6,7 @@ description: A repo management tool for DevTools.
 publish_to: none
 
 environment:
-  sdk: ">=3.7.0-160.0.dev <4.0.0"
+  sdk: ^3.11.0
 
 resolution: workspace
 
@@ -18,8 +18,16 @@ dependencies:
   cli_util: ^0.4.1
   collection: ^1.19.0
   io: ^1.0.4
+  meta: ^1.18.0
   path: ^1.9.0
   yaml: ^3.1.2
-  
+
 dev_dependencies:
+  # TODO(https://github.com/flutter/devtools/issues/9771): Update to published version
+  dart_skills_lint:
+    git:
+      url: https://github.com/flutter/skills
+      path: tool/dart_skills_lint
+      ref: e4497873950727ee781fa411c1a2f624b1ec50c6
+  logging: ^1.1.1
   test: ^1.25.8

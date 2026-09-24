@@ -1,4 +1,4 @@
-// Copyright 2019 The Flutter Authors
+// Copyright 2024 The Flutter Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file or at https://developers.google.com/open-source/licenses/bsd.
 
@@ -286,6 +286,7 @@ class FlexLayoutExplorerWidgetState
         child: InkWell(
           onTap: () => unawaited(onTap(propertiesLocal)),
           child: WidgetVisualizer(
+            isFlex: true,
             title: flexType,
             layoutProperties: propertiesLocal,
             isSelected: highlighted == properties,
@@ -293,7 +294,7 @@ class FlexLayoutExplorerWidgetState
             hint: Container(
               padding: const EdgeInsets.all(4.0),
               child: Text(
-                'Total Flex Factor: ${propertiesLocal.totalFlex.toInt()}',
+                '总弹性系数: ${propertiesLocal.totalFlex.toInt()}',
                 style: theme.regularTextStyleWithColor(emphasizedTextColor),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -392,6 +393,12 @@ class FlexLayoutExplorerWidgetState
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 }
 
@@ -687,7 +694,7 @@ class FlexChildVisualizer extends StatelessWidget {
           ),
           if (!properties.hasFlexFactor)
             Text(
-              'unconstrained ${root.isMainAxisHorizontal ? 'horizontal' : 'vertical'}',
+              '未受约束 - ${root.isMainAxisHorizontal ? '水平方向' : '垂直方向'}',
               style: theme.regularTextStyle.copyWith(
                 color: theme.colorScheme.unconstrainedColor,
                 fontStyle: FontStyle.italic,
@@ -752,6 +759,7 @@ class FlexChildVisualizer extends StatelessWidget {
             animation: state.entranceController,
             builder: buildEntranceAnimation,
             child: WidgetVisualizer(
+              isFlex: true,
               isSelected: isSelected,
               layoutProperties: layoutProperties,
               title: propertiesLocal.description ?? '',

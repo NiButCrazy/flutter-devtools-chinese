@@ -3,6 +3,32 @@ Copyright 2025 The Flutter Authors
 Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file or at https://developers.google.com/open-source/licenses/bsd.
 -->
+
+# 13.0.2
+* Validate the `devtoolsOptionsUri` query parameter in the extension enabled
+  state handler so it must be a `file:` URI named `devtools_options.yaml`,
+  preventing arbitrary file writes by the DevTools server process.
+* The minimum Dart SDK version is bumped to 3.11.0.
+* The minimum Flutter SDK version is bumped to 3.41.0.
+
+# 13.0.1
+* Handle null values for `FlutterStore.flutterClientId`.
+
+# 13.0.0
+* **Breaking change:** Removed `DevToolsStoreKeys.analyticsEnabled` and
+`DevToolsStoreKeys.isFirstRun` since these were only used for legacy analytics.
+* **Breaking change:** Removed legacy analytics APIs and state cleanup
+(e.g. `apiGetFlutterGAEnabled`, `apiGetDevToolsEnabled`, `apiSetDevToolsEnabled`, `apiGetDevToolsFirstRun`, `apiResetDevTools`).
+* **Breaking change:** Removed public constant `devToolsEnabledPropertyName`.
+* **Breaking change:** Removed `isFirstRun`, `reset`, and `analyticsEnabled` from `DevToolsUsage`.
+
+# 12.1.0
+* Adds additional logging to `IntegrationTestRunner`.
+* Fixes assertion error when parsing Flutter channel versions using the format `X.XX.X-X.X.pre-XXX`.
+* Fixes breakage associated with ChromeDriver 138 when using `IntegrationTestRunner`.
+* Adds `sanitizeVersionStr` helper to `SemanticVersion`.
+* Fixes null error when parsing `bundleIdentifier` or `teamIndentifier` in `UniversalLinkSettings`.
+
 # 12.0.0
 * Update `dtd` dependency to `^4.0.0`.
 * Register and unregister VM service connections on DTD. This change only

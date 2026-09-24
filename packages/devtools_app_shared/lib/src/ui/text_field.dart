@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'common.dart';
 import 'theme/theme.dart';
 
-/// A DevTools-styled text field with a suffix action to clear the search field.
-final class DevToolsClearableTextField extends StatelessWidget {
-  DevToolsClearableTextField({
+/// A DevTools-styled text field.
+final class DevToolsTextField extends StatelessWidget {
+  DevToolsTextField({
     super.key,
     TextEditingController? controller,
     this.labelText,
@@ -36,8 +36,9 @@ final class DevToolsClearableTextField extends StatelessWidget {
 
   /// This is the default border radius used by the [OutlineInputBorder]
   /// constructor.
-  static const _defaultInputBorderRadius =
-      BorderRadius.all(Radius.circular(4.0));
+  static const _defaultInputBorderRadius = BorderRadius.all(
+    Radius.circular(4.0),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -78,19 +79,63 @@ final class DevToolsClearableTextField extends StatelessWidget {
             height: inputDecorationElementHeight,
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                ...additionalSuffixActions,
-                InputDecorationSuffixButton.clear(
-                  onPressed: () {
-                    controller.clear();
-                    onChanged?.call('');
-                  },
-                ),
-              ],
+              children: additionalSuffixActions,
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+/// A DevTools-styled text field with a suffix action to clear the search field.
+final class DevToolsClearableTextField extends StatelessWidget {
+  DevToolsClearableTextField({
+    super.key,
+    TextEditingController? controller,
+    this.labelText,
+    this.hintText,
+    this.prefixIcon,
+    this.additionalSuffixActions = const <Widget>[],
+    this.onChanged,
+    this.onSubmitted,
+    this.autofocus = false,
+    this.enabled,
+    this.roundedBorder = false,
+  }) : controller = controller ?? TextEditingController();
+
+  final TextEditingController controller;
+  final String? hintText;
+  final Widget? prefixIcon;
+  final List<Widget> additionalSuffixActions;
+  final String? labelText;
+  final void Function(String)? onChanged;
+  final void Function(String)? onSubmitted;
+  final bool autofocus;
+  final bool? enabled;
+  final bool roundedBorder;
+
+  @override
+  Widget build(BuildContext context) {
+    return DevToolsTextField(
+      controller: controller,
+      labelText: labelText,
+      hintText: hintText,
+      prefixIcon: prefixIcon,
+      additionalSuffixActions: [
+        ...additionalSuffixActions,
+        InputDecorationSuffixButton.clear(
+          onPressed: () {
+            controller.clear();
+            onChanged?.call('');
+          },
+        ),
+      ],
+      onChanged: onChanged,
+      onSubmitted: onSubmitted,
+      autofocus: autofocus,
+      enabled: enabled,
+      roundedBorder: roundedBorder,
     );
   }
 }
@@ -107,30 +152,27 @@ final class InputDecorationSuffixButton extends StatelessWidget {
 
   factory InputDecorationSuffixButton.clear({
     required VoidCallback? onPressed,
-  }) =>
-      InputDecorationSuffixButton(
-        icon: Icons.clear,
-        onPressed: onPressed,
-        tooltip: '清除',
-      );
+  }) => InputDecorationSuffixButton(
+    icon: Icons.clear,
+    onPressed: onPressed,
+    tooltip: '清除',
+  );
 
   factory InputDecorationSuffixButton.close({
     required VoidCallback? onPressed,
-  }) =>
-      InputDecorationSuffixButton(
-        icon: Icons.close,
-        onPressed: onPressed,
-        tooltip: '关闭',
-      );
+  }) => InputDecorationSuffixButton(
+    icon: Icons.close,
+    onPressed: onPressed,
+    tooltip: '关闭',
+  );
 
   factory InputDecorationSuffixButton.help({
     required VoidCallback? onPressed,
-  }) =>
-      InputDecorationSuffixButton(
-        icon: Icons.question_mark,
-        onPressed: onPressed,
-        tooltip: '帮助',
-      );
+  }) => InputDecorationSuffixButton(
+    icon: Icons.question_mark,
+    onPressed: onPressed,
+    tooltip: '帮助',
+  );
 
   final IconData icon;
   final VoidCallback? onPressed;

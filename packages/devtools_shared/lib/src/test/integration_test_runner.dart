@@ -27,6 +27,7 @@ class IntegrationTestRunner with IOMixin {
     String testTarget, {
     required String testDriver,
     bool headless = false,
+    bool useWasm = false,
     List<String> dartDefineArgs = const <String>[],
     bool debugLogging = false,
   }) async {
@@ -51,7 +52,10 @@ class IntegrationTestRunner with IOMixin {
         headless ? 'web-server' : 'chrome',
         // --disable-gpu speeds up tests that use ChromeDriver when run on
         // GitHub Actions. See https://github.com/flutter/devtools/issues/8301.
-        '--web-browser-flag=--disable-gpu',
+        // However, it also breaks the tests when running with the wasm flag,
+        // because it prevents capturing browser logs. See:
+        // https://github.com/flutter/devtools/issues/9727
+        useWasm ? '--wasm' : '--web-browser-flag=--disable-gpu',
         if (headless) ...[
           // Flags to avoid breakage with chromedriver 138. See
           // https://github.com/flutter/devtools/issues/9357.
@@ -63,7 +67,9 @@ class IntegrationTestRunner with IOMixin {
 
       debugLog('> flutter ${flutterDriveArgs.join(' ')}');
       final process = await Process.start(
-          Platform.isWindows ? 'flutter.bat' : 'flutter', flutterDriveArgs);
+        Platform.isWindows ? 'flutter.bat' : 'flutter',
+        flutterDriveArgs,
+      );
 
       bool stdOutWriteInProgress = false;
       bool stdErrWriteInProgress = false;
@@ -115,12 +121,15 @@ class IntegrationTestRunner with IOMixin {
       );
 
       bool testTimedOut = false;
-      await process.exitCode.timeout(const Duration(minutes: 8), onTimeout: () {
-        testTimedOut = true;
-        // TODO(srawlins): Refactor the retry situation to catch a
-        // TimeoutException, and not recursively call `runTest`.
-        return -1;
-      });
+      await process.exitCode.timeout(
+        const Duration(minutes: 8),
+        onTimeout: () {
+          testTimedOut = true;
+          // TODO(srawlins): Refactor the retry situation to catch a
+          // TimeoutException, and not recursively call `runTest`.
+          return -1;
+        },
+      );
 
       debugLog(
         'shutting down processes because '
@@ -168,7 +177,7 @@ class _IntegrationTestResult {
     final result = json[resultKey] == 'true';
     final failureDetails =
         (json[failureDetailsKey] as List<Object?>).cast<String>().firstOrNull ??
-            '{}';
+        '{}';
     final failureDetailsMap =
         jsonDecode(failureDetails) as Map<String, Object?>;
     final methodName = failureDetailsMap[methodNameKey] as String?;
@@ -200,8 +209,8 @@ class IntegrationTestRunnerArgs {
     List<String> args, {
     bool verifyValidTarget = true,
     void Function(ArgParser)? addExtraArgs,
-  })  : rawArgs = args,
-        argResults = buildArgParser(addExtraArgs: addExtraArgs).parse(args) {
+  }) : rawArgs = args,
+       argResults = buildArgParser(addExtraArgs: addExtraArgs).parse(args) {
     if (verifyValidTarget) {
       final target = argResults[testTargetArg];
       assert(
@@ -222,6 +231,9 @@ class IntegrationTestRunnerArgs {
   /// Whether this integration test should be run on the 'web-server' device
   /// instead of 'chrome'.
   bool get headless => argResults.flag(_headlessArg);
+
+  /// Whether this integration test should be run against dart2wasm-compiled DevTools.
+  bool get useWasm => argResults.flag(_wasmArg);
 
   /// Sharding information for this test run.
   ({int shardNumber, int totalShards})? get shard {
@@ -250,18 +262,13 @@ class IntegrationTestRunnerArgs {
   static const _helpArg = 'help';
   static const testTargetArg = 'target';
   static const _headlessArg = 'headless';
+  static const _wasmArg = 'wasm';
   static const _shardArg = 'shard';
 
   /// Builds an arg parser for DevTools integration tests.
-  static ArgParser buildArgParser({
-    void Function(ArgParser)? addExtraArgs,
-  }) {
+  static ArgParser buildArgParser({void Function(ArgParser)? addExtraArgs}) {
     final argParser = ArgParser()
-      ..addFlag(
-        _helpArg,
-        abbr: 'h',
-        help: 'Prints help output.',
-      )
+      ..addFlag(_helpArg, abbr: 'h', help: 'Prints help output.')
       ..addOption(
         testTargetArg,
         abbr: 't',
@@ -277,10 +284,16 @@ class IntegrationTestRunnerArgs {
             'the \'chrome\' device. For headless test runs, you will not be '
             'able to see the integration test run visually in a Chrome browser.',
       )
+      ..addFlag(
+        _wasmArg,
+        negatable: false,
+        help: 'Runs the integration test against dart2wasm-compiled DevTools.',
+      )
       ..addOption(
         _shardArg,
         valueHelp: '1/3',
-        help: 'The shard number for this run out of the total number of shards '
+        help:
+            'The shard number for this run out of the total number of shards '
             '(e.g. 1/3)',
       );
     addExtraArgs?.call(argParser);

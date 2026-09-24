@@ -35,6 +35,11 @@ class SimulatedEditor {
     return editor;
   }
 
+  void dispose() {
+    unawaited(_logger.close());
+    unawaited(close());
+  }
+
   /// The URI of the DTD instance we are connecting/connected to.
   final Uri _dtdUri;
 
@@ -310,10 +315,10 @@ class SimulatedEditor {
 
   FutureOr<void> openDevToolsPage(
     String? _,
-    String? __,
-    bool ___,
-    bool ____,
-    bool _____,
+    String? _,
+    bool _,
+    bool _,
+    bool _,
   ) {}
 }
 

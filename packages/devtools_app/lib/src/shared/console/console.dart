@@ -49,7 +49,7 @@ class ConsoleFrame extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (title != null) title!,
+          ?title,
           Expanded(child: child),
         ],
       ),
@@ -88,6 +88,12 @@ class _ConsoleOutputState extends State<_ConsoleOutput>
   void initState() {
     super.initState();
     _initHelper();
+  }
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
   }
 
   void _onScrollChanged() {

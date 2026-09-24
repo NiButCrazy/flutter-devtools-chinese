@@ -36,8 +36,9 @@ Future<void> navigateThroughDevToolsScreens(
       findsOneWidget,
       shouldExpect: runWithExpectations,
     );
-    final menuChildren =
-        controller.widget<MenuAnchor>(tabOverflowMenuFinder).menuChildren;
+    final menuChildren = controller
+        .widget<MenuAnchor>(tabOverflowMenuFinder)
+        .menuChildren;
     numTabs += menuChildren.length;
   }
 
@@ -47,12 +48,12 @@ Future<void> navigateThroughDevToolsScreens(
     shouldExpect: runWithExpectations,
   );
 
-  final expectedConnectedControllersCount =
-      devtoolsScreens!.where((s) => s.providesController).length;
-  final expectedDisconnectedControllersCount =
-      devtoolsScreens!
-          .where((s) => s.providesController && !s.screen.requiresConnection)
-          .length;
+  final expectedConnectedControllersCount = devtoolsScreens!
+      .where((s) => s.providesController)
+      .length;
+  final expectedDisconnectedControllersCount = devtoolsScreens!
+      .where((s) => s.providesController && !s.screen.requiresConnection)
+      .length;
   _maybeExpect(
     screenControllers.controllers.length,
     connectedToApp
@@ -66,9 +67,8 @@ Future<void> navigateThroughDevToolsScreens(
     shouldExpect: runWithExpectations,
   );
 
-  final screens =
-      (ScreenMetaData.values.toList()
-        ..removeWhere((data) => !visibleScreenIds.contains(data.id)));
+  final screens = (ScreenMetaData.values.toList()
+    ..removeWhere((data) => !visibleScreenIds.contains(data.id)));
   for (final screen in screens) {
     await switchToScreen(
       controller,
@@ -110,10 +110,26 @@ Future<void> switchToScreen(
   );
   _maybeExpect(tabFinder, findsOneWidget, shouldExpect: runWithExpectations);
 
-  await controller.tap(tabFinder, warnIfMissed: warnIfTapMissed);
-  // We use pump here instead of pumpAndSettle because pumpAndSettle will
-  // never complete if there is an animation (e.g. a progress indicator).
-  await controller.pump(safePumpDuration);
+  await retryAsync<bool>(
+    () async {
+      try {
+        await controller.tap(tabFinder, warnIfMissed: warnIfTapMissed);
+        // We use pump here instead of pumpAndSettle because pumpAndSettle will
+        // never complete if there is an animation (e.g. a progress indicator).
+        await controller.pump(safePumpDuration);
+        return true;
+      } catch (e) {
+        logStatus('Attempt to switch to $screenId failed with error: $e');
+        return false;
+      }
+    },
+    condition: (success) => success,
+    onRetry: () async {
+      logStatus('Retrying switch to $screenId...');
+      // Try pumping again to give UI time to settle.
+      await controller.pump(safePumpDuration);
+    },
+  );
 }
 
 /// Finds the tab with [icon] either in the top-level DevTools tab bar or in the
@@ -174,7 +190,10 @@ Future<void> loadSampleData(
 /// 2) access the [Scrollbar] widget's [ScrollController].
 /// 3) scroll the scrollable attached to the [ScrollController] to the end of
 ///    the [ScrollController]'s scroll extent.
-Future<void> scrollToEnd<T>(WidgetController controller) async {
+Future<void> scrollToEnd<T>(
+  WidgetController controller, {
+  bool waitForSettle = true,
+}) async {
   final scrollbarFinder = find.descendant(
     of: find.byType(T),
     matching: find.byType(Scrollbar),
@@ -185,5 +204,7 @@ Future<void> scrollToEnd<T>(WidgetController controller) async {
     duration: const Duration(milliseconds: 500),
     curve: Curves.easeInOutCubic,
   );
-  await controller.pump(shortPumpDuration);
+  await (waitForSettle
+      ? controller.pumpAndSettle(shortPumpDuration)
+      : controller.pump(shortPumpDuration));
 }

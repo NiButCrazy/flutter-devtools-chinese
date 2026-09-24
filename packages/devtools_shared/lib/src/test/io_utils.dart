@@ -65,10 +65,7 @@ mixin IOMixin {
 
   Future<void> cancelAllStreamSubscriptions() async {
     await streamSubscriptions.map((s) => s.cancel()).wait;
-    await [
-      stdoutController.close(),
-      stderrController.close(),
-    ].wait;
+    await [stdoutController.close(), stderrController.close()].wait;
     streamSubscriptions.clear();
   }
 
@@ -94,14 +91,11 @@ mixin IOMixin {
     Process.killPid(processId);
     return process.exitCode.timeout(
       killTimeout,
-      onTimeout: () => _killForcefully(process, debugLogging: debugLogging),
+      onTimeout: () => killForcefully(process, debugLogging: debugLogging),
     );
   }
 
-  Future<int> _killForcefully(
-    Process process, {
-    bool debugLogging = false,
-  }) {
+  Future<int> killForcefully(Process process, {bool debugLogging = false}) {
     final processId = process.pid;
     // Use sigint here instead of sigkill. See
     // https://github.com/flutter/flutter/issues/117415.

@@ -81,6 +81,14 @@ class CliCommand {
     return CliCommand('git', args, throwOnException: throwOnException);
   }
 
+  /// CliCommand helper for running gclient commands.
+  factory CliCommand.gclient(
+    List<String> args, {
+    bool throwOnException = true,
+  }) {
+    return CliCommand('gclient', args, throwOnException: throwOnException);
+  }
+
   factory CliCommand.tool(List<String> args, {bool throwOnException = true}) {
     var toolPath = Platform.script.toFilePath();
     if (!File(toolPath).existsSync()) {
@@ -249,8 +257,8 @@ Future<String> findRemote(
   try {
     upstreamRemoteResult = remoteRegexpResults.firstWhere(
       (element) =>
-      // ignore: prefer_interpolation_to_compose_strings
-      RegExp(r'' + remoteId + '\$').hasMatch(element.namedGroup('path')!),
+          // ignore: prefer_interpolation_to_compose_strings
+          RegExp(r'' + remoteId + '\$').hasMatch(element.namedGroup('path')!),
     );
   } on StateError {
     throw StateError(

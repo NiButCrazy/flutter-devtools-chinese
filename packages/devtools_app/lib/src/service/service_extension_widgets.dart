@@ -535,15 +535,19 @@ class _ServiceExtensionCheckboxState extends State<ServiceExtensionCheckbox>
   }
 
   @override
+  void dispose() {
+    value.dispose();
+    extensionAvailable.dispose();
+    super.dispose();
+  }
+
+  @override
   void _onMainIsolateChanged() => _initExtensionState();
 
   void _initExtensionState() {
-    if (serviceConnection.serviceManager.serviceExtensionManager
-        .isServiceExtensionAvailable(widget.serviceExtension.extension)) {
-      final state = serviceConnection.serviceManager.serviceExtensionManager
-          .getServiceExtensionState(widget.serviceExtension.extension);
-      _setValueFromState(state.value);
-    }
+    final state = serviceConnection.serviceManager.serviceExtensionManager
+        .getServiceExtensionState(widget.serviceExtension.extension);
+    _setValueFromState(state.value);
 
     unawaited(
       serviceConnection.serviceManager.serviceExtensionManager
@@ -705,6 +709,12 @@ class _ServiceExtensionCheckboxGroupButtonState
   void initState() {
     super.initState();
     _initExtensionState();
+  }
+
+  @override
+  void dispose() {
+    _enabled.dispose();
+    super.dispose();
   }
 
   @override

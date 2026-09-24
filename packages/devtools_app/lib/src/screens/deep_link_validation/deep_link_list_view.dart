@@ -3,6 +3,7 @@
 // found in the LICENSE file or at https://developers.google.com/open-source/licenses/bsd.
 
 import 'package:devtools_app_shared/ui.dart';
+import 'package:devtools_app_shared/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -460,7 +461,7 @@ class _NotificationCardSection extends StatelessWidget {
               const SizedBox(width: defaultSpacing),
             if (pathErrorCount > 0)
               NotificationCard(
-                title: '$pathErrorCount 个路径不可用',
+                 title: '$pathErrorCount 个路径不可用',
                 description:
                     '请修复这些路径以确保用户能正确跳转到您的应用',
                 actionButton: TextButton(

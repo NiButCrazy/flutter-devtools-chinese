@@ -3,9 +3,32 @@ Copyright 2025 The Flutter Authors
 Use of this source code is governed by a BSD-style license that can be
 found in the LICENSE file or at https://developers.google.com/open-source/licenses/bsd.
 -->
-## 0.4.1 (not released)
+## 0.5.2-wip
+* Fix a `RangeError` thrown by `SplitPane` when the number of children
+  changes between rebuilds.
+* The minimum Dart SDK version is bumped to 3.11.0.
+* The minimum Flutter SDK version is bumped to 3.41.0.
+
+## 0.5.1
+* Add DevTools-styled text field `DevToolsTextField`.
+* Updates `devtools_shared` constraint to `^13.0.0`.
+
+## 0.5.0
+* **Breaking change:** remove `scaleByFontFactor`.
+* **Breaking change:** remove `IdeTheme.fontSize` and `IdeTheme.fontSizeFactor`.
+* **Breaking change:** replace `minScreenWidthForTextBeforeScaling` with `minScreenWidthForText`.
+* **Breaking change:** replace `defaultIconSizeBeforeScaling` with `defaultIconSize`.
+* **Breaking change:** replace `defaultActionsIconSizeBeforeScaling` with `actionsIconSize`.
+* **Breaking change:** replace `unscaledLargeFontSize` with `largeFontSize`.
+* **Breaking change:** replace `unscaledDefaultFontSize` with `defaultFontSize`.
+* **Breaking change:** replace `unscaledSmallFontSize` with `smallFontSize`.
 * Ignore expected exceptions from the `navigateToCode` extension method.
 * Add `RpcErrorExtension` extension with an `isServiceDisposedError` getter.
+* `FormattedJson` uses `SelectionArea` instead of `SelectableText` to make multiple lines selectable.
+* Add `identifyChannel` helper to `FlutterVersion`. 
+* Add `webReload` to URL utilities.
+* `DTDManager` attempts to reconnect to DTD automatically if the connection drops.
+* Add `serviceRegistrationBroadcastStream` to `DTDManager`.
 
 ## 0.4.0
 * Bump `dtd` dependency to `^4.0.0`.

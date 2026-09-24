@@ -11,6 +11,7 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:dtd/dtd.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart' as p;
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:vm_service/vm_service.dart';
 
@@ -26,17 +27,15 @@ import 'devtools_store.dart';
 import 'file_system.dart';
 import 'flutter_store.dart';
 
-// TODO(kenz): consider using Dart augmentation libraries instead of part files
-// if there is a clear benefit.
 part 'handlers/_app_size.dart';
 part 'handlers/_deeplink.dart';
 part 'handlers/_devtools_extensions.dart';
 part 'handlers/_dtd.dart';
-part 'handlers/_vm_service.dart';
 part 'handlers/_preferences.dart';
 part 'handlers/_release_notes.dart';
 part 'handlers/_storage.dart';
 part 'handlers/_survey.dart';
+part 'handlers/_vm_service.dart';
 
 /// The DevTools server API.
 ///
@@ -70,50 +69,14 @@ class ServerApi {
           dtd,
         );
 
-      // TODO(kenz): remove legacy analytics once the unified analytics rollout
-      // is complete and verified for robustness (est. Fall 2025).
-
       // ----- Flutter Tool GA store. -----
-      case apiGetFlutterGAEnabled:
-        // Is Analytics collection enabled?
-        return _encodeResponse(
-          LocalFileSystem.flutterStoreExists()
-              ? _flutterStore.gaEnabled
-              : false,
-          api: api,
-        );
       case apiGetFlutterGAClientId:
-        // Flutter Tool GA clientId - ONLY get Flutter's clientId if enabled is
-        // true.
         return _encodeResponse(
           LocalFileSystem.flutterStoreExists()
               ? _flutterStore.flutterClientId
               : '',
           api: api,
         );
-
-      // ----- DevTools GA store. -----
-
-      case apiResetDevTools:
-        _devToolsStore.reset();
-        return _encodeResponse(true, api: api);
-      case apiGetDevToolsFirstRun:
-        // Has DevTools been run first time? To bring up analytics dialog.
-        final isFirstRun = _devToolsStore.isFirstRun;
-        return _encodeResponse(isFirstRun, api: api);
-      case apiGetDevToolsEnabled:
-        // Is DevTools Analytics collection enabled?
-        final isEnabled = _devToolsStore.analyticsEnabled;
-        return _encodeResponse(isEnabled, api: api);
-      case apiSetDevToolsEnabled:
-        // Enable or disable DevTools analytics collection.
-        if (queryParams.containsKey(devToolsEnabledPropertyName)) {
-          final analyticsEnabled =
-              json.decode(queryParams[devToolsEnabledPropertyName]!);
-
-          _devToolsStore.analyticsEnabled = analyticsEnabled;
-        }
-        return _encodeResponse(_devToolsStore.analyticsEnabled, api: api);
 
       // ----- Preferences api. -----
       case PreferencesApi.getPreferenceValue:
@@ -306,10 +269,7 @@ class ServerApi {
     return shelf.Response(
       HttpStatus.internalServerError,
       body: error != null || logs != null
-          ? jsonEncode(<String, Object?>{
-              if (error != null) errorKey: error,
-              if (logs != null) logsKey: logs,
-            })
+          ? jsonEncode({errorKey: ?error, logsKey: ?logs})
           : null,
     );
   }

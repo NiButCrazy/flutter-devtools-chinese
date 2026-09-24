@@ -175,6 +175,12 @@ class _VMFlagsDialogState extends State<VMFlagsDialog> with AutoDisposeMixin {
     });
   }
 
+  @override
+  void dispose() {
+    filterController.dispose();
+    super.dispose();
+  }
+
   void _updateFromController() {
     flags = (serviceConnection.vmFlagManager.flags.value?.flags ?? [])
         .map((flag) => _DialogFlag(flag))
@@ -183,11 +189,13 @@ class _VMFlagsDialogState extends State<VMFlagsDialog> with AutoDisposeMixin {
   }
 
   void _refilter() {
-    final filter = filterController.text.trim().toLowerCase();
+    final filter = filterController.text.trim();
 
     filteredFlags = filter.isEmpty
         ? flags
-        : flags.where((flag) => flag.filterText.contains(filter)).toList();
+        : flags
+              .where((flag) => flag.filterText.caseInsensitiveContains(filter))
+              .toList();
   }
 
   @override

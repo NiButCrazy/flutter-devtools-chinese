@@ -744,14 +744,12 @@ class CpuProfileData with Serializable {
 
   List<CpuStackFrame>? _bottomUpRoots;
 
-  late final Iterable<String> userTags = {
-    for (final cpuSample in cpuSamples)
-      if (cpuSample.userTag case final userTag?) userTag,
+  late final userTags = <String>{
+    for (final cpuSample in cpuSamples) ?cpuSample.userTag,
   };
 
-  late final Iterable<String> vmTags = {
-    for (final cpuSample in cpuSamples)
-      if (cpuSample.vmTag case final vmTag?) vmTag,
+  late final vmTags = <String>{
+    for (final cpuSample in cpuSamples) ?cpuSample.vmTag,
   };
 
   CpuStackFrame? selectedStackFrame;

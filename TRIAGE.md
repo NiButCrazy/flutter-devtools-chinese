@@ -27,7 +27,7 @@ by applying [proper labels](#label-the-issue) and [assigning priority](#prioriti
 Transfer any issues to the `flutter/devtools` repo that should be tracked on our own issue tracker, and close issues you
 find that are obsolete.
 4. Try to reproduce any issues with the [reproduce to verify](https://github.com/flutter/devtools/labels/reproduce%20to%20verify) label.
-5. Spend at least 20 minutes [cleaning up the issue backlog](#clean-up-the-issue-backlog).
+5. Spend at least 20 minutes [cleaning up the issue backlog](#clean-up-the-issue-backlog) and/or labeling backlog issues with "contributions welcome" or "good first issue".
 6. Look through the DevTools discord [channel](https://discord.com/channels/608014603317936148/958862085297672282) for any recent user
 questions or concerns that require a response.
 
@@ -36,9 +36,11 @@ questions or concerns that require a response.
 * Add labels for its proper category or categories ( “screen: inspector", “screen: network", “bug”, etc.)
 * Add cost labels ("cost: low", "cost: medium", etc.) if you have a good idea of how much work it will
 take to resolve this issue. Leave the cost label off if you do not know.
-* Add label “waiting for customer response” if you requested more details from reporter
-* Add label “fix it friday” if the issue should be fixed and looks easy to fix
-* Add label "good first issue" if the issue looks like an easy starter bug for a new contributor
+* Add label "waiting for customer response" if you requested more details from reporter.
+* Add label "contributions welcome" for issues that can be tackled by the community.*
+* Add label "good first issue" if the issue looks like an easy starter bug for a new contributor.*
+
+> [*] In our contribution guidelines we suggest that contributors use the "contributions welcome" and "good first issue" labels to find issues to work on. Therefore, it is important to keep these lists well-populated.
 
 ### Prioritize the issue
 
@@ -48,14 +50,14 @@ If the issue is actively being worked on or if it needs immediate / almost-immed
 to a product area owner.
 
 Here are some suggested owners by product area:
-* **Flutter Inspector**: @elliette
+* **Flutter Inspector**: @kenzieschmoll or @srawlins
 * **Performance**: @kenzieschmoll
 * **CPU Profiler**: @kenzieschmoll or @bkonyi
 * **Memory**: @kenzieschmoll or @bkonyi
-* **Network**: @elliette or @bkonyi
-* **Logging**: @elliette or @bkonyi
+* **Network**: @srawlins or @bkonyi
+* **Logging**: @kenzieschmoll or @bkonyi
 * **VM Tools**: @bkonyi
-* **Debugger**: @elliette
+* **Debugger**: @srawlins
 * **DevTools extensions**: @kenzieschmoll
 * **Tooling integrations with VS Code**: @DanTup
 * **Tooling integrations with IntelliJ or Android Studio**: @helin24 or @jwren
@@ -71,6 +73,10 @@ about issues marked “severe: …” or “P0”.**
 This step is to ensure the health of the [DevTools issue backlog](https://github.com/flutter/devtools/issues) over time.
 There are a couple of things to do as part of the backlog clean up work:
 - Close any obsolete issues. Recommendation: start with the oldest issues first since these are the most likely to be stale.
+  - **Tip**: You can use an AI assistant (agent) to help with this. Try a prompt like:
+    ```
+    Identify and close obsolete issues in the backlog.
+    ```
 - Add good candidates for product excellence / quality work to the 
 [DevTools Product Excellence project](https://github.com/orgs/flutter/projects/157). This project feeds monthly milestone
 planning for ongoing P.E. work.

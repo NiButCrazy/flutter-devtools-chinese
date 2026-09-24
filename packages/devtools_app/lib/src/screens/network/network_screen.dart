@@ -14,7 +14,6 @@ import '../../shared/analytics/analytics.dart' as ga;
 import '../../shared/analytics/constants.dart' as gac;
 import '../../shared/config_specific/copy_to_clipboard/copy_to_clipboard.dart';
 import '../../shared/config_specific/import_export/import_export.dart';
-import '../../shared/feature_flags.dart';
 import '../../shared/framework/screen.dart';
 import '../../shared/globals.dart';
 import '../../shared/http/curl_command.dart';
@@ -30,6 +29,7 @@ import '../../shared/ui/utils.dart';
 import 'network_controller.dart';
 import 'network_model.dart';
 import 'network_request_inspector.dart';
+import 'utils/http_utils.dart';
 
 class NetworkScreen extends Screen {
   NetworkScreen() : super.fromMetaData(ScreenMetaData.network);
@@ -38,9 +38,6 @@ class NetworkScreen extends Screen {
 
   @override
   String get docPageId => screenId;
-
-  @override
-  bool showAiAssistant() => true;
 
   @override
   Widget buildScreenBody(BuildContext context) => const NetworkScreenBody();
@@ -197,8 +194,6 @@ class _NetworkProfilerControlsState extends State<_NetworkProfilerControls>
         _recording = controller.recordingNotifier.value;
       });
     });
-
-    addAutoDisposeListener(controller.filteredData);
   }
 
   @override
@@ -208,7 +203,6 @@ class _NetworkProfilerControlsState extends State<_NetworkProfilerControls>
     }
 
     final screenWidth = ScreenSize(context).width;
-    final hasRequests = controller.filteredData.value.isNotEmpty;
     return Column(
       children: [
         Row(
@@ -236,7 +230,6 @@ class _NetworkProfilerControlsState extends State<_NetworkProfilerControls>
             Expanded(
               child: SearchField<NetworkController>(
                 searchController: controller,
-                searchFieldEnabled: hasRequests,
                 searchFieldWidth: screenWidth <= MediaSize.xs
                     ? defaultSearchFieldWidth
                     : wideSearchFieldWidth,
@@ -250,34 +243,24 @@ class _NetworkProfilerControlsState extends State<_NetworkProfilerControls>
               ),
             ),
             const SizedBox(width: denseSpacing),
-            if (FeatureFlags.networkSaveLoad.isEnabled)
-              OpenSaveButtonGroup(
-                screenId: ScreenMetaData.network.id,
-                saveFormats: const [SaveFormat.devtools, SaveFormat.har],
-                gaItemForSaveFormatSelection: (SaveFormat format) =>
-                    switch (format) {
-                      SaveFormat.devtools => gac.saveFile,
-                      SaveFormat.har => gac.NetworkEvent.downloadAsHar.name,
-                    },
-                onSave: (SaveFormat format) async {
+            OpenSaveButtonGroup(
+              screenId: ScreenMetaData.network.id,
+              saveFormats: const [SaveFormat.devtools, SaveFormat.har],
+              gaItemForSaveFormatSelection: (SaveFormat format) =>
                   switch (format) {
-                    case SaveFormat.devtools:
-                      await controller.fetchFullDataBeforeExport();
-                      controller.exportData();
-                    case SaveFormat.har:
-                      await controller.exportAsHarFile();
-                  }
-                },
-              )
-            else
-              DownloadButton(
-                tooltip: '另存为 .har 文件',
-                minScreenWidthForText:
-                    _NetworkProfilerControls._includeTextWidth,
-                onPressed: controller.exportAsHarFile,
-                gaScreen: gac.network,
-                gaSelection: gac.NetworkEvent.downloadAsHar.name,
-              ),
+                    SaveFormat.devtools => gac.saveFile,
+                    SaveFormat.har => gac.NetworkEvent.downloadAsHar.name,
+                  },
+              onSave: (SaveFormat format) async {
+                switch (format) {
+                  case SaveFormat.devtools:
+                    await controller.fetchFullDataBeforeExport();
+                    controller.exportData();
+                  case SaveFormat.har:
+                    await controller.exportAsHarFile();
+                }
+              },
+            ),
           ],
         ),
         if (!_recording)
@@ -362,6 +345,7 @@ class NetworkRequestsTable extends StatelessWidget {
   static const statusColumn = StatusColumn();
   static const typeColumn = TypeColumn();
   static const durationColumn = DurationColumn();
+  static const responseSizeColumn = ResponseSizeColumn();
   static final timestampColumn = TimestampColumn();
   static const actionsColumn = ActionsColumn();
   static final columns = <ColumnData<NetworkRequest>>[
@@ -370,6 +354,7 @@ class NetworkRequestsTable extends StatelessWidget {
     statusColumn,
     typeColumn,
     durationColumn,
+    responseSizeColumn,
     timestampColumn,
     actionsColumn,
   ];
@@ -401,6 +386,20 @@ class NetworkRequestsTable extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class ResponseSizeColumn extends ColumnData<NetworkRequest> {
+  const ResponseSizeColumn()
+    : super('Size', alignment: ColumnAlignment.right, fixedWidthPx: 90);
+
+  @override
+  int? getValue(NetworkRequest dataObject) => dataObject.responseBytes;
+
+  @override
+  String getDisplayValue(NetworkRequest dataObject) {
+    final bytes = dataObject.responseBytes;
+    return bytes != null ? formatBytes(bytes) : '-';
   }
 }
 

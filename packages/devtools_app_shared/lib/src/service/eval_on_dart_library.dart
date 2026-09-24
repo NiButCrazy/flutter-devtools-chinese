@@ -105,8 +105,9 @@ class EvalOnDartLibrary extends DisposableController
     }
 
     try {
-      final isolate =
-          await serviceManager.isolateManager.isolateState(isolateRef).isolate;
+      final isolate = await serviceManager.isolateManager
+          .isolateState(isolateRef)
+          .isolate;
       if (_currentRequestId != requestId) {
         // The initialize request is obsolete.
         return;
@@ -150,11 +151,7 @@ class EvalOnDartLibrary extends DisposableController
     }
     return await addRequest<InstanceRef?>(
       isAlive,
-      () => _eval(
-        expression,
-        scope: scope,
-        shouldLogError: shouldLogError,
-      ),
+      () => _eval(expression, scope: scope, shouldLogError: shouldLogError),
     );
   }
 
@@ -211,7 +208,7 @@ class EvalOnDartLibrary extends DisposableController
       if (result is ErrorRef) {
         throw result;
       }
-      return result as FutureOr<InstanceRef?>;
+      return await (result as FutureOr<InstanceRef?>);
     } catch (e, stack) {
       if (shouldLogError) {
         _handleError('$e - $expression', stack);
@@ -242,7 +239,7 @@ class EvalOnDartLibrary extends DisposableController
       if (result is ErrorRef) {
         throw result;
       }
-      return result as FutureOr<InstanceRef?>;
+      return await (result as FutureOr<InstanceRef?>);
     } catch (e, stack) {
       if (shouldLogError) {
         _handleError('$e - $name', stack);
@@ -345,6 +342,21 @@ class EvalOnDartLibrary extends DisposableController
 
   static int _nextAsyncEvalId = 0;
 
+  Future<InstanceRef> _safeEvalWithRetry(
+    EvalOnDartLibrary eval,
+    String expression, {
+    required Disposable? isAlive,
+    Map<String, String>? scope,
+  }) async {
+    try {
+      return await eval.safeEval(expression, isAlive: isAlive, scope: scope);
+    } catch (_) {
+      // In some environments, bootstrap evals can race isolate readiness.
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      return await eval.safeEval(expression, isAlive: isAlive, scope: scope);
+    }
+  }
+
   EvalOnDartLibrary? _dartDeveloperEvalCache;
   EvalOnDartLibrary get _dartDeveloperEval {
     return _dartDeveloperEvalCache ??= EvalOnDartLibrary(
@@ -395,11 +407,13 @@ class EvalOnDartLibrary extends DisposableController
     final readerGroup = 'asyncEval-$futureId';
 
     /// Workaround to not being able to import libraries directly from an evaluation
-    final postEventRef = await _dartDeveloperEval.safeEval(
+    final postEventRef = await _safeEvalWithRetry(
+      _dartDeveloperEval,
       'postEvent',
       isAlive: isAlive,
     );
-    final widgetInspectorServiceRef = await _widgetInspectorEval.safeEval(
+    final widgetInspectorServiceRef = await _safeEvalWithRetry(
+      _widgetInspectorEval,
       'WidgetInspectorService.instance',
       isAlive: isAlive,
     );
@@ -438,7 +452,7 @@ class EvalOnDartLibrary extends DisposableController
 
     final resultRef = await evalInstance(
       '() {'
-      '  final result = widgetInspectorService.toObject("$readerId", "$readerGroup") as List;'
+      '  final result = widgetInspectorService.toObject("$readerId", "$readerGroup");'
       '  widgetInspectorService.disposeGroup("$readerGroup");'
       '  return result;'
       '}()',
@@ -609,12 +623,14 @@ class EvalOnDartLibrary extends DisposableController
     int? count,
   }) {
     return addRequest<T>(isAlive, () async {
-      final T value = await service.getObject(
-        _isolateRef!.id!,
-        instance.id!,
-        offset: offset,
-        count: count,
-      ) as T;
+      final T value =
+          await service.getObject(
+                _isolateRef!.id!,
+                instance.id!,
+                offset: offset,
+                count: count,
+              )
+              as T;
       return value;
     });
   }

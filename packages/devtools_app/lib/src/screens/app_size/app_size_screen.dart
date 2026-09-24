@@ -116,7 +116,14 @@ class _AppSizeBodyState extends State<AppSizeBody>
         testAppSizeFile = await server.requestTestAppSizeFile(testFilePath);
       }
 
-      // TODO(kenz): add error handling if the files are null
+      final errorMessages = <String>[
+        if (baseAppSizeFile == null) 'base app size file: $baseFilePath',
+        if (testAppSizeFile == null) 'test app size file: $testFilePath',
+      ];
+      if (errorMessages.isNotEmpty) {
+        _pushErrorMessage('Failed to load ${errorMessages.join(' and ')}.');
+      }
+
       if (baseAppSizeFile != null) {
         if (testAppSizeFile != null) {
           controller.loadDiffTreeFromJsonFiles(
@@ -306,13 +313,77 @@ class DiffTreeTypeDropdown extends StatelessWidget {
   }
 }
 
+enum ImportInstructionType { analysis, diffOld, diffNew }
+
+class _ImportInstructions extends StatelessWidget {
+  const _ImportInstructions({this.type = ImportInstructionType.analysis});
+
+  final ImportInstructionType type;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    List<InlineSpan> buildInstructionText() {
+      final article = type == ImportInstructionType.diffNew ? 'a' : 'an';
+      final boldText = type == ImportInstructionType.diffOld
+          ? 'original (old)'
+          : type == ImportInstructionType.diffNew
+          ? 'modified (new)'
+          : null;
+
+      return [
+        TextSpan(
+          text: 'Drag and drop $article ',
+          style: theme.regularTextStyle,
+        ),
+        if (boldText != null)
+          TextSpan(text: boldText, style: theme.boldTextStyle),
+        TextSpan(
+          text:
+              '${boldText != null ? ' ' : ''}AOT snapshot or size analysis file'
+              ' for debugging, or click "Open file".',
+          style: theme.regularTextStyle,
+        ),
+      ];
+    }
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(children: buildInstructionText()),
+        ),
+        const SizedBox(height: densePadding),
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            children: [
+              TextSpan(text: 'Read ', style: theme.regularTextStyle),
+              LinkTextSpan(
+                link: const Link(
+                  display: 'documentation',
+                  url:
+                      'https://docs.flutter.dev/tools/devtools/app-size#generating-size-files',
+                ),
+                context: context,
+              ),
+              TextSpan(
+                text: ' to learn how to generate these files.',
+                style: theme.regularTextStyle,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class AnalysisView extends StatefulWidget {
   const AnalysisView({super.key});
-
-  // TODO(kenz): add links to documentation on how to generate these files, and
-  // mention the import file button once it is hooked up to a file picker.
-  static const importInstructions =
-      '拖拽 AOT 快照或大小分析文件以进行调试';
 
   @override
   State<AnalysisView> createState() => _AnalysisViewState();
@@ -381,7 +452,7 @@ class _AnalysisViewState extends State<AnalysisView> with AutoDisposeMixin {
                 children: [
                   Flexible(
                     child: FileImportContainer(
-                      instructions: AnalysisView.importInstructions,
+                      instructionsWidget: const _ImportInstructions(),
                       actionText: '分析大小',
                       gaScreen: gac.appSize,
                       gaSelectionImport: gac.importFileSingle,
@@ -405,13 +476,6 @@ class _AnalysisViewState extends State<AnalysisView> with AutoDisposeMixin {
 
 class DiffView extends StatefulWidget {
   const DiffView({super.key});
-
-  // TODO(kenz): add links to documentation on how to generate these files, and
-  // mention the import file button once it is hooked up to a file picker.
-  static const importOldInstructions =
-      '拖放一个原始（旧）AOT 快照或大小分析文件以进行调试';
-  static const importNewInstructions =
-      '拖放一个已修改（新）AOT 快照或大小分析文件以进行调试';
 
   @override
   State<DiffView> createState() => _DiffViewState();
@@ -487,9 +551,12 @@ class _DiffViewState extends State<DiffView> with AutoDisposeMixin {
                     child: DualFileImportContainer(
                       firstFileTitle: '旧',
                       secondFileTitle: '新',
-                      // TODO(kenz): perhaps bold "original" and "modified".
-                      firstInstructions: DiffView.importOldInstructions,
-                      secondInstructions: DiffView.importNewInstructions,
+                      firstInstructionsWidget: const _ImportInstructions(
+                        type: ImportInstructionType.diffOld,
+                      ),
+                      secondInstructionsWidget: const _ImportInstructions(
+                        type: ImportInstructionType.diffNew,
+                      ),
                       actionText: '分析差异',
                       gaScreen: gac.appSize,
                       gaSelectionImportFirst: gac.importFileDiffFirst,

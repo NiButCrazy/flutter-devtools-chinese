@@ -142,14 +142,13 @@ void writeVersionToPubspec(File pubspec, String version) {
     }
     if (currentSection == pubspecVersionPrefix &&
         line.startsWith(pubspecVersionPrefix)) {
-      line =
-          [
-            line.substring(
-              0,
-              line.indexOf(pubspecVersionPrefix) + pubspecVersionPrefix.length,
-            ),
-            ' $version',
-          ].join();
+      line = [
+        line.substring(
+          0,
+          line.indexOf(pubspecVersionPrefix) + pubspecVersionPrefix.length,
+        ),
+        ' $version',
+      ].join();
     }
     revisedLines.add(line);
   }
@@ -206,6 +205,25 @@ String stripPreReleases(String currentVersion) {
 
 bool isDevVersion(String version) {
   return RegExp(r'-dev\.\d+').hasMatch(version);
+}
+
+String calculateNewVersion(String currentVersion, String type) {
+  switch (type) {
+    case 'release':
+      if (isDevVersion(currentVersion)) {
+        return stripPreReleases(currentVersion);
+      } else {
+        return incrementVersionByType(currentVersion, 'minor')!;
+      }
+    case 'dev':
+      return incrementDevVersion(currentVersion);
+    default:
+      final version = incrementVersionByType(currentVersion, type);
+      if (version == null) {
+        throw 'Failed to determine the newVersion.';
+      }
+      return version;
+  }
 }
 
 const pubspecVersionPrefix = 'version:';
@@ -326,23 +344,10 @@ class AutoUpdateCommand extends Command {
     final type = argResults!['type'] as String;
     final isDryRun = argResults!['dry-run'] as bool;
     final currentVersion = versionFromPubspecFile();
-    String? newVersion;
     if (currentVersion == null) {
       throw 'Could not automatically determine current version.';
     }
-    switch (type) {
-      case 'release':
-        newVersion = stripPreReleases(currentVersion);
-        break;
-      case 'dev':
-        newVersion = incrementDevVersion(currentVersion);
-        break;
-      default:
-        newVersion = incrementVersionByType(currentVersion, type);
-        if (newVersion == null) {
-          throw 'Failed to determine the newVersion.';
-        }
-    }
+    final newVersion = calculateNewVersion(currentVersion, type);
     print('Bump version from $currentVersion to $newVersion');
 
     if (isDryRun) {

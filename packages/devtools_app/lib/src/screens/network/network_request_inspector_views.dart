@@ -17,6 +17,7 @@ import '../../shared/ui/colors.dart';
 import '../../shared/ui/common_widgets.dart';
 import 'network_controller.dart';
 import 'network_model.dart';
+import 'utils/http_utils.dart';
 
 // Approximately double the indent of the expandable tile's title.
 const _rowIndentPadding = 30.0;
@@ -625,6 +626,7 @@ class NetworkRequestOverviewView extends StatelessWidget {
   }
 
   List<Widget> _buildGeneralRows(BuildContext context) {
+    final bytes = data.responseBytes;
     return [
       // TODO(kenz): show preview for requests (png, response body, proto)
       _buildRow(
@@ -658,6 +660,14 @@ class NetworkRequestOverviewView extends StatelessWidget {
         ),
         const SizedBox(height: defaultSpacing),
       ],
+
+      _buildRow(
+        context: context,
+        title: 'Response Size',
+        child: _valueText(bytes != null ? formatBytes(bytes) : '-'),
+      ),
+      const SizedBox(height: defaultSpacing),
+
       if (data.contentType != null) ...[
         _buildRow(
           context: context,
@@ -707,13 +717,21 @@ class NetworkRequestOverviewView extends StatelessWidget {
     ];
   }
 
-  Widget _buildTimingRow(Color color, String label, Duration duration) {
-    final flex = (duration.inMicroseconds / data.duration!.inMicroseconds * 100)
-        .round();
+  Duration? get _totalDuration => (data as DartIOHttpRequestData).duration;
+
+  Widget _buildTimingRow(
+    Color color,
+    String segmentLabel,
+    Duration segmentDuration,
+  ) {
+    final totalDuration = _totalDuration!;
+    final flex =
+        (segmentDuration.inMicroseconds / totalDuration.inMicroseconds * 100)
+            .round();
     return Flexible(
       flex: flex,
       child: DevToolsTooltip(
-        message: '$label - ${durationText(duration)}',
+        message: '$segmentLabel - ${durationText(segmentDuration)}',
         child: Container(height: _timingGraphHeight, color: color),
       ),
     );
@@ -721,7 +739,9 @@ class NetworkRequestOverviewView extends StatelessWidget {
 
   Widget _buildHttpTimeGraph() {
     final data = this.data as DartIOHttpRequestData;
-    if (data.duration == null || data.instantEvents.isEmpty) {
+    if (_totalDuration == null ||
+        _totalDuration!.inMicroseconds == 0 ||
+        data.instantEvents.isEmpty) {
       return Container(
         key: httpTimingGraphKey,
         height: 18.0,

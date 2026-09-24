@@ -5,14 +5,6 @@
 import 'file_system.dart';
 
 enum DevToolsStoreKeys {
-  /// The key holding the value for whether Google Analytics (legacy) for
-  /// DevTools have been enabled.
-  analyticsEnabled,
-
-  /// The key holding the value for whether this is a user's first run of
-  /// DevTools.
-  isFirstRun,
-
   /// The key holding the value for the last DevTools version that the user
   /// viewed release notes for.
   lastReleaseNotesVersion,
@@ -30,11 +22,11 @@ enum DevToolsStoreKeys {
 class DevToolsUsage {
   DevToolsUsage() {
     LocalFileSystem.maybeMoveLegacyDevToolsStore();
-
     properties = IOPersistentProperties(
       storeName,
       documentDirPath: LocalFileSystem.devToolsDir(),
     );
+    _removeLegacyKeys();
   }
 
   static const storeName = '.devtools';
@@ -55,23 +47,14 @@ class DevToolsUsage {
 
   late IOPersistentProperties properties;
 
-  void reset() {
-    properties.remove(DevToolsStoreKeys.isFirstRun.name);
-    properties[DevToolsStoreKeys.analyticsEnabled.name] = false;
-  }
-
-  bool get isFirstRun {
-    return properties[DevToolsStoreKeys.isFirstRun.name] =
-        properties[DevToolsStoreKeys.isFirstRun.name] == null;
-  }
-
-  bool get analyticsEnabled {
-    return properties[DevToolsStoreKeys.analyticsEnabled.name] =
-        properties[DevToolsStoreKeys.analyticsEnabled.name] == true;
-  }
-
-  set analyticsEnabled(bool value) {
-    properties[DevToolsStoreKeys.analyticsEnabled.name] = value;
+  void _removeLegacyKeys() {
+    // TODO(https://github.com/flutter/devtools/issues/9775): remove this logic
+    // once legacy keys have been removed for ~1 year. We are intentionally
+    // using raw strings instead of values from [DevToolsStoreKeys] to avoid
+    // unnecessary breaking changes in the future.
+    properties
+      ..remove('analyticsEnabled')
+      ..remove('isFirstRun');
   }
 
   bool surveyNameExists(String surveyName) => properties[surveyName] != null;
@@ -105,8 +88,8 @@ class DevToolsUsage {
 
   /// The active survey in [properties], as a [_ActiveSurveyJson].
   _ActiveSurveyJson get _activeSurveyFromProperties => _ActiveSurveyJson(
-        (properties[activeSurvey!] as Map).cast<String, Object?>(),
-      );
+    (properties[activeSurvey!] as Map).cast<String, Object?>(),
+  );
 
   int get surveyShownCount {
     assert(activeSurvey != null);
@@ -121,10 +104,7 @@ class DevToolsUsage {
     assert(activeSurvey != null);
     surveyShownCount; // Ensure surveyShownCount has been initialized.
     final prop = _activeSurveyFromProperties;
-    rewriteActiveSurvey(
-      prop.surveyActionTaken,
-      prop.surveyShownCount! + 1,
-    );
+    rewriteActiveSurvey(prop.surveyActionTaken, prop.surveyShownCount! + 1);
   }
 
   bool get surveyActionTaken {
@@ -132,10 +112,7 @@ class DevToolsUsage {
   }
 
   set surveyActionTaken(bool value) {
-    rewriteActiveSurvey(
-      value,
-      _activeSurveyFromProperties.surveyShownCount!,
-    );
+    rewriteActiveSurvey(value, _activeSurveyFromProperties.surveyShownCount!);
   }
 
   String get lastReleaseNotesVersion {

@@ -52,14 +52,6 @@ extension FeatureFlags on Never {
     enabled: enableExperiments,
   );
 
-  /// Flag to enable save/load for the Network screen.
-  ///
-  /// https://github.com/flutter/devtools/issues/4470
-  static final networkSaveLoad = BooleanFeatureFlag(
-    name: 'networkSaveLoad',
-    enabled: true,
-  );
-
   /// Flag to enable DevTools extensions.
   ///
   /// TODO(https://github.com/flutter/devtools/issues/6443): remove this flag
@@ -77,33 +69,14 @@ extension FeatureFlags on Never {
     enabled: enableExperiments,
   );
 
-  /// Flag to enable the new Inspector panel.
-  ///
-  /// https://github.com/flutter/devtools/issues/7854
-  static final inspectorV2 = BooleanFeatureFlag(
-    name: 'inspectorV2',
-    enabled: true,
-  );
-
-  /// Flag to enable the AI Assistant.
-  ///
-  /// https://github.com/flutter/devtools/issues/9590
-  static final aiAssistant = BooleanFeatureFlag(
-    name: 'aiAssistant',
-    enabled: enableExperiments,
-  );
-
   /// A set of all the boolean feature flags for debugging purposes.
   ///
   /// When adding a new boolean flag, you are responsible for adding it to this
   /// map as well.
   static final _booleanFlags = <BooleanFeatureFlag>{
     memorySaveLoad,
-    networkSaveLoad,
     devToolsExtensions,
     dapDebugging,
-    inspectorV2,
-    aiAssistant,
   };
 
   /// A set of all the Flutter channel feature flags for debugging purposes.

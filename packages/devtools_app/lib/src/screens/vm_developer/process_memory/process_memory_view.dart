@@ -88,6 +88,16 @@ class _VMProcessMemoryViewBodyState extends State<VMProcessMemoryViewBody>
   }
 
   @override
+  void dispose() {
+    if (_tabControllerInitialized) {
+      _tabController.removeListener(_onTabChanged);
+      _tabController.dispose();
+    }
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   void didUpdateWidget(VMProcessMemoryViewBody oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.tabs.length != oldWidget.tabs.length) {
@@ -194,7 +204,7 @@ class _ProcessMemoryTree extends StatelessWidget {
           keyFactory: (e) =>
               PageStorageKey<String>('${e.name}+${e.depth}+${e.byteSize}'),
           displayTreeGuidelines: true,
-          dataRoots: [if (root != null) root],
+          dataRoots: [?root],
           dataKey: 'process-memory-tree',
           columns: columns,
           treeColumn: categoryColumn,

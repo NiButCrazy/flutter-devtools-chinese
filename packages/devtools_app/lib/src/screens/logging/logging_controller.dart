@@ -28,6 +28,7 @@ import '../../shared/primitives/utils.dart';
 import '../../shared/ui/filter.dart';
 import '../../shared/ui/search.dart';
 import '../inspector/inspector_tree_controller.dart';
+import 'log_details_controller.dart';
 import 'logging_screen.dart';
 import 'metadata.dart';
 
@@ -110,6 +111,8 @@ class LoggingController extends DevToolsScreenController
   @override
   void init() {
     super.init();
+    logDetailsController = LogDetailsController(selectedLog: selectedLog)
+      ..init();
     addAutoDisposeListener(serviceConnection.serviceManager.connectedState, () {
       if (serviceConnection.serviceManager.connectedState.value.connected) {
         _handleConnectionStart(serviceConnection.serviceManager.service!);
@@ -138,6 +141,7 @@ class LoggingController extends DevToolsScreenController
 
   @override
   void dispose() {
+    logDetailsController.dispose();
     selectedLog.dispose();
     unawaited(_logStatusController.close());
     super.dispose();
@@ -232,6 +236,8 @@ class LoggingController extends DevToolsScreenController
 
   final _logStatusController = StreamController<String>.broadcast();
 
+  late final LogDetailsController logDetailsController;
+
   List<LogData> data = <LogData>[];
 
   final selectedLog = ValueNotifier<LogData?>(null);
@@ -285,13 +291,13 @@ class LoggingController extends DevToolsScreenController
 
   void _handleConnectionStart(VmServiceWrapper service) {
     // Log stdout events.
-    final stdoutHandler = _StdoutEventHandler(this, 'stdout');
+    final stdoutHandler = StdoutEventHandler(this, 'stdout');
     autoDisposeStreamSubscription(
       service.onStdoutEventWithHistorySafe.listen(stdoutHandler.handle),
     );
 
     // Log stderr events.
-    final stderrHandler = _StdoutEventHandler(this, 'stderr', isError: true);
+    final stderrHandler = StdoutEventHandler(this, 'stderr', isError: true);
     autoDisposeStreamSubscription(
       service.onStderrEventWithHistorySafe.listen(stderrHandler.handle),
     );
@@ -833,44 +839,21 @@ extension type _LogRecord(Map<String, dynamic> json) {
 /// stdout message and its newline. Currently, `foo\n` is sent as two VM events;
 /// we wait for up to 1ms when we get the `foo` event, to see if the next event
 /// is a single newline. If so, we add the newline to the previous log message.
-class _StdoutEventHandler {
-  _StdoutEventHandler(
-    this.loggingController,
-    this.name, {
-    this.isError = false,
-  });
+@visibleForTesting
+class StdoutEventHandler {
+  StdoutEventHandler(this.loggingController, this.name, {this.isError = false});
 
   final LoggingController loggingController;
   final String name;
   final bool isError;
 
-  LogData? buffer;
-  Timer? timer;
+  LogData? _buffer;
+  Timer? _timer;
 
   void handle(Event e) {
     final message = decodeBase64(e.bytes!);
 
-    if (buffer != null) {
-      timer?.cancel();
-
-      if (message == '\n') {
-        loggingController.log(
-          LogData(
-            buffer!.kind,
-            buffer!.details! + message,
-            buffer!.timestamp,
-            summary: buffer!.summary! + message,
-            isError: buffer!.isError,
-            isolateRef: e.isolateRef,
-          ),
-        );
-        buffer = null;
-        return;
-      }
-
-      loggingController.log(buffer!);
-      buffer = null;
-    }
+    if (_handleBufferedMessage(message, e)) return;
 
     const maxLength = 200;
 
@@ -891,13 +874,70 @@ class _StdoutEventHandler {
     if (message == '\n') {
       loggingController.log(data);
     } else {
-      buffer = data;
-      timer = Timer(const Duration(milliseconds: 1), () {
-        loggingController.log(buffer!);
-        buffer = null;
-      });
+      _setBuffer(data);
     }
   }
+
+  bool _handleBufferedMessage(String message, Event e) {
+    if (_buffer case final currentBuffer?) {
+      _timer?.cancel();
+
+      if (message == '\n') {
+        loggingController.log(
+          LogData(
+            currentBuffer.kind,
+            currentBuffer.details! + message,
+            currentBuffer.timestamp,
+            summary: currentBuffer.summary! + message,
+            isError: currentBuffer.isError,
+            isolateRef: e.isolateRef,
+          ),
+        );
+        _buffer = null;
+        return true;
+      }
+
+      // If the buffered message ends with a newline, the next message is a
+      // continuation of the same print statement (e.g. debugPrint('line1\nline2')
+      // is sent by the VM as two events: 'line1\n' and 'line2'). Combine them
+      // into a single log entry.
+      // See: https://github.com/flutter/devtools/issues/9557
+      if (currentBuffer.details!.endsWith('\n')) {
+        _setBuffer(
+          LogData(
+            currentBuffer.kind,
+            currentBuffer.details! + message,
+            currentBuffer.timestamp,
+            summary: currentBuffer.summary,
+            isError: currentBuffer.isError,
+            isolateRef: e.isolateRef,
+          ),
+        );
+        return true;
+      }
+
+      loggingController.log(currentBuffer);
+      _buffer = null;
+    }
+    return false;
+  }
+
+  void _setBuffer(LogData data) {
+    _buffer = data;
+    _timer?.cancel();
+    _timer = Timer(const Duration(milliseconds: 1), () {
+      if (_buffer case final currentBuffer?) {
+        loggingController.log(currentBuffer);
+        _buffer = null;
+      }
+    });
+  }
+
+  @visibleForTesting
+  LogData? get buffer => _buffer;
+
+  @visibleForTesting
+  Timer? get timer => _timer;
 }
 
 bool _isNotNull(InstanceRef? serviceRef) {
